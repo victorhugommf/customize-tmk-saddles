@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Saddle Order Form - Tomahawk</title>
+    <link rel="stylesheet" href="./global.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script src="js/SaddleFormManager.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐎 Tomahawk Barrel Saddle</h1>
+            <p>Custom Order Form</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="form-content">
+            <form id="saddleForm">
+                <!-- Customer Information -->
+                <div class="section">
+                    <h2 class="section-title">👤 Customer Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="customerName">Customer Name <span class="required">*</span></label>
+                            <input type="text" id="customerName" name="customerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group textarea-group">
+                            <label for="address">Shipping Address <span class="required">*</span></label>
+                            <textarea id="address" name="address" required
+                                placeholder="Complete shipping address"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Saddle Specifications -->
+                <div class="section">
+                    <h2 class="section-title">🏇 Saddle Specifications</h2>
+                    <div class="form-grid">
+                        <div id="seatSizeGroup" class="form-group">
+                            <label for="seatSize">Seat Size <span class="required">*</span></label>
+                            <select id="seatSize" name="seatSize" required>
+                                <option value="">Select...</option>
+                                <option value="12">12"</option>
+                                <option value="12.5">12.5"</option>
+                                <option value="13">13"</option>
+                                <option value="13.5">13.5"</option>
+                                <option value="14">14"</option>
+                                <option value="14.5">14.5"</option>
+                                <option value="15">15"</option>
+                                <option value="15.5">15.5"</option>
+                                <option value="16">16"</option>
+                            </select>
+                        </div>
+                        <div id="treeTypeGroup" class="form-group">
+                            <label for="treeType">Tree Type <span class="required">*</span></label>
+                            <select id="treeType" name="treeType" required>
+                                <option value="">Select...</option>
+                                <option value="SAFE">SAFE</option>
+                                <option value="BEAR">BEAR</option>
+                                <option value="PERFORMANCE">PERFORMANCE</option>
+                                <option value="CLASSIC">CLASSIC</option>
+                            </select>
+                        </div>
+                        <div id="gulletSizeGroup" class="form-group">
+                            <label for="gulletSize">Gullet Size</label>
+                            <select id="gulletSize" name="gulletSize">
+                                <option value="">Select...</option>
+                                <option value="6.5">6.5"</option>
+                                <option value="7">7"</option>
+                                <option value="7.25">7.25"</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div id="gulletOtherGroup" class="form-group">
+                            <label for="gulletOther">Other Size (if applicable)</label>
+                            <input type="text" id="gulletOther" name="gulletOther" placeholder="Specify size">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Saddle Build <span class="required">*</span></label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="fullLeather" name="saddleBuild" value="Full Leather" required>
+                                <label for="fullLeather">Full Leather</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="hybrid" name="saddleBuild" value="Hybrid" required>
+                                <label for="hybrid">Hybrid</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="fullNeoprene" name="saddleBuild" value="Full Neoprene" required>
+                                <label for="fullNeoprene">Full Neoprene</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="hybridStyleGroup" class="form-group">
+                        <label>Style</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="style01" name="style" value="01">
+                                <label for="style01">Style 01</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="style02" name="style" value="02">
+                                <label for="style02">Style 02</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="style03" name="style" value="03">
+                                <label for="style03">Style 03</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="style04" name="style" value="04">
+                                <label for="style04">Style 04</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="style05" name="style" value="05">
+                                <label for="style05">Style 05</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="style06" name="style" value="06">
+                                <label for="style06">Style 06</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design & Customization -->
+                <div class="section">
+                    <h2 class="section-title">🎨 Design & Customization</h2>
+
+                    <div class="form-group">
+                        <label>Skirt Style</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="skirtSquare" name="skirtStyle" value="Square">
+                                <label for="skirtSquare">Square</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="skirt45" name="skirtStyle" value="45°">
+                                <label for="skirt45">45°</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="skirtSquareRound" name="skirtStyle" value="Square Round">
+                                <label for="skirtSquareRound">Square Round</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="skirtRounded" name="skirtStyle" value="Rounded">
+                                <label for="skirtRounded">Rounded</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="skirtRelief" name="skirtStyle" value="Relief">
+                                <label for="skirtRelief">Relief</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cantle Style</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="cantleCheyenne" name="cantleStyle" value="Cheyenne Roll">
+                                <label for="cantleCheyenne">Cheyenne Roll</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="cantlePencil" name="cantleStyle" value="Pencil Roll">
+                                <label for="cantlePencil">Pencil Roll</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="cantleSilver" name="cantleStyle" value="Silver Laced">
+                                <label for="cantleSilver">Silver Laced</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fender Style</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="fender45" name="fenderStyle" value="45°">
+                                <label for="fender45">45°</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="fenderSquare" name="fenderStyle" value="Square">
+                                <label for="fenderSquare">Square</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="fenderRound" name="fenderStyle" value="Round">
+                                <label for="fenderRound">Round</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jockey Seat</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="jockeyRound" name="jockeySeat" value="Round">
+                                <label for="jockeyRound">Round</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="jockeyRounded" name="jockeySeat" value="Rounded">
+                                <label for="jockeyRounded">Rounded</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="jockeySquare" name="jockeySeat" value="Square">
+                                <label for="jockeySquare">Square</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="jockey45" name="jockeySeat" value="45°">
+                                <label for="jockey45">45°</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Seat Style</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="seatInlay" name="seatStyle" value="Inlay">
+                                <label for="seatInlay">Inlay</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="seatHard" name="seatStyle" value="Hard">
+                                <label for="seatHard">Hard</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="seatPadded" name="seatStyle" value="Padded Smooth">
+                                <label for="seatPadded">Padded Smooth</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="seatStitched" name="seatStyle" value="Stitched">
+                                <label for="seatStitched">Stitched</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="seatOptionsGroup" class="form-group">
+                        <label>Seat Options</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="accent01" name="accentOptions" value="01">
+                                <label for="accent01">Seat 01</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="accent02" name="accentOptions" value="02">
+                                <label for="accent02">Seat 02</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="accent03" name="accentOptions" value="03">
+                                <label for="accent03">Seat 03</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="accent04" name="accentOptions" value="04">
+                                <label for="accent04">Seat 04</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="accent05" name="accentOptions" value="05">
+                                <label for="accent05">Seat 05</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="accent06" name="accentOptions" value="06">
+                                <label for="accent06">Seat 06</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="accent07" name="accentOptions" value="07">
+                                <label for="accent07">Seat 07</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="accent08" name="accentOptions" value="08">
+                                <label for="accent08">Seat 08</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="accent09" name="accentOptions" value="09">
+                                <label for="accent09">Seat 09</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="accent10" name="accentOptions" value="10">
+                                <label for="accent10">Seat 10</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="accent11" name="accentOptions" value="11">
+                                <label for="accent11">Seat 11</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="accent12" name="accentOptions" value="12">
+                                <label for="accent12">Seat 12</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- Tooling & Pattern Options -->
+                <div class="section" id="toolingPatternOptions">
+                    <h2 class="section-title">🔨 Tooling & Pattern Options</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="tooledCoverage">Tooled Coverage</label>
+                            <select id="tooledCoverage" name="tooledCoverage">
+                                <option value="">Select...</option>
+                                <option value="plain">Plain</option>
+                                <option value="1/6">1/6</option>
+                                <option value="1/8">1/8</option>
+                                <option value="1/8 Overlay Fenders">1/8 Overlay Fenders</option>
+                                <option value="3/4">3/4</option>
+                                <option value="3/4 Overlay Fenders">3/4 Overlay Fenders</option>
+                                <option value="3/4 Overlay Seat">3/4 Overlay Seat</option>
+                                <option value="3/4 Overlay Seat and Fenders">3/4 Overlay Seat and Fenders</option>
+                                <option value="7/8">7/8</option>
+                                <option value="7/8 Overlay Seat">7/8 Overlay Seat</option>
+                                <option value="Full">Full</option>
+                            </select>
+                        </div>
+                    </div>
+                    <h2>Plain Parts</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="leatherColorRoughout">Leather Color - Roughout</label>
+                            <select id="leatherColorRoughout" name="leatherColorRoughout">
+                                <option value="">Select...</option>
+                                <option value="Natural">Natural</option>
+                                <option value="Chocolate">Chocolate</option>
+                                <option value="Black">Black</option>
+                                <option value="Chestnut">Chestnut</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="leatherColorSmooth">Leather Color - Smooth</label>
+                            <select id="leatherColorSmooth" name="leatherColorSmooth">
+                                <option value="">Select...</option>
+                                <option value="Chocolate">Chocolate</option>
+                                <option value="Tan">Tan</option>
+                                <option value="Natural">Natural</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h2>Tooled Parts</h2>
+                        <div id="tooledPartsGroup" class="form-grid">
+                            <div class="form-group">
+                                <label for="leatherColorTooled">Leather Color - Tooled</label>
+                                <select id="leatherColorTooled" name="leatherColorTooled">
+                                    <option value="">Select...</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h3>General Tooling</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="toolingPatternFloral">Tooling Pattern - Floral (F01-F16)</label>
+                                <input type="text" id="toolingPatternFloral" name="toolingPatternFloral"
+                                    placeholder="e.g. F01, F02, etc.">
+                            </div>
+                            <div class="form-group">
+                                <label for="toolingPatternGeometric">Tooling Pattern - Geometric (G01-G14)</label>
+                                <input type="text" id="toolingPatternGeometric" name="toolingPatternGeometric"
+                                    placeholder="e.g. G01, G02, etc.">
+                            </div>
+                        </div>
+                        <h3>Border Tooling</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="toolingPatternBorder">Tooling Pattern (B01 - B06)</label>
+                                <input type="text" id="toolingPatternBorder" name="toolingPatternBorder"
+                                    placeholder="e.g. B01, B02, etc.">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Lining & Rigging -->
+                <div class="section">
+                    <h2 class="section-title">🧵 Lining & Rigging</h2>
+                    <div class="form-group">
+                        <label>Lining Type</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="liningSuede" name="liningType" value="Suede">
+                                <label for="liningSuede">Suede</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="liningFleece" name="liningType" value="Fleece">
+                                <label for="liningFleece">Fleece</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="riggingStyleGroup" class="form-group">
+                        <label>Rigging Style</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item" id="riggingDouble">
+                                <input type="radio" name="riggingStyle" value="Double Square">
+                                <label for="riggingDouble">Double Square</label>
+                            </div>
+                            <div class="checkbox-item" id="InskirtPlate">
+                                <input type="radio" name="riggingStyle" value="InskirtPlate">
+                                <label for="InskirtPlate">Inskirt Plate</label>
+                            </div>
+                            <div class="checkbox-item" id="doubleRoundRigging">
+                                <input type="radio" name="riggingStyle" value="Double Round Rigging">
+                                <label for="doubleRoundRigging">Double Round Rigging</label>
+                            </div>
+                            <div class="checkbox-item" id="dropDoubleSquare">
+                                <input type="radio" name="riggingStyle" value="Drop Double Square">
+                                <label for="dropDoubleSquare">Drop Double Square</label>
+                            </div>
+                            <div class="checkbox-item" id="dropDownNeoprene">
+                                <input type="radio" name="riggingStyle" value="Drop Down Neoprene">
+                                <label for="dropDownNeoprene">Drop Down Neoprene</label>
+                            </div>
+                            <div class="checkbox-item" id="dropDown">
+                                <input type="radio" name="riggingStyle" value="Drop Down">
+                                <label for="dropDown">Drop Down</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accessories -->
+                <div class="section">
+                    <h2 class="section-title">⚙️ Accessories</h2>
+                    <div class="form-group">
+                        <label for="accessoriesGroup">Additional Saddle Features</label>
+                        <div class="checkbox-grid" id="accessoriesGroup">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hoofPickHolder" name="accessoriesGroup"
+                                    value="Hoof Pick Holder">
+                                <label for="hoofPickHolder">Hoof Pick Holder</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="backCinchHole" name="accessoriesGroup"
+                                    value="Back Cinch Hole">
+                                <label for="hoofPickHolder">Back Cinch Hole</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="rigGuard" name="accessoriesGroup" value="Rig Guard">
+                                <label for="rigGuard">Rig Guard</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="fullBackCinch" name="accessoriesGroup"
+                                    value="Full Back Cinch">
+                                <label for="fullBackCinch">Full Back Cinch</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="saddleStrings" name="accessoriesGroup"
+                                    value="Saddle String 4 or 6">
+                                <label for="saddleStrings">Saddle String 4 or 6</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="backCinchHole" name="accessoriesGroup"
+                                    value="Back Cinch Hole">
+                                <label for="backCinchHole">Back Cinch Hole</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="buckstitching">Buck Stitching Style</label>
+                        <select id="buckstitching" name="buckstitching">
+                            <option value="">Select...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="backCinch">Back Cinch Option</label>
+                        <select id="backCinch" name="backCinch">
+                            <option value="">Select...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="stirrups">Stirrups Option</label>
+                        <select id="stirrups" name="stirrups">
+                            <option value="">Select...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+
+                    <h3></h3>
+                    <div class="form-group">
+                        <label for="backSkirt">Back of Skirt</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" name="backSkirt" value="Spinal Relief">
+                                <label for="spinalRelief">Spinal Relief</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" name="backSkirt" value="Regular">
+                                <label for="regular">Regular</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Conchos</h3>
+                    <div class="checkbox-grid">
+                        <div class="form-group">
+                            <label for="conchos">Conchos Option</label>
+                            <select id="conchos" name="conchos">
+                                <option value="">Select...</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- Special Notes -->
+                <div class="section">
+                    <h2 class="section-title">📝 Special Notes / Requests</h2>
+                    <div class="form-group textarea-group">
+                        <label for="specialNotes">Special Notes and Requests</label>
+                        <textarea id="specialNotes" name="specialNotes"
+                            placeholder="Describe any special requests or important notes for your order..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Payment & Shipping -->
+                <div class="section payment-section">
+                    <h2 class="section-title">💳 Payment & Shipping</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="deposit">Deposit ($)</label>
+                            <input type="number" id="deposit" name="deposit" min="0" step="0.01" placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label for="balanceDue">Balance Due Before Shipping ($)</label>
+                            <input type="number" id="balanceDue" name="balanceDue" min="0" step="0.01"
+                                placeholder="0.00">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Shipping Method</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="localPickup" name="shippingMethod" value="Local Pickup">
+                                <label for="localPickup">Local Pickup</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="shipToAddress" name="shippingMethod" value="Ship to Address">
+                                <label for="shipToAddress">Ship to Address Above</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="paypal" name="paymentMethod" value="PayPal">
+                                <label for="paypal">PayPal</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="venmo" name="paymentMethod" value="Venmo">
+                                <label for="venmo">Venmo</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="etransfer" name="paymentMethod" value="e-Transfer">
+                                <label for="etransfer">e-Transfer</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="creditCard" name="paymentMethod" value="Credit Card">
+                                <label for="creditCard">Credit Card</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="otherPayment" name="paymentMethod" value="Other">
+                                <label for="otherPayment">Other</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="otherPaymentMethod">Other Payment Method (if applicable)</label>
+                        <input type="text" id="otherPaymentMethod" name="otherPaymentMethod"
+                            placeholder="Specify payment method">
+                    </div>
+                </div>
+
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn">
+                        🚀 Submit Custom Order
+                    </button>
+                    <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">
+                        By submitting this form, you agree to our terms and conditions.
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- jsPDF Library for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</body>
+<footer>
+    <script src="js/PDFGenerator.js"></script>
+    <script>
+        $(document).ready(function () {
+            new SaddleFormManager();
+            // Aplica máscara no campo de telefone
+            $("#phone").inputmask("(999) 999-9999", {
+                "clearIncomplete": true
+            });
+        });
+    </script>
+</footer>
+
+</html>
