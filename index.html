@@ -10,6 +10,7 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <script src="js/SaddleFormManager.js"></script>
+    <script src="js/saddlePriceCalculator.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
 
 </head>
@@ -584,6 +585,12 @@
                 <!-- Payment & Shipping -->
                 <div class="section payment-section">
                     <h2 class="section-title">💳 Payment & Shipping</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="deposit">Calculated Price ($)</label>
+                            <input type="number" id="price" name="price" value="0.00" disabled class="readonly-input">
+                        </div>
+                    </div>
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="deposit">Deposit ($)</label>

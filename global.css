@@ -336,3 +336,12 @@ body {
 .hidden {
   display: none;
 }
+
+.readonly-input {
+  background-color: #cdcdcd !important;
+  /* cinza claro */
+  color: #555;
+  /* texto escuro */
+  border: 1px solid #ccc;
+  cursor: not-allowed;
+}

@@ -186,6 +186,7 @@ class PDFGenerator {
     this.addSectionTitle('PAYMENT & SHIPPING');
 
     const paymentData = [
+      ['Calculated Price:', '$' + (this.getFieldValue('price') || '0.00')],
       ['Deposit:', '$' + (this.getFieldValue('deposit') || '0.00')],
       ['Balance Due:', '$' + (this.getFieldValue('balanceDue') || '0.00')],
       ['Shipping Method:', this.getCheckedValue('shippingMethod')],
@@ -195,7 +196,6 @@ class PDFGenerator {
 
     this.addDataTable(paymentData.filter(item => item[1] && item[1] !== '$'));
 
-    const totalPrice = $('#totalPrice').text() || '0.00';
     this.checkPageBreak(10);
     this.doc.setFont(undefined, 'bold');
     this.doc.setFontSize(12);

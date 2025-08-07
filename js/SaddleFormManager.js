@@ -21,6 +21,8 @@ class SaddleFormManager {
         $('#tooledCoverage').on('change', this.handleToolingChange);
         $('#gulletSize').on('change', this.handleGulletChange);
         $('input[name="accentOptions"]').on('change', this.handleAccentLimit);
+        $('input[name="saddleBuild"], input[name="seatStyle"], input[name="accessoriesGroup"]')
+            .on('change', () => this.updatePrice());
         this.$form.on('submit', e => {
             e.preventDefault();
             this.handleSubmit();
@@ -315,6 +317,32 @@ class SaddleFormManager {
 
         return isValid;
     }
+
+    getFormData() {
+        const saddleBuild = $('input[name="saddleBuild"]:checked').val();
+        const seatStyle = $('input[name="seatStyle"]:checked').val();
+
+        const accessoriesGroup = [];
+        $('input[name="accessoriesGroup"]:checked').each(function () {
+            accessoriesGroup.push($(this).val());
+        });
+
+        return {
+            saddleBuild,
+            seatStyle,
+            accessoriesGroup
+        };
+    }
+
+    updatePrice() {
+        const formData = this.getFormData();
+        const calculator = new SaddlePriceCalculator();
+        const finalPrice = calculator.calculate(formData);
+
+        $('#price').val(finalPrice.toFixed(2));
+    }
+
+
 
     handleSubmit() {
         if (!this.validateForm()) {
