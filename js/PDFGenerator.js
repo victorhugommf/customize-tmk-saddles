@@ -158,7 +158,7 @@ class PDFGenerator {
     const accessoriesData = [
       ['Additional Saddle Features:', this.getCheckedValues('accessoriesGroup').join(', ')],
       ['Buck Stitching Style:', this.getFieldValue('buckstitching')],
-      ['Buck Stitch Color:', this.getCheckedValue('buckStitchColor')],
+      ['Buck Stitch Color:', this.getFieldValue('buckStitchColor')],
       ['Back Cinch:', this.getFieldValue('backCinch')],
       ['Stirrups:', this.getFieldValue('stirrups')],
       ['Back of Skirt:', this.getCheckedValue('backSkirt')],

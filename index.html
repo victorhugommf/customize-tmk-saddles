@@ -489,16 +489,104 @@
                     </div>
 
 
-                    <div class="form-group">
-                        <label for="buckstitching">Buck Stitching Style</label>
-                        <select id="buckstitching" name="buckstitching">
-                            <option value="">Select...</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="buckstitching">Buck Stitching Style</label>
+                            <select id="buckstitching" name="buckstitching">
+                                <option value="">Select...</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <style>
+                                .color-palette {
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    gap: 8px;
+                                    max-width: 240px;
+                                }
+
+                                .color-dot {
+                                    width: 30px;
+                                    height: 30px;
+                                    border-radius: 50%;
+                                    display: inline-block;
+                                    cursor: pointer;
+                                    border: 1px solid black;
+                                    transition: transform 0.2s, border 0.2s;
+                                }
+
+                                .color-dot:hover {
+                                    transform: scale(1.1);
+                                    border-color: #ccc;
+                                }
+
+                                .color-dot.selected {
+                                    border-color: #000;
+                                    border-width: 3px;
+                                }
+                            </style>
+                            <label for="buckstitchColoer">Buck Stitching Color</label>
+                            <div class="color-palette">
+                                <span class="color-dot" data-value="519 Branco" title="519 Branco"
+                                    style="background:white;"></span>
+                                <span class="color-dot" data-value="529 Marfim" title="529 Marfim"
+                                    style="background:#FFF8DC;"></span>
+                                <span class="color-dot" data-value="583 Vermelho Tomate" title="583 Vermelho Tomate"
+                                    style="background:tomato;"></span>
+                                <span class="color-dot" data-value="813 Rosa Bebê" title="813 Rosa Bebê"
+                                    style="background:pink;"></span>
+                                <span class="color-dot" data-value="517 Laranja" title="517 Laranja"
+                                    style="background:orange;"></span>
+                                <span class="color-dot" data-value="550 Púrpura" title="550 Púrpura"
+                                    style="background:purple;"></span>
+                                <span class="color-dot" data-value="988 Rosê" title="988 Rosê"
+                                    style="background:#EEC9B7;"></span>
+                                <span class="color-dot" data-value="527 Pink" title="527 Pink"
+                                    style="background:deeppink;"></span>
+                                <span class="color-dot" data-value="542 Rosa Escuro" title="542 Rosa Escuro"
+                                    style="background:#C71585;"></span>
+                                <span class="color-dot" data-value="549 Magenta" title="549 Magenta"
+                                    style="background:magenta;"></span>
+                                <span class="color-dot" data-value="528 Lilás" title="528 Lilás"
+                                    style="background:#C8A2C8;"></span>
+                                <span class="color-dot" data-value="503 Azul Celeste" title="503 Azul Celeste"
+                                    style="background:skyblue;"></span>
+                                <span class="color-dot" data-value="501 Azul Turquesa" title="501 Azul Turquesa"
+                                    style="background:turquoise;"></span>
+                                <span class="color-dot" data-value="531 Marrom" title="531 Marrom"
+                                    style="background:saddlebrown;"></span>
+                                <span class="color-dot" data-value="520 Preto" title="520 Preto"
+                                    style="background:black;"></span>
+                                <span class="color-dot" data-value="822 Verde Country (Água)"
+                                    title="822 Verde Country (Água)" style="background:mediumaquamarine;"></span>
+                                <span class="color-dot" data-value="511 Verde Bandeira" title="511 Verde Bandeira"
+                                    style="background:green;"></span>
+                            </div>
+
+                            <!-- Input hidden para enviar valor -->
+                            <input type="hidden" name="buckStitchColor" id="buckStitchColor">
+                            <script>
+                                const dots = document.querySelectorAll('.color-dot');
+                                const hiddenInput = document.getElementById('buckStitchColor');
+
+                                dots.forEach(dot => {
+                                    dot.addEventListener('click', () => {
+                                        // Remove seleção anterior
+                                        dots.forEach(d => d.classList.remove('selected'));
+                                        // Marca a clicada
+                                        dot.classList.toggle('selected');
+                                        // Atualiza valor no hidden input
+                                        hiddenInput.value = dot.classList.contains('selected') ? dot.dataset.value : '';
+                                    });
+                                });
+                            </script>
+                        </div>
+
                     </div>
                     <div class="form-group">
                         <label for="backCinch">Back Cinch Option</label>
