@@ -255,7 +255,13 @@ class PDFGenerator {
 
   getCheckedValue(fieldName) {
     const $field = this.$form.find(`[name="${fieldName}"]:checked`);
-    return $field.length ? $field.val() : '';
+    if ($field.length) {
+      const allFields = this.$form.find(`[name="${fieldName}"]`);
+      const checkedIndex = allFields.index($field) + 1; // Start from 1
+      const formattedIndex = checkedIndex.toString().padStart(2, '0'); // Format as 01, 02, etc.
+      return `${formattedIndex} - ${$field.val()}`;
+    }
+    return '';
   }
 
   getCheckedValues(fieldName) {
