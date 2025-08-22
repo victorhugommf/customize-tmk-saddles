@@ -56,47 +56,74 @@
                 <!-- Saddle Specifications -->
                 <div class="section">
                     <h2 class="section-title">🏇 Saddle Specifications</h2>
-                    <div class="form-grid">
-                        <div id="seatSizeGroup" class="form-group">
-                            <label for="seatSize">Seat Size <span class="required">*</span></label>
-                            <select id="seatSize" name="seatSize" required>
-                                <option value="">Select...</option>
-                                <option value="12">12"</option>
-                                <option value="12.5">12.5"</option>
-                                <option value="13">13"</option>
-                                <option value="13.5">13.5"</option>
-                                <option value="14">14"</option>
-                                <option value="14.5">14.5"</option>
-                                <option value="15">15"</option>
-                                <option value="15.5">15.5"</option>
-                                <option value="16">16"</option>
-                            </select>
-                        </div>
-                        <div id="treeTypeGroup" class="form-group">
-                            <label for="treeType">Tree Type <span class="required">*</span></label>
-                            <select id="treeType" name="treeType" required>
-                                <option value="">Select...</option>
-                                <option value="SAFE">SAFE</option>
-                                <option value="BEAR">BEAR</option>
-                                <option value="PERFORMANCE">PERFORMANCE</option>
-                                <option value="CLASSIC">CLASSIC</option>
-                            </select>
-                        </div>
-                        <div id="gulletSizeGroup" class="form-group">
-                            <label for="gulletSize">Gullet Size</label>
-                            <select id="gulletSize" name="gulletSize">
-                                <option value="">Select...</option>
-                                <option value="6.5">6.5"</option>
-                                <option value="7">7"</option>
-                                <option value="7.25">7.25"</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div id="gulletOtherGroup" class="form-group">
-                            <label for="gulletOther">Other Size (if applicable)</label>
-                            <input type="text" id="gulletOther" name="gulletOther" placeholder="Specify size">
+
+                    <div id="seatSizeGroup" class="form-group">
+                        <label for="seatSize">Seat Size <span class="required">*</span></label>
+                        <select id="seatSize" name="seatSize" required>
+                            <option value="">Select...</option>
+                            <option value="12">12"</option>
+                            <option value="12.5">12.5"</option>
+                            <option value="13">13"</option>
+                            <option value="13.5">13.5"</option>
+                            <option value="14">14"</option>
+                            <option value="14.5">14.5"</option>
+                            <option value="15">15"</option>
+                            <option value="15.5">15.5"</option>
+                            <option value="16">16"</option>
+                        </select>
+                    </div>
+                    <div id="treeTypeGroup" class="form-group">
+                        <label>Tree Type <span class="required">*</span></label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="treeSafe" name="treeType" value="SAFE" required>
+                                <label for="treeSafe">
+                                    <img src="assets/00-TreeType/01-SafeTree/01_opt.webp" width="100%" height="auto"
+                                        alt="SAFE" class="option-image">
+                                    SAFE
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="treeBear" name="treeType" value="BEAR" required>
+                                <label for="treeBear">
+                                    <img src="assets/00-TreeType/02-BearTrap/01_opt.webp" width="100%" height="auto"
+                                        alt="BEAR" class="option-image">
+                                    BEAR
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="treePerformance" name="treeType" value="PERFORMANCE" required>
+                                <label for="treePerformance">
+                                    <img src="assets/00-TreeType/03-Performance/01_opt.webp" width="100%" height="auto"
+                                        alt="PERFORMANCE" class="option-image">
+                                    PERFORMANCE
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="treeClassic" name="treeType" value="CLASSIC" required>
+                                <label for="treeClassic">
+                                    <img src="assets/00-TreeType/04-Classic/01_opt.webp" width="100%" height="auto"
+                                        alt="CLASSIC" class="option-image">
+                                    CLASSIC
+                                </label>
+                            </div>
                         </div>
                     </div>
+                    <div id="gulletSizeGroup" class="form-group">
+                        <label for="gulletSize">Gullet Size</label>
+                        <select id="gulletSize" name="gulletSize">
+                            <option value="">Select...</option>
+                            <option value="6.5">6.5"</option>
+                            <option value="7">7"</option>
+                            <option value="7.25">7.25"</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div id="gulletOtherGroup" class="form-group">
+                        <label for="gulletOther">Other Size (if applicable)</label>
+                        <input type="text" id="gulletOther" name="gulletOther" placeholder="Specify size">
+                    </div>
+
 
                     <div class="form-group">
                         <label>Saddle Build <span class="required">*</span></label>
@@ -104,7 +131,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="fullLeather" name="saddleBuild" value="Full Leather" required>
                                 <label for="fullLeather">
-                                    <img src="assets/SaddleType/01-FullLeather.png" width="100%" height="auto"
+                                    <img src="assets/01-SaddleBuild/01-FullLeather_opt.webp" width="100%" height="auto"
                                         alt="Full Leather" class="option-image">
                                     Full Leather
                                 </label>
@@ -112,15 +139,15 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="hybrid" name="saddleBuild" value="Hybrid" required>
                                 <label for="hybrid">
-                                    <img src="assets/SaddleType/02-Hybrid.png" width="100%" height="auto" alt="Hybrid"
-                                        class="option-image">
+                                    <img src="assets/01-SaddleBuild/02-Hybrid_opt.webp" width="100%" height="auto"
+                                        alt="Hybrid" class="option-image">
                                     Hybrid
                                 </label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="radio" id="fullNeoprene" name="saddleBuild" value="Full Neoprene" required>
                                 <label for="fullNeoprene">
-                                    <img src="assets/SaddleType/03-FullNeoprene.png" width="100%" height="auto"
+                                    <img src="assets/01-SaddleBuild/03-FullNeoprene_opt.webp" width="100%" height="auto"
                                         alt="Full Neoprene" class="option-image">
                                     Full Neoprene
                                 </label>
@@ -134,7 +161,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="style01" name="style" value="01">
                                 <label for="style01">
-                                    <img src="assets/Hybrid/Hybrid_01.png" width="100%" height="auto" alt="Style 01"
+                                    <img src="assets/02-Hybrid/Hybrid_01_opt.webp" width="100%" height="auto" alt="Style 01"
                                         class="option-image">
                                     Style 01
                                 </label>
@@ -142,7 +169,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="style02" name="style" value="02">
                                 <label for="style02">
-                                    <img src="assets/Hybrid/Hybrid_02.png" width="100%" height="auto" alt="Style 02"
+                                    <img src="assets/02-Hybrid/Hybrid_02_opt.webp" width="100%" height="auto" alt="Style 02"
                                         class="option-image">
                                     Style 02
                                 </label>
@@ -150,7 +177,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="style03" name="style" value="03">
                                 <label for="style03">
-                                    <img src="assets/Hybrid/Hybrid_03.png" width="100%" height="auto" alt="Style 03"
+                                    <img src="assets/02-Hybrid/Hybrid_03_opt.webp" width="100%" height="auto" alt="Style 03"
                                         class="option-image">
                                     Style 03
                                 </label>
@@ -158,7 +185,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="style04" name="style" value="04">
                                 <label for="style04">
-                                    <img src="assets/Hybrid/Hybrid_04.png" width="100%" height="auto" alt="Style 04"
+                                    <img src="assets/02-Hybrid/Hybrid_04_opt.webp" width="100%" height="auto" alt="Style 04"
                                         class="option-image">
                                     Style 04
                                 </label>
@@ -166,7 +193,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="style05" name="style" value="05">
                                 <label for="style05">
-                                    <img src="assets/Hybrid/Hybrid_05.png" width="100%" height="auto" alt="Style 05"
+                                    <img src="assets/02-Hybrid/Hybrid_05_opt.webp" width="100%" height="auto" alt="Style 05"
                                         class="option-image">
                                     Style 05
                                 </label>
@@ -174,7 +201,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="style06" name="style" value="06">
                                 <label for="style06">
-                                    <img src="assets/Hybrid/Hybrid_06.png" width="100%" height="auto" alt="Style 06"
+                                    <img src="assets/02-Hybrid/Hybrid_06_opt.webp" width="100%" height="auto" alt="Style 06"
                                         class="option-image">
                                     Style 06
                                 </label>
@@ -193,23 +220,23 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="skirtSquare" name="skirtStyle" value="Square">
                                 <label for="skirtSquare">
-                                    <img src="assets/SkirtStyle/01-square.png" width="100%" height="auto" alt="Square"
-                                        class="option-image">
+                                    <img src="assets/03-SkirtStyle/01-square_opt.webp" width="100%" height="auto"
+                                        alt="Square" class="option-image">
                                     Square
                                 </label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="radio" id="skirt45" name="skirtStyle" value="45°">
                                 <label for="skirt45">
-                                    <img src="assets/SkirtStyle/02-45 degress.png" width="100%" height="auto" alt="45°"
-                                        class="option-image">
+                                    <img src="assets/03-SkirtStyle/02-45 degress_opt.webp" width="100%" height="auto"
+                                        alt="45°" class="option-image">
                                     45°
                                 </label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="radio" id="skirtSquareRound" name="skirtStyle" value="Square Round">
                                 <label for="skirtSquareRound">
-                                    <img src="assets/SkirtStyle/03-SquareRounded.png" width="100%" height="auto"
+                                    <img src="assets/03-SkirtStyle/03-SquareRounded_opt.webp" width="100%" height="auto"
                                         alt="Square Round" class="option-image">
                                     Square Round
                                 </label>
@@ -217,16 +244,16 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="skirtRounded" name="skirtStyle" value="Rounded">
                                 <label for="skirtRounded">
-                                    <img src="assets/SkirtStyle/04-Rounded.png" width="100%" height="auto" alt="Rounded"
-                                        class="option-image">
+                                    <img src="assets/03-SkirtStyle/04-Rounded_opt.webp" width="100%" height="auto"
+                                        alt="Rounded" class="option-image">
                                     Rounded
                                 </label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="radio" id="skirtRelief" name="skirtStyle" value="Relief">
                                 <label for="skirtRelief">
-                                    <img src="assets/SkirtStyle/05-Relief.png" width="100%" height="auto" alt="Relief"
-                                        class="option-image">
+                                    <img src="assets/03-SkirtStyle/05-Relief_opt.webp" width="100%" height="auto"
+                                        alt="Relief" class="option-image">
                                     Relief
                                 </label>
                             </div>
@@ -239,7 +266,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="cantleCheyenne" name="cantleStyle" value="Cheyenne Roll">
                                 <label for="cantleCheyenne">
-                                    <img src="assets/CantleStyle/01-Cheyenne Roll.png" width="100%" height="auto"
+                                    <img src="assets/04-CantleStyle/01-Cheyenne Roll_opt.webp" width="100%" height="auto"
                                         alt="Cheyenne Roll" class="option-image">
                                     Cheyenne Roll
                                 </label>
@@ -247,7 +274,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="cantlePencil" name="cantleStyle" value="Pencil Roll">
                                 <label for="cantlePencil">
-                                    <img src="assets/CantleStyle/02-PencilRoll.png" width="100%" height="auto"
+                                    <img src="assets/04-CantleStyle/02-PencilRoll_opt.webp" width="100%" height="auto"
                                         alt="Pencil Roll" class="option-image">
                                     Pencil Roll
                                 </label>
@@ -255,7 +282,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="cantleSilver" name="cantleStyle" value="Silver Laced">
                                 <label for="cantleSilver">
-                                    <img src="assets/CantleStyle/03-Silver lace.png" width="100%" height="auto"
+                                    <img src="assets/04-CantleStyle/03-Silver lace_opt.webp" width="100%" height="auto"
                                         alt="Silver Laced" class="option-image">
                                     Silver Laced
                                 </label>
@@ -269,24 +296,24 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="fender45" name="fenderStyle" value="45°">
                                 <label for="fender45">
-                                    <img src="assets/FendersStyle/01-45Degrees.png" width="100%" height="auto" alt="45°"
-                                        class="option-image">
+                                    <img src="assets/05-FendersStyle/01-45Degrees_opt.webp" width="100%" height="auto"
+                                        alt="45°" class="option-image">
                                     45°
                                 </label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="radio" id="fenderSquare" name="fenderStyle" value="Square">
                                 <label for="fenderSquare">
-                                    <img src="assets/FendersStyle/02-Square.png" width="100%" height="auto" alt="Square"
-                                        class="option-image">
+                                    <img src="assets/05-FendersStyle/02-Square_opt.webp" width="100%" height="auto"
+                                        alt="Square" class="option-image">
                                     Square
                                 </label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="radio" id="fenderRound" name="fenderStyle" value="Round">
                                 <label for="fenderRound">
-                                    <img src="assets/FendersStyle/03-Round.png" width="100%" height="auto" alt="Round"
-                                        class="option-image">
+                                    <img src="assets/05-FendersStyle/03-Round_opt.webp" width="100%" height="auto"
+                                        alt="Round" class="option-image">
                                     Round
                                 </label>
                             </div>
@@ -299,7 +326,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="jockeyRound" name="jockeySeat" value="Round">
                                 <label for="jockeyRound">
-                                    <img src="assets/Seat Jockey/01-Round.png" width="100%" height="auto" alt="Round"
+                                    <img src="assets/06-JockeySeat/01-Round_opt.webp" width="100%" height="auto" alt="Round"
                                         class="option-image">
                                     Round
                                 </label>
@@ -307,7 +334,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="jockeyRounded" name="jockeySeat" value="Rounded">
                                 <label for="jockeyRounded">
-                                    <img src="assets/Seat Jockey/02-Rounded.png" width="100%" height="auto"
+                                    <img src="assets/06-JockeySeat/02-Rounded_opt.webp" width="100%" height="auto"
                                         alt="Rounded" class="option-image">
                                     Rounded
                                 </label>
@@ -315,16 +342,16 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="jockeySquare" name="jockeySeat" value="Square">
                                 <label for="jockeySquare">
-                                    <img src="assets/Seat Jockey/03-Square.png" width="100%" height="auto" alt="Square"
-                                        class="option-image">
+                                    <img src="assets/06-JockeySeat/03-Square_opt.webp" width="100%" height="auto"
+                                        alt="Square" class="option-image">
                                     Square
                                 </label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="radio" id="jockey45" name="jockeySeat" value="45°">
                                 <label for="jockey45">
-                                    <img src="assets/Seat Jockey/04-45Degrees.png" width="100%" height="auto" alt="45°"
-                                        class="option-image">
+                                    <img src="assets/06-JockeySeat/04-45Degrees_opt.webp" width="100%" height="auto"
+                                        alt="45°" class="option-image">
                                     45°
                                 </label>
                             </div>
@@ -337,7 +364,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="seatInlay" name="seatStyle" value="Inlay">
                                 <label for="seatInlay">
-                                    <img src="assets/Seat Style/01-Inlay.png" width="100%" height="auto" alt="Inlay"
+                                    <img src="assets/07-Seat Style/01-Inlay_opt.webp" width="100%" height="auto" alt="Inlay"
                                         class="option-image">
                                     Inlay
                                 </label>
@@ -345,7 +372,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="seatHard" name="seatStyle" value="Hard">
                                 <label for="seatHard">
-                                    <img src="assets/Seat Style/02-Hard.png" width="100%" height="auto" alt="Hard"
+                                    <img src="assets/07-Seat Style/02-Hard_opt.webp" width="100%" height="auto" alt="Hard"
                                         class="option-image">
                                     Hard
                                 </label>
@@ -353,7 +380,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="seatPadded" name="seatStyle" value="Padded Smooth">
                                 <label for="seatPadded">
-                                    <img src="assets/Seat Style/03-padded smoth.png" width="100%" height="auto"
+                                    <img src="assets/07-Seat Style/03-padded smoth_opt.webp" width="100%" height="auto"
                                         alt="Padded Smooth" class="option-image">
                                     Padded Smooth
                                 </label>
@@ -361,7 +388,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="seatStitched" name="seatStyle" value="Stitched">
                                 <label for="seatStitched">
-                                    <img src="assets/Seat Style/04-stitched.png" width="100%" height="auto"
+                                    <img src="assets/07-Seat Style/04-stitched_opt.webp" width="100%" height="auto"
                                         alt="Stitched" class="option-image">
                                     Stitched
                                 </label>
@@ -373,70 +400,132 @@
                         <label>Seat Options</label>
                         <div class="checkbox-grid">
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent01" name="accentOptions"
-                                    value="Suede 01 Turquoise Green">
-                                <label for="accent01">Suede 01 Turquoise Green</label>
+                                <input type="radio" id="accent01" name="seatOptions" value="Suede 01 Turquoise Green">
+                                <label for="accent01">
+                                    <img src="assets/08-SeatOptions/01 Suede-Turquiose Green_opt.webp" width="100%"
+                                        height="auto" alt="Suede 01 Turquoise Green" class="option-image">
+                                    Suede 01 Turquoise Green
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent02" name="accentOptions"
-                                    value="Suede 02 Turquoise Blue">
-                                <label for="accent02">Suede 02 Turquoise Blue</label>
+                                <input type="radio" id="accent02" name="seatOptions" value="Suede 02 Turquoise Blue">
+                                <label for="accent02">
+                                    <img src="assets/08-SeatOptions/02 Suede-Turquiose Blue_opt.webp" width="100%"
+                                        height="auto" alt="Suede 02 Turquoise Blue" class="option-image">
+                                    Suede 02 Turquoise Blue
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent03" name="accentOptions" value="Suede 03 Royal Blue">
-                                <label for="accent03">Suede 03 Royal Blue</label>
+                                <input type="radio" id="accent03" name="seatOptions" value="Suede 03 Royal Blue">
+                                <label for="accent03">
+                                    <img src="assets/08-SeatOptions/03 Suede-Royal Blue_opt.webp" width="100%" height="auto"
+                                        alt="Suede 03 Royal Blue" class="option-image">
+                                    Suede 03 Royal Blue
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent04" name="accentOptions" value="Suede 04 Purple">
-                                <label for="accent04">Suede 04 Purple</label>
+                                <input type="radio" id="accent04" name="seatOptions" value="Suede 04 Purple">
+                                <label for="accent04">
+                                    <img src="assets/08-SeatOptions/04 Suede-Purple_opt.webp" width="100%" height="auto"
+                                        alt="Suede 04 Purple" class="option-image">
+                                    Suede 04 Purple
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent05" name="accentOptions" value="Suede 05 Red">
-                                <label for="accent05">Suede 05 Red</label>
+                                <input type="radio" id="accent05" name="seatOptions" value="Suede 05 Red">
+                                <label for="accent05">
+                                    <img src="assets/08-SeatOptions/04 Suede-Red_opt.webp" width="100%" height="auto"
+                                        alt="Suede 05 Red" class="option-image">
+                                    Suede 05 Red
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent06" name="accentOptions" value="Suede 06 Pink">
-                                <label for="accent06">Suede 06 Pink</label>
+                                <input type="radio" id="accent06" name="seatOptions" value="Suede 06 Pink">
+                                <label for="accent06">
+                                    <img src="assets/08-SeatOptions/05 Suede-Pink_opt.webp" width="100%" height="auto"
+                                        alt="Suede 06 Pink" class="option-image">
+                                    Suede 06 Pink
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent07" name="accentOptions" value="Suede 07 Moss Green">
-                                <label for="accent07">Suede 07 Moss Green</label>
+                                <input type="radio" id="accent07" name="seatOptions" value="Suede 07 Moss Green">
+                                <label for="accent07">
+                                    <img src="assets/08-SeatOptions/06 Suede-Moss Green_opt.webp" width="100%" height="auto"
+                                        alt="Suede 07 Moss Green" class="option-image">
+                                    Suede 07 Moss Green
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent08" name="accentOptions" value="Suede 08 Grey">
-                                <label for="accent08">Suede 08 Grey</label>
+                                <input type="radio" id="accent08" name="seatOptions" value="Suede 08 Grey">
+                                <label for="accent08">
+                                    <img src="assets/08-SeatOptions/07 Suede-Grey_opt.webp" width="100%" height="auto"
+                                        alt="Suede 08 Grey" class="option-image">
+                                    Suede 08 Grey
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent09" name="accentOptions" value="Suede 09 Dark Brown">
-                                <label for="accent09">Suede 09 Dark Brown</label>
+                                <input type="radio" id="accent09" name="seatOptions" value="Suede 09 Dark Brown">
+                                <label for="accent09">
+                                    <img src="assets/08-SeatOptions/08 Suede-Dark Brown_opt.webp" width="100%" height="auto"
+                                        alt="Suede 09 Dark Brown" class="option-image">
+                                    Suede 09 Dark Brown
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent10" name="accentOptions" value="Suede 10 Brown">
-                                <label for="accent10">Suede 10 Brown</label>
+                                <input type="radio" id="accent10" name="seatOptions" value="Suede 10 Brown">
+                                <label for="accent10">
+                                    <img src="assets/08-SeatOptions/09 Suede-Brown_opt.webp" width="100%" height="auto"
+                                        alt="Suede 10 Brown" class="option-image">
+                                    Suede 10 Brown
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent11" name="accentOptions" value="Suede 11 Light Brown">
-                                <label for="accent11">Suede 11 Light Brown</label>
+                                <input type="radio" id="accent11" name="seatOptions" value="Suede 11 Light Brown">
+                                <label for="accent11">
+                                    <img src="assets/08-SeatOptions/10 Suede-Light Brown_opt.webp" width="100%" height="auto"
+                                        alt="Suede 11 Light Brown" class="option-image">
+                                    Suede 11 Light Brown
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent12" name="accentOptions" value="Suede 12 Cream">
-                                <label for="accent12">Suede 12 Cream</label>
+                                <input type="radio" id="accent12" name="seatOptions" value="Suede 12 Cream">
+                                <label for="accent12">
+                                    <img src="assets/08-SeatOptions/11 Suede-Cream_opt.webp" width="100%" height="auto"
+                                        alt="Suede 12 Cream" class="option-image">
+                                    Suede 12 Cream
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent13" name="accentOptions" value="Smooth 13 Black">
-                                <label for="accent13">Smooth 13 Black</label>
+                                <input type="radio" id="accent13" name="seatOptions" value="Smooth 13 Black">
+                                <label for="accent13">
+                                    <img src="assets/08-SeatOptions/12 Smooth-Black_opt.webp" width="100%" height="auto"
+                                        alt="Smooth 13 Black" class="option-image">
+                                    Smooth 13 Black
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent14" name="accentOptions" value="Smooth 14 Coffee">
-                                <label for="accent14">Smooth 14 Coffee</label>
+                                <input type="radio" id="accent14" name="seatOptions" value="Smooth 14 Coffee">
+                                <label for="accent14">
+                                    <img src="assets/08-SeatOptions/13 Smooth-Coffee_opt.webp" width="100%" height="auto"
+                                        alt="Smooth 14 Coffee" class="option-image">
+                                    Smooth 14 Coffee
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent15" name="accentOptions" value="Smooth 15 Brown">
-                                <label for="accent15">Smooth 15 Brown</label>
+                                <input type="radio" id="accent15" name="seatOptions" value="Smooth 15 Brown">
+                                <label for="accent15">
+                                    <img src="assets/08-SeatOptions/14 Smooth-Brown_opt.webp" width="100%" height="auto"
+                                        alt="Smooth 15 Brown" class="option-image">
+                                    Smooth 15 Brown
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="accent16" name="accentOptions" value="Smooth 16 Tan">
-                                <label for="accent16">Smooth 16 Tan</label>
+                                <input type="radio" id="accent16" name="seatOptions" value="Smooth 16 Tan">
+                                <label for="accent16">
+                                    <img src="assets/08-SeatOptions/15 Smooth-Tan_opt.webp" width="100%" height="auto"
+                                        alt="Smooth 16 Tan" class="option-image">
+                                    Smooth 16 Tan
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -447,88 +536,571 @@
                 <!-- Tooling & Pattern Options -->
                 <div class="section" id="toolingPatternOptions">
                     <h2 class="section-title">🔨 Tooling & Pattern Options</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="tooledCoverage">Tooled Coverage</label>
-                            <select id="tooledCoverage" name="tooledCoverage">
-                                <option value="">Select...</option>
-                                <option value="plain">Plain</option>
-                                <option value="1/6">1/6</option>
-                                <option value="1/8">1/8</option>
-                                <option value="1/8 Overlay Fenders">1/8 Overlay Fenders</option>
-                                <option value="3/4">3/4</option>
-                                <option value="3/4 Overlay Fenders">3/4 Overlay Fenders</option>
-                                <option value="3/4 Overlay Seat">3/4 Overlay Seat</option>
-                                <option value="3/4 Overlay Seat and Fenders">3/4 Overlay Seat and Fenders</option>
-                                <option value="7/8">7/8</option>
-                                <option value="7/8 Overlay Seat">7/8 Overlay Seat</option>
-                                <option value="Full">Full</option>
-                            </select>
+                    <div class="form-group">
+                        <label>Tooled Coverage</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="tooledPlain" name="tooledCoverage" value="plain">
+                                <label for="tooledPlain">
+                                    <img src="assets/09-ToolingCover/01-Plain_opt.webp" width="100%" height="auto"
+                                        alt="Plain" class="option-image">
+                                    Plain
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="tooled16" name="tooledCoverage" value="1/6">
+                                <label for="tooled16">
+                                    <img src="assets/09-ToolingCover/02-1_6_opt.webp" width="100%" height="auto" alt="1/6"
+                                        class="option-image">
+                                    1/6
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="tooled18" name="tooledCoverage" value="1/8">
+                                <label for="tooled18">
+                                    <img src="assets/09-ToolingCover/03-1_8_opt.webp" width="100%" height="auto" alt="1/8"
+                                        class="option-image">
+                                    1/8
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="tooled18Fenders" name="tooledCoverage"
+                                    value="1/8 Overlay Fenders">
+                                <label for="tooled18Fenders">
+                                    <img src="assets/09-ToolingCover/04-1_8_fenders_opt.webp" width="100%" height="auto"
+                                        alt="1/8 Overlay Fenders" class="option-image">
+                                    1/8 Overlay Fenders
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="tooled34" name="tooledCoverage" value="3/4">
+                                <label for="tooled34">
+                                    <img src="assets/09-ToolingCover/05-3_4_opt.webp" width="100%" height="auto" alt="3/4"
+                                        class="option-image">
+                                    3/4
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="tooled34Fenders" name="tooledCoverage"
+                                    value="3/4 Overlay Fenders">
+                                <label for="tooled34Fenders">
+                                    <img src="assets/09-ToolingCover/06-3_4_fenders_opt.webp" width="100%" height="auto"
+                                        alt="3/4 Overlay Fenders" class="option-image">
+                                    3/4 Overlay Fenders
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="tooled34Seat" name="tooledCoverage" value="3/4 Overlay Seat">
+                                <label for="tooled34Seat">
+                                    <img src="assets/09-ToolingCover/07-3_4_seat_opt.webp" width="100%" height="auto"
+                                        alt="3/4 Overlay Seat" class="option-image">
+                                    3/4 Overlay Seat
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="tooled34SeatFenders" name="tooledCoverage"
+                                    value="3/4 Overlay Seat and Fenders">
+                                <label for="tooled34SeatFenders">
+                                    <img src="assets/09-ToolingCover/08-3_4_seatfenders_opt.webp" width="100%" height="auto"
+                                        alt="3/4 Overlay Seat and Fenders" class="option-image">
+                                    3/4 Overlay Seat and Fenders
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="tooled78" name="tooledCoverage" value="7/8">
+                                <label for="tooled78">
+                                    <img src="assets/09-ToolingCover/09-7_8_opt.webp" width="100%" height="auto" alt="7/8"
+                                        class="option-image">
+                                    7/8
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="tooled78Seat" name="tooledCoverage" value="7/8 Overlay Seat">
+                                <label for="tooled78Seat">
+                                    <img src="assets/09-ToolingCover/10-7_8_seat_opt.webp" width="100%" height="auto"
+                                        alt="7/8 Overlay Seat" class="option-image">
+                                    7/8 Overlay Seat
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="tooledFull" name="tooledCoverage" value="Full">
+                                <label for="tooledFull">
+                                    <img src="assets/09-ToolingCover/11-full_opt.webp" width="100%" height="auto" alt="Full"
+                                        class="option-image">
+                                    Full
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <h2>Plain Parts</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="leatherColorRoughout">Leather Color - Roughout</label>
-                            <select id="leatherColorRoughout" name="leatherColorRoughout">
-                                <option value="">Select...</option>
-                                <option value="Roughout 01 Natural">Roughout 01 Natural</option>
-                                <option value="Roughout 02 Chocolate">Roughout 02 Chocolate</option>
-                                <option value="Roughout 03 Black">Roughout 03 Black</option>
-                                <option value="Roughout 04 Chestnut">Roughout 04 Chestnut</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="leatherColorSmooth">Leather Color - Smooth</label>
-                            <select id="leatherColorSmooth" name="leatherColorSmooth">
-                                <option value="">Select...</option>
-                                <option value="Smooth 01 Chocolate">Smooth 01 Chocolate</option>
-                                <option value="Smooth 02 Tan">Smooth 02 Tan</option>
-                                <option value="Smooth 03 Natural">Smooth 03 Natural</option>
-                                <option value="Smooth 05 Black">Smooth 05 Black</option>
-                            </select>
+
+                    <div class="form-group">
+                        <label>Leather Color - Roughout</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="roughout01" name="leatherColorRoughout"
+                                    value="Roughout 01 Natural">
+                                <label for="roughout01">
+                                    <img src="assets/10-PlainParts/01-RoughoutLeather/Roughout 01-Natural_opt.webp"
+                                        width="100%" height="auto" alt="Roughout 01 Natural" class="option-image">
+                                    Roughout 01 Natural
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="roughout02" name="leatherColorRoughout"
+                                    value="Roughout 02 Chocolate">
+                                <label for="roughout02">
+                                    <img src="assets/10-PlainParts/01-RoughoutLeather/Roughout 02-Chocolate_opt.webp"
+                                        width="100%" height="auto" alt="Roughout 02 Chocolate" class="option-image">
+                                    Roughout 02 Chocolate
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="roughout03" name="leatherColorRoughout"
+                                    value="Roughout 03 Black">
+                                <label for="roughout03">
+                                    <img src="assets/10-PlainParts/01-RoughoutLeather/Roughout 03-Black_opt.webp"
+                                        width="100%" height="auto" alt="Roughout 03 Black" class="option-image">
+                                    Roughout 03 Black
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="roughout04" name="leatherColorRoughout"
+                                    value="Roughout 04 Chestnut">
+                                <label for="roughout04">
+                                    <img src="assets/10-PlainParts/01-RoughoutLeather/Roughout 04-Chestnut_opt.webp"
+                                        width="100%" height="auto" alt="Roughout 04 Chestnut" class="option-image">
+                                    Roughout 04 Chestnut
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
+                        <label>Leather Color - Smooth</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="smoothChocolate" name="leatherColorSmooth"
+                                    value="Smooth 01 Chocolate">
+                                <label for="smoothChocolate">
+                                    <img src="assets/10-PlainParts/02-SmoothLeather/Smooth 01-Chocolate_opt.webp"
+                                        width="100%" height="auto" alt="Smooth 01 Chocolate" class="option-image">
+                                    Smooth 01 Chocolate
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="smoothTan" name="leatherColorSmooth" value="Smooth 02 Tan">
+                                <label for="smoothTan">
+                                    <img src="assets/10-PlainParts/02-SmoothLeather/Smooth 02-Tan_opt.webp" width="100%"
+                                        height="auto" alt="Smooth 02 Tan" class="option-image">
+                                    Smooth 02 Tan
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="smoothNatural" name="leatherColorSmooth"
+                                    value="Smooth 03 Natural">
+                                <label for="smoothNatural">
+                                    <img src="assets/10-PlainParts/02-SmoothLeather/Smooth 03-Natural_opt.webp" width="100%"
+                                        height="auto" alt="Smooth 03 Natural" class="option-image">
+                                    Smooth 03 Natural
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="smoothBlack" name="leatherColorSmooth" value="Smooth 05 Black">
+                                <label for="smoothBlack">
+                                    <img src="assets/10-PlainParts/02-SmoothLeather/Smooth 04-Black_opt.webp" width="100%"
+                                        height="auto" alt="Smooth 05 Black" class="option-image">
+                                    Smooth 05 Black
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <h2>Tooled Parts</h2>
-                        <div id="tooledPartsGroup" class="form-grid">
-                            <div class="form-group">
-                                <label for="leatherColorTooled">Leather Color - Tooled</label>
-                                <select id="leatherColorTooled" name="leatherColorTooled">
-                                    <option value="">Select...</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                </select>
+                        <div id="tooledPartsGroup" class="form-group">
+                            <label>Leather Color - Tooled</label>
+                            <div class="checkbox-grid">
+                                <div class="checkbox-item">
+                                    <input type="radio" id="tooled01" name="leatherColorTooled" value="1">
+                                    <label for="tooled01">
+                                        <img src="assets/11-TooledParts/01_opt.webp" width="100%" height="auto"
+                                            alt="Tooled 1" class="option-image">
+                                        1
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="tooled02" name="leatherColorTooled" value="2">
+                                    <label for="tooled02">
+                                        <img src="assets/11-TooledParts/02_opt.webp" width="100%" height="auto"
+                                            alt="Tooled 2" class="option-image">
+                                        2
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="tooled03" name="leatherColorTooled" value="3">
+                                    <label for="tooled03">
+                                        <img src="assets/11-TooledParts/03_opt.webp" width="100%" height="auto"
+                                            alt="Tooled 3" class="option-image">
+                                        3
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="tooled04" name="leatherColorTooled" value="4">
+                                    <label for="tooled04">
+                                        <img src="assets/11-TooledParts/04_opt.webp" width="100%" height="auto"
+                                            alt="Tooled 4" class="option-image">
+                                        4
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="tooled05" name="leatherColorTooled" value="5">
+                                    <label for="tooled05">
+                                        <img src="assets/11-TooledParts/05_opt.webp" width="100%" height="auto"
+                                            alt="Tooled 5" class="option-image">
+                                        5
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="tooled06" name="leatherColorTooled" value="6">
+                                    <label for="tooled06">
+                                        <img src="assets/11-TooledParts/06_opt.webp" width="100%" height="auto"
+                                            alt="Tooled 6" class="option-image">
+                                        6
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="tooled07" name="leatherColorTooled" value="7">
+                                    <label for="tooled07">
+                                        <img src="assets/11-TooledParts/07_opt.webp" width="100%" height="auto"
+                                            alt="Tooled 7" class="option-image">
+                                        7
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="tooled08" name="leatherColorTooled" value="8">
+                                    <label for="tooled08">
+                                        <img src="assets/11-TooledParts/08_opt.webp" width="100%" height="auto"
+                                            alt="Tooled 8" class="option-image">
+                                        8
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
                         <h3>General Tooling</h3>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="toolingPatternFloral">Tooling Pattern - Floral (F01-F16)</label>
-                                <input type="text" id="toolingPatternFloral" name="toolingPatternFloral"
-                                    placeholder="e.g. F01, F02, etc.">
+
+                        <div class="form-group">
+                            <label>Tooling Pattern - Floral</label>
+                            <div class="checkbox-grid">
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF01" name="toolingPatternFloral" value="F01">
+                                    <label for="floralF01">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F01_opt.webp" width="100%"
+                                            height="auto" alt="F01" class="option-image">
+                                        F01
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF02" name="toolingPatternFloral" value="F02">
+                                    <label for="floralF02">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F02_opt.webp" width="100%"
+                                            height="auto" alt="F02" class="option-image">
+                                        F02
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF03" name="toolingPatternFloral" value="F03">
+                                    <label for="floralF03">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F03_opt.webp" width="100%"
+                                            height="auto" alt="F03" class="option-image">
+                                        F03
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF04" name="toolingPatternFloral" value="F04">
+                                    <label for="floralF04">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F04_opt.webp" width="100%"
+                                            height="auto" alt="F04" class="option-image">
+                                        F04
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF05" name="toolingPatternFloral" value="F05">
+                                    <label for="floralF05">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F05_opt.webp" width="100%"
+                                            height="auto" alt="F05" class="option-image">
+                                        F05
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF06" name="toolingPatternFloral" value="F06">
+                                    <label for="floralF06">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F06_opt.webp" width="100%"
+                                            height="auto" alt="F06" class="option-image">
+                                        F06
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF07" name="toolingPatternFloral" value="F07">
+                                    <label for="floralF07">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F07_opt.webp" width="100%"
+                                            height="auto" alt="F07" class="option-image">
+                                        F07
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF08" name="toolingPatternFloral" value="F08">
+                                    <label for="floralF08">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F08_opt.webp" width="100%"
+                                            height="auto" alt="F08" class="option-image">
+                                        F08
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF09" name="toolingPatternFloral" value="F09">
+                                    <label for="floralF09">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F09_opt.webp" width="100%"
+                                            height="auto" alt="F09" class="option-image">
+                                        F09
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF10" name="toolingPatternFloral" value="F10">
+                                    <label for="floralF10">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F10_opt.webp" width="100%"
+                                            height="auto" alt="F10" class="option-image">
+                                        F10
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF11" name="toolingPatternFloral" value="F11">
+                                    <label for="floralF11">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F11_opt.webp" width="100%"
+                                            height="auto" alt="F11" class="option-image">
+                                        F11
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF12" name="toolingPatternFloral" value="F12">
+                                    <label for="floralF12">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F12_opt.webp" width="100%"
+                                            height="auto" alt="F12" class="option-image">
+                                        F12
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF13" name="toolingPatternFloral" value="F13">
+                                    <label for="floralF13">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F13_opt.webp" width="100%"
+                                            height="auto" alt="F13" class="option-image">
+                                        F13
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF14" name="toolingPatternFloral" value="F14">
+                                    <label for="floralF14">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F14_opt.webp" width="100%"
+                                            height="auto" alt="F14" class="option-image">
+                                        F14
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF15" name="toolingPatternFloral" value="F15">
+                                    <label for="floralF15">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F15_opt.webp" width="100%"
+                                            height="auto" alt="F15" class="option-image">
+                                        F15
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="floralF16" name="toolingPatternFloral" value="F16">
+                                    <label for="floralF16">
+                                        <img src="assets/12-GeneralTooling/01-Floral/Floral_TMK_F16_opt.webp" width="100%"
+                                            height="auto" alt="F16" class="option-image">
+                                        F16
+                                    </label>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="toolingPatternGeometric">Tooling Pattern - Geometric (G01-G14)</label>
-                                <input type="text" id="toolingPatternGeometric" name="toolingPatternGeometric"
-                                    placeholder="e.g. G01, G02, etc.">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tooling Pattern - Geometric</label>
+                            <div class="checkbox-grid">
+                                <div class="checkbox-item">
+                                    <input type="radio" id="geometricG01" name="toolingPatternGeometric" value="G01">
+                                    <label for="geometricG01">
+                                        <img src="assets/12-GeneralTooling/02-Geometric/Geometric_TMK_G01_opt.webp"
+                                            width="100%" height="auto" alt="G01" class="option-image">
+                                        G01
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="geometricG02" name="toolingPatternGeometric" value="G02">
+                                    <label for="geometricG02">
+                                        <img src="assets/12-GeneralTooling/02-Geometric/Geometric_TMK_G02_opt.webp"
+                                            width="100%" height="auto" alt="G02" class="option-image">
+                                        G02
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="geometricG03" name="toolingPatternGeometric" value="G03">
+                                    <label for="geometricG03">
+                                        <img src="assets/12-GeneralTooling/02-Geometric/Geometric_TMK_G03_opt.webp"
+                                            width="100%" height="auto" alt="G03" class="option-image">
+                                        G03
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="geometricG04" name="toolingPatternGeometric" value="G04">
+                                    <label for="geometricG04">
+                                        <img src="assets/12-GeneralTooling/02-Geometric/Geometric_TMK_G04_opt.webp"
+                                            width="100%" height="auto" alt="G04" class="option-image">
+                                        G04
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="geometricG05" name="toolingPatternGeometric" value="G05">
+                                    <label for="geometricG05">
+                                        <img src="assets/12-GeneralTooling/02-Geometric/Geometric_TMK_G05_opt.webp"
+                                            width="100%" height="auto" alt="G05" class="option-image">
+                                        G05
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="geometricG06" name="toolingPatternGeometric" value="G06">
+                                    <label for="geometricG06">
+                                        <img src="assets/12-GeneralTooling/02-Geometric/Geometric_TMK_G06_opt.webp"
+                                            width="100%" height="auto" alt="G06" class="option-image">
+                                        G06
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="geometricG07" name="toolingPatternGeometric" value="G07">
+                                    <label for="geometricG07">
+                                        <img src="assets/12-GeneralTooling/02-Geometric/Geometric_TMK_G07_opt.webp"
+                                            width="100%" height="auto" alt="G07" class="option-image">
+                                        G07
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="geometricG08" name="toolingPatternGeometric" value="G08">
+                                    <label for="geometricG08">
+                                        <img src="assets/12-GeneralTooling/02-Geometric/Geometric_TMK_G08_opt.webp"
+                                            width="100%" height="auto" alt="G08" class="option-image">
+                                        G08
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="geometricG09" name="toolingPatternGeometric" value="G09">
+                                    <label for="geometricG09">
+                                        <img src="assets/12-GeneralTooling/02-Geometric/Geometric_TMK_G09_opt.webp"
+                                            width="100%" height="auto" alt="G09" class="option-image">
+                                        G09
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="geometricG10" name="toolingPatternGeometric" value="G10">
+                                    <label for="geometricG10">
+                                        <img src="assets/12-GeneralTooling/02-Geometric/Geometric_TMK_G10_opt.webp"
+                                            width="100%" height="auto" alt="G10" class="option-image">
+                                        G10
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="geometricG11" name="toolingPatternGeometric" value="G11">
+                                    <label for="geometricG11">
+                                        <img src="assets/12-GeneralTooling/02-Geometric/Geometric_TMK_G11_opt.webp"
+                                            width="100%" height="auto" alt="G11" class="option-image">
+                                        G11
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="geometricG12" name="toolingPatternGeometric" value="G12">
+                                    <label for="geometricG12">
+                                        <img src="assets/12-GeneralTooling/02-Geometric/Geometric_TMK_G12_opt.webp"
+                                            width="100%" height="auto" alt="G12" class="option-image">
+                                        G12
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="geometricG13" name="toolingPatternGeometric" value="G13">
+                                    <label for="geometricG13">
+                                        <img src="assets/12-GeneralTooling/02-Geometric/Geometric_TMK_G13_opt.webp"
+                                            width="100%" height="auto" alt="G13" class="option-image">
+                                        G13
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="geometricG14" name="toolingPatternGeometric" value="G14">
+                                    <label for="geometricG14">
+                                        <img src="assets/12-GeneralTooling/02-Geometric/Geometric_TMK_G14_opt.webp"
+                                            width="100%" height="auto" alt="G14" class="option-image">
+                                        G14
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <h3>Border Tooling</h3>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="toolingPatternBorder">Tooling Pattern (B01 - B06)</label>
-                                <input type="text" id="toolingPatternBorder" name="toolingPatternBorder"
-                                    placeholder="e.g. B01, B02, etc.">
+                        <div class="form-group">
+                            <label>Tooling Pattern - Border</label>
+                            <div class="checkbox-grid">
+                                <div class="checkbox-item">
+                                    <input type="radio" id="borderB01" name="toolingPatternBorder" value="B01">
+                                    <label for="borderB01">
+                                        <img src="assets/13-BorderTooling/Borders_TMK_B01_opt.webp" width="100%"
+                                            height="auto" alt="B01" class="option-image">
+                                        B01
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="borderB02" name="toolingPatternBorder" value="B02">
+                                    <label for="borderB02">
+                                        <img src="assets/13-BorderTooling/Borders_TMK_B02_opt.webp" width="100%"
+                                            height="auto" alt="B02" class="option-image">
+                                        B02
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="borderB03" name="toolingPatternBorder" value="B03">
+                                    <label for="borderB03">
+                                        <img src="assets/13-BorderTooling/Borders_TMK_B03_opt.webp" width="100%"
+                                            height="auto" alt="B03" class="option-image">
+                                        B03
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="borderB04" name="toolingPatternBorder" value="B04">
+                                    <label for="borderB04">
+                                        <img src="assets/13-BorderTooling/Borders_TMK_B04_opt.webp" width="100%"
+                                            height="auto" alt="B04" class="option-image">
+                                        B04
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="borderB05" name="toolingPatternBorder" value="B05">
+                                    <label for="borderB05">
+                                        <img src="assets/13-BorderTooling/Borders_TMK_B05_opt.webp" width="100%"
+                                            height="auto" alt="B05" class="option-image">
+                                        B05
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="borderB06" name="toolingPatternBorder" value="B06">
+                                    <label for="borderB06">
+                                        <img src="assets/13-BorderTooling/Borders_TMK_B06_opt.webp" width="100%"
+                                            height="auto" alt="B06" class="option-image">
+                                        B06
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="radio" id="borderB07" name="toolingPatternBorder" value="B07">
+                                    <label for="borderB07">
+                                        <img src="assets/13-BorderTooling/Borders_TMK_B07_opt.webp" width="100%"
+                                            height="auto" alt="B07" class="option-image">
+                                        B07
+                                    </label>
+                                </div>
                             </div>
-
                         </div>
 
                     </div>
@@ -543,11 +1115,19 @@
                         <div class="checkbox-grid">
                             <div class="checkbox-item">
                                 <input type="radio" id="liningSuede" name="liningType" value="Suede">
-                                <label for="liningSuede">Suede</label>
+                                <label for="liningSuede">
+                                    <img src="assets/14-LiningType/01_suede_opt.webp" width="100%" height="auto" alt="Suede"
+                                        class="option-image">
+                                    Suede
+                                </label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="radio" id="liningFleece" name="liningType" value="Fleece">
-                                <label for="liningFleece">Fleece</label>
+                                <label for="liningFleece">
+                                    <img src="assets/14-LiningType/02_Fleece_opt.webp" width="100%" height="auto"
+                                        alt="Fleece" class="option-image">
+                                    Fleece
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -555,29 +1135,56 @@
                     <div id="riggingStyleGroup" class="form-group">
                         <label>Rigging Style</label>
                         <div class="checkbox-grid">
-                            <div class="checkbox-item" id="riggingDouble">
-                                <input type="radio" name="riggingStyle" value="Double Square">
-                                <label for="riggingDouble">Double Square</label>
+                            <div class="checkbox-item">
+                                <input type="radio" id="riggingDouble" name="riggingStyle" value="Double Square">
+                                <label for="riggingDouble">
+                                    <img src="assets/15-RiggingStyle/01-DoubleSquare_opt.webp" width="100%" height="auto"
+                                        alt="Double Square" class="option-image">
+                                    Double Square
+                                </label>
                             </div>
-                            <div class="checkbox-item" id="InskirtPlate">
-                                <input type="radio" name="riggingStyle" value="InskirtPlate">
-                                <label for="InskirtPlate">Inskirt Plate</label>
+                            <div class="checkbox-item">
+                                <input type="radio" id="InskirtPlate" name="riggingStyle" value="InskirtPlate">
+                                <label for="InskirtPlate">
+                                    <img src="assets/15-RiggingStyle/03-InskirtPlate_opt.webp" width="100%" height="auto"
+                                        alt="Inskirt Plate" class="option-image">
+                                    Inskirt Plate
+                                </label>
                             </div>
-                            <div class="checkbox-item" id="doubleRoundRigging">
-                                <input type="radio" name="riggingStyle" value="Double Round Rigging">
-                                <label for="doubleRoundRigging">Double Round Rigging</label>
+                            <div class="checkbox-item">
+                                <input type="radio" id="doubleRoundRigging" name="riggingStyle"
+                                    value="Double Round Rigging">
+                                <label for="doubleRoundRigging">
+                                    <img src="assets/15-RiggingStyle/05-DoubleRoundRigging_opt.webp" width="100%"
+                                        height="auto" alt="Double Round Rigging" class="option-image">
+                                    Double Round Rigging
+                                </label>
                             </div>
-                            <div class="checkbox-item" id="dropDoubleSquare">
-                                <input type="radio" name="riggingStyle" value="Drop Double Square">
-                                <label for="dropDoubleSquare">Drop Double Square</label>
+                            <div class="checkbox-item">
+                                <input type="radio" id="dropDoubleSquare" name="riggingStyle"
+                                    value="Drop Double Square">
+                                <label for="dropDoubleSquare">
+                                    <img src="assets/15-RiggingStyle/02-DropDoubleSquare_opt.webp" width="100%" height="auto"
+                                        alt="Drop Double Square" class="option-image">
+                                    Drop Double Square
+                                </label>
                             </div>
-                            <div class="checkbox-item" id="dropDownNeoprene">
-                                <input type="radio" name="riggingStyle" value="Drop Down Neoprene">
-                                <label for="dropDownNeoprene">Drop Down Neoprene</label>
+                            <div class="checkbox-item">
+                                <input type="radio" id="dropDownNeoprene" name="riggingStyle"
+                                    value="Drop Down Neoprene">
+                                <label for="dropDownNeoprene">
+                                    <img src="assets/15-RiggingStyle/06-DropDown_opt.webp" width="100%" height="auto"
+                                        alt="Drop Down Neoprene" class="option-image">
+                                    Drop Down Neoprene
+                                </label>
                             </div>
-                            <div class="checkbox-item" id="dropDown">
-                                <input type="radio" name="riggingStyle" value="Drop Down">
-                                <label for="dropDown">Drop Down</label>
+                            <div class="checkbox-item">
+                                <input type="radio" id="dropDown" name="riggingStyle" value="Drop Down">
+                                <label for="dropDown">
+                                    <img src="assets/15-RiggingStyle/04-Drop Down_opt.webp" width="100%" height="auto"
+                                        alt="Drop Down" class="option-image">
+                                    Drop Down
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -587,206 +1194,471 @@
                 <div class="section">
                     <h2 class="section-title">⚙️ Accessories</h2>
                     <div class="form-group">
-                        <label for="accessoriesGroup">Additional Saddle Features</label>
-                        <div class="checkbox-grid" id="accessoriesGroup">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="hoofPickHolder" name="accessoriesGroup"
-                                    value="Hoof Pick Holder">
-                                <label for="hoofPickHolder">Hoof Pick Holder</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="hoofPickHolder" name="accessoriesGroup"
-                                    value="Hoof Pick Holder">
-                                <label for="hoofPickHolder">Hoof Pick Holder</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="rigGuard" name="accessoriesGroup" value="Rig Guard">
-                                <label for="rigGuard">Rig Guard</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="fullBackCinch" name="accessoriesGroup"
-                                    value="Full Back Cinch">
-                                <label for="fullBackCinch">Full Back Cinch</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="saddleStrings" name="accessoriesGroup"
-                                    value="Saddle String 4 or 6">
-                                <label for="saddleStrings">Saddle String 4 or 6</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="backCinchHole" name="accessoriesGroup"
-                                    value="Back Cinch Hole">
-                                <label for="backCinchHole">Back Cinch Hole</label>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="buckstitching">Buck Stitching Style</label>
-                            <select id="buckstitching" name="buckstitching">
-                                <option value="">Select...</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <style>
-                                .color-palette {
-                                    display: flex;
-                                    flex-wrap: wrap;
-                                    gap: 8px;
-                                    max-width: 240px;
-                                }
-
-                                .color-dot {
-                                    width: 30px;
-                                    height: 30px;
-                                    border-radius: 50%;
-                                    display: inline-block;
-                                    cursor: pointer;
-                                    border: 1px solid black;
-                                    transition: transform 0.2s, border 0.2s;
-                                }
-
-                                .color-dot:hover {
-                                    transform: scale(1.1);
-                                    border-color: #ccc;
-                                }
-
-                                .color-dot.selected {
-                                    border-color: #000;
-                                    border-width: 3px;
-                                }
-                            </style>
-                            <label for="buckstitchColoer">Buck Stitching Color</label>
-                            <div class="color-palette">
-                                <span class="color-dot" data-value="519 Branco" title="519 Branco"
-                                    style="background:white;"></span>
-                                <span class="color-dot" data-value="529 Marfim" title="529 Marfim"
-                                    style="background:#FFF8DC;"></span>
-                                <span class="color-dot" data-value="583 Vermelho Tomate" title="583 Vermelho Tomate"
-                                    style="background:tomato;"></span>
-                                <span class="color-dot" data-value="813 Rosa Bebê" title="813 Rosa Bebê"
-                                    style="background:pink;"></span>
-                                <span class="color-dot" data-value="517 Laranja" title="517 Laranja"
-                                    style="background:orange;"></span>
-                                <span class="color-dot" data-value="550 Púrpura" title="550 Púrpura"
-                                    style="background:purple;"></span>
-                                <span class="color-dot" data-value="988 Rosê" title="988 Rosê"
-                                    style="background:#EEC9B7;"></span>
-                                <span class="color-dot" data-value="527 Pink" title="527 Pink"
-                                    style="background:deeppink;"></span>
-                                <span class="color-dot" data-value="542 Rosa Escuro" title="542 Rosa Escuro"
-                                    style="background:#C71585;"></span>
-                                <span class="color-dot" data-value="549 Magenta" title="549 Magenta"
-                                    style="background:magenta;"></span>
-                                <span class="color-dot" data-value="528 Lilás" title="528 Lilás"
-                                    style="background:#C8A2C8;"></span>
-                                <span class="color-dot" data-value="503 Azul Celeste" title="503 Azul Celeste"
-                                    style="background:skyblue;"></span>
-                                <span class="color-dot" data-value="501 Azul Turquesa" title="501 Azul Turquesa"
-                                    style="background:turquoise;"></span>
-                                <span class="color-dot" data-value="531 Marrom" title="531 Marrom"
-                                    style="background:saddlebrown;"></span>
-                                <span class="color-dot" data-value="520 Preto" title="520 Preto"
-                                    style="background:black;"></span>
-                                <span class="color-dot" data-value="822 Verde Country (Água)"
-                                    title="822 Verde Country (Água)" style="background:mediumaquamarine;"></span>
-                                <span class="color-dot" data-value="511 Verde Bandeira" title="511 Verde Bandeira"
-                                    style="background:green;"></span>
-                            </div>
-
-                            <!-- Input hidden para enviar valor -->
-                            <input type="hidden" name="buckStitchColor" id="buckStitchColor">
-                            <script>
-                                const dots = document.querySelectorAll('.color-dot');
-                                const hiddenInput = document.getElementById('buckStitchColor');
-
-                                dots.forEach(dot => {
-                                    dot.addEventListener('click', () => {
-                                        // Remove seleção anterior
-                                        dots.forEach(d => d.classList.remove('selected'));
-                                        // Marca a clicada
-                                        dot.classList.toggle('selected');
-                                        // Atualiza valor no hidden input
-                                        hiddenInput.value = dot.classList.contains('selected') ? dot.dataset.value : '';
-                                    });
-                                });
-                            </script>
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        <label for="backCinch">Back Cinch Option</label>
-                        <select id="backCinch" name="backCinch">
-                            <option value="">Select...</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="stirrups">Stirrups Option</label>
-                        <select id="stirrups" name="stirrups">
-                            <option value="">Select...</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-
-                    <h3></h3>
-                    <div class="form-group">
-                        <label for="backSkirt">Back of Skirt</label>
+                        <label>Additional Saddle Features</label>
                         <div class="checkbox-grid">
                             <div class="checkbox-item">
-                                <input type="radio" name="backSkirt" value="Spinal Relief">
-                                <label for="spinalRelief">Spinal Relief</label>
+                                <input type="radio" id="hoofPickHolder" name="accessoriesGroup"
+                                    value="Hoof Pick Holder">
+                                <label for="hoofPickHolder">
+                                    <img src="assets/16-AcessoriesOptions/01-Hoof Pick Holder_opt.webp" width="100%"
+                                        height="auto" alt="Hoof Pick Holder" class="option-image">
+                                    Hoof Pick Holder
+                                </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="radio" name="backSkirt" value="Regular">
-                                <label for="regular">Regular</label>
+                                <input type="radio" id="backCinchHole" name="accessoriesGroup" value="Back Cinch Hole">
+                                <label for="backCinchHole">
+                                    <img src="assets/16-AcessoriesOptions/02-Back Cinch Hole_opt.webp" width="100%"
+                                        height="auto" alt="Back Cinch Hole" class="option-image">
+                                    Back Cinch Hole
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="rigGuard" name="accessoriesGroup" value="Rig Guard">
+                                <label for="rigGuard">
+                                    <img src="assets/16-AcessoriesOptions/03-Rig Guard_opt.webp" width="100%" height="auto"
+                                        alt="Rig Guard" class="option-image">
+                                    Rig Guard
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="fullBackCinch" name="accessoriesGroup" value="Full Back Cinch">
+                                <label for="fullBackCinch">
+                                    <img src="assets/16-AcessoriesOptions/04-Full Back Cinch_opt.webp" width="100%"
+                                        height="auto" alt="Full Back Cinch" class="option-image">
+                                    Full Back Cinch
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="saddleStrings" name="accessoriesGroup"
+                                    value="Saddle String 4 or 6">
+                                <label for="saddleStrings">
+                                    <img src="assets/16-AcessoriesOptions/05-Saddle String 4 or 6_opt.webp" width="100%"
+                                        height="auto" alt="Saddle String 4 or 6" class="option-image">
+                                    Saddle String 4 or 6
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label>Buck Stitching Style</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="buckstitch1" name="buckstitching" value="1">
+                                <label for="buckstitch1">
+                                    <img src="assets/17-BuckStitchingStyle/01-Single Buckstich_opt.webp" width="100%"
+                                        height="auto" alt="Single Buckstitch" class="option-image">
+                                    Single Buckstitch
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="buckstitch2" name="buckstitching" value="2">
+                                <label for="buckstitch2">
+                                    <img src="assets/17-BuckStitchingStyle/02-Double Buckstich_opt.webp" width="100%"
+                                        height="auto" alt="Double Buckstitch" class="option-image">
+                                    Double Buckstitch
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="buckstitch3" name="buckstitching" value="3">
+                                <label for="buckstitch3">
+                                    <img src="assets/17-BuckStitchingStyle/03-Double Copper Spot Border_opt.webp"
+                                        width="100%" height="auto" alt="Double Copper Spot Border" class="option-image">
+                                    Double Copper Spot Border
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="buckstitch4" name="buckstitching" value="4">
+                                <label for="buckstitch4">
+                                    <img src="assets/17-BuckStitchingStyle/04-Single Copper Spot Border_opt.webp"
+                                        width="100%" height="auto" alt="Single Copper Spot Border" class="option-image">
+                                    Single Copper Spot Border
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="buckstitch5" name="buckstitching" value="5">
+                                <label for="buckstitch5">
+                                    <img src="assets/17-BuckStitchingStyle/05-X Buckstich_opt.webp" width="100%"
+                                        height="auto" alt="X Buckstitch" class="option-image">
+                                    X Buckstitch
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <style>
+                            .color-palette {
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 8px;
+                            }
+
+                            .color-dot {
+                                width: 30px;
+                                height: 30px;
+                                border-radius: 50%;
+                                display: inline-block;
+                                cursor: pointer;
+                                border: 1px solid black;
+                                transition: transform 0.2s, border 0.2s;
+                            }
+
+                            .color-dot:hover {
+                                transform: scale(1.1);
+                                border-color: #ccc;
+                            }
+
+                            .color-dot.selected {
+                                border-color: #000;
+                                border-width: 3px;
+                            }
+                        </style>
+                        <label for="buckstitchColoer">Buck Stitching Color</label>
+                        <div class="color-palette">
+                            <span class="color-dot" data-value="519 Branco" title="519 Branco"
+                                style="background:white;"></span>
+                            <span class="color-dot" data-value="529 Marfim" title="529 Marfim"
+                                style="background:#FFF8DC;"></span>
+                            <span class="color-dot" data-value="583 Vermelho Tomate" title="583 Vermelho Tomate"
+                                style="background:tomato;"></span>
+                            <span class="color-dot" data-value="813 Rosa Bebê" title="813 Rosa Bebê"
+                                style="background:pink;"></span>
+                            <span class="color-dot" data-value="517 Laranja" title="517 Laranja"
+                                style="background:orange;"></span>
+                            <span class="color-dot" data-value="550 Púrpura" title="550 Púrpura"
+                                style="background:purple;"></span>
+                            <span class="color-dot" data-value="988 Rosê" title="988 Rosê"
+                                style="background:#EEC9B7;"></span>
+                            <span class="color-dot" data-value="527 Pink" title="527 Pink"
+                                style="background:deeppink;"></span>
+                            <span class="color-dot" data-value="542 Rosa Escuro" title="542 Rosa Escuro"
+                                style="background:#C71585;"></span>
+                            <span class="color-dot" data-value="549 Magenta" title="549 Magenta"
+                                style="background:magenta;"></span>
+                            <span class="color-dot" data-value="528 Lilás" title="528 Lilás"
+                                style="background:#C8A2C8;"></span>
+                            <span class="color-dot" data-value="503 Azul Celeste" title="503 Azul Celeste"
+                                style="background:skyblue;"></span>
+                            <span class="color-dot" data-value="501 Azul Turquesa" title="501 Azul Turquesa"
+                                style="background:turquoise;"></span>
+                            <span class="color-dot" data-value="531 Marrom" title="531 Marrom"
+                                style="background:saddlebrown;"></span>
+                            <span class="color-dot" data-value="520 Preto" title="520 Preto"
+                                style="background:black;"></span>
+                            <span class="color-dot" data-value="822 Verde Country (Água)"
+                                title="822 Verde Country (Água)" style="background:mediumaquamarine;"></span>
+                            <span class="color-dot" data-value="511 Verde Bandeira" title="511 Verde Bandeira"
+                                style="background:green;"></span>
+                        </div>
+
+                        <!-- Input hidden para enviar valor -->
+                        <input type="hidden" name="buckStitchColor" id="buckStitchColor">
+                        <script>
+                            const dots = document.querySelectorAll('.color-dot');
+                            const hiddenInput = document.getElementById('buckStitchColor');
+
+                            dots.forEach(dot => {
+                                dot.addEventListener('click', () => {
+                                    // Remove seleção anterior
+                                    dots.forEach(d => d.classList.remove('selected'));
+                                    // Marca a clicada
+                                    dot.classList.toggle('selected');
+                                    // Atualiza valor no hidden input
+                                    hiddenInput.value = dot.classList.contains('selected') ? dot.dataset.value : '';
+                                });
+                            });
+                        </script>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Back Cinch Option</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="backCinch1" name="backCinch" value="1">
+                                <label for="backCinch1">
+                                    <img src="assets/18-BackCinchOptions/01-No Back Cinch_opt.webp" width="100%"
+                                        height="auto" alt="No Back Cinch" class="option-image">
+                                    No Back Cinch
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="backCinch2" name="backCinch" value="2">
+                                <label for="backCinch2">
+                                    <img src="assets/18-BackCinchOptions/02-Back Cinch Hole Only_opt.webp" width="100%"
+                                        height="auto" alt="Back Cinch Hole Only" class="option-image">
+                                    Back Cinch Hole Only
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="backCinch3" name="backCinch" value="3">
+                                <label for="backCinch3">
+                                    <img src="assets/18-BackCinchOptions/03-Full Back Cinch_opt.webp" width="100%"
+                                        height="auto" alt="Full Back Cinch" class="option-image">
+                                    Full Back Cinch
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Stirrups Option</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="stirrups1" name="stirrups" value="1">
+                                <label for="stirrups1">
+                                    <img src="assets/19-StirrupsOptions/01-Wood_opt.webp" width="100%" height="auto"
+                                        alt="Wood" class="option-image">
+                                    Wood
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="stirrups2" name="stirrups" value="2">
+                                <label for="stirrups2">
+                                    <img src="assets/19-StirrupsOptions/02-Wood Chestnut_opt.webp" width="100%" height="auto"
+                                        alt="Wood Chestnut" class="option-image">
+                                    Wood Chestnut
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="stirrups3" name="stirrups" value="3">
+                                <label for="stirrups3">
+                                    <img src="assets/19-StirrupsOptions/03-Wood Latego_opt.webp" width="100%" height="auto"
+                                        alt="Wood Latego" class="option-image">
+                                    Wood Latego
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="stirrups4" name="stirrups" value="4">
+                                <label for="stirrups4">
+                                    <img src="assets/19-StirrupsOptions/04-Wood Black_opt.webp" width="100%" height="auto"
+                                        alt="Wood Black" class="option-image">
+                                    Wood Black
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="stirrups5" name="stirrups" value="5">
+                                <label for="stirrups5">
+                                    <img src="assets/19-StirrupsOptions/05-Aluminium Black_opt.webp" width="100%"
+                                        height="auto" alt="Aluminium Black" class="option-image">
+                                    Aluminium Black
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="stirrups6" name="stirrups" value="6">
+                                <label for="stirrups6">
+                                    <img src="assets/19-StirrupsOptions/06-Aluminium Chocolate_opt.webp" width="100%"
+                                        height="auto" alt="Aluminium Chocolate" class="option-image">
+                                    Aluminium Chocolate
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Back of Skirt</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="spinalRelief" name="backSkirt" value="Spinal Relief">
+                                <label for="spinalRelief">
+                                    <img src="assets/20-BackSkirt/01 Spinal-Relief_opt.webp" width="100%" height="auto"
+                                        alt="Spinal Relief" class="option-image">
+                                    Spinal Relief
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="regular" name="backSkirt" value="Regular">
+                                <label for="regular">
+                                    <img src="assets/20-BackSkirt/02-Regular_opt.webp" width="100%" height="auto"
+                                        alt="Regular" class="option-image">
+                                    Regular
+                                </label>
                             </div>
                         </div>
                     </div>
 
                     <h3>Conchos</h3>
-                    <div class="checkbox-grid">
-                        <div class="form-group">
-                            <label for="conchos">Conchos Option</label>
-                            <select id="conchos" name="conchos">
-                                <option value="">Select...</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
-                                <option value="21">21</option>
-                                <option value="22">22</option>
-                            </select>
+                    <div class="form-group">
+                        <label>Conchos Option</label>
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho01" name="conchos" value="1">
+                                <label for="concho01">
+                                    <img src="assets/21-Conchos/01_opt.webp" width="100%" height="auto" alt="Concho 1"
+                                        class="option-image">
+                                    1
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho02" name="conchos" value="2">
+                                <label for="concho02">
+                                    <img src="assets/21-Conchos/02_opt.webp" width="100%" height="auto" alt="Concho 2"
+                                        class="option-image">
+                                    2
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho03" name="conchos" value="3">
+                                <label for="concho03">
+                                    <img src="assets/21-Conchos/03_opt.webp" width="100%" height="auto" alt="Concho 3"
+                                        class="option-image">
+                                    3
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho04" name="conchos" value="4">
+                                <label for="concho04">
+                                    <img src="assets/21-Conchos/04_opt.webp" width="100%" height="auto" alt="Concho 4"
+                                        class="option-image">
+                                    4
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho05" name="conchos" value="5">
+                                <label for="concho05">
+                                    <img src="assets/21-Conchos/05_opt.webp" width="100%" height="auto" alt="Concho 5"
+                                        class="option-image">
+                                    5
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho06" name="conchos" value="6">
+                                <label for="concho06">
+                                    <img src="assets/21-Conchos/06_opt.webp" width="100%" height="auto" alt="Concho 6"
+                                        class="option-image">
+                                    6
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho07" name="conchos" value="7">
+                                <label for="concho07">
+                                    <img src="assets/21-Conchos/07_opt.webp" width="100%" height="auto" alt="Concho 7"
+                                        class="option-image">
+                                    7
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho08" name="conchos" value="8">
+                                <label for="concho08">
+                                    <img src="assets/21-Conchos/08_opt.webp" width="100%" height="auto" alt="Concho 8"
+                                        class="option-image">
+                                    8
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho09" name="conchos" value="9">
+                                <label for="concho09">
+                                    <img src="assets/21-Conchos/09_opt.webp" width="100%" height="auto" alt="Concho 9"
+                                        class="option-image">
+                                    9
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho10" name="conchos" value="10">
+                                <label for="concho10">
+                                    <img src="assets/21-Conchos/10_opt.webp" width="100%" height="auto" alt="Concho 10"
+                                        class="option-image">
+                                    10
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho11" name="conchos" value="11">
+                                <label for="concho11">
+                                    <img src="assets/21-Conchos/11_opt.webp" width="100%" height="auto" alt="Concho 11"
+                                        class="option-image">
+                                    11
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho12" name="conchos" value="12">
+                                <label for="concho12">
+                                    <img src="assets/21-Conchos/12_opt.webp" width="100%" height="auto" alt="Concho 12"
+                                        class="option-image">
+                                    12
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho13" name="conchos" value="13">
+                                <label for="concho13">
+                                    <img src="assets/21-Conchos/13_opt.webp" width="100%" height="auto" alt="Concho 13"
+                                        class="option-image">
+                                    13
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho14" name="conchos" value="14">
+                                <label for="concho14">
+                                    <img src="assets/21-Conchos/14_opt.webp" width="100%" height="auto" alt="Concho 14"
+                                        class="option-image">
+                                    14
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho15" name="conchos" value="15">
+                                <label for="concho15">
+                                    <img src="assets/21-Conchos/15_opt.webp" width="100%" height="auto" alt="Concho 15"
+                                        class="option-image">
+                                    15
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho16" name="conchos" value="16">
+                                <label for="concho16">
+                                    <img src="assets/21-Conchos/16_opt.webp" width="100%" height="auto" alt="Concho 16"
+                                        class="option-image">
+                                    16
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho17" name="conchos" value="17">
+                                <label for="concho17">
+                                    <img src="assets/21-Conchos/17_opt.webp" width="100%" height="auto" alt="Concho 17"
+                                        class="option-image">
+                                    17
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho18" name="conchos" value="18">
+                                <label for="concho18">
+                                    <img src="assets/21-Conchos/18_opt.webp" width="100%" height="auto" alt="Concho 18"
+                                        class="option-image">
+                                    18
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho19" name="conchos" value="19">
+                                <label for="concho19">
+                                    <img src="assets/21-Conchos/19_opt.webp" width="100%" height="auto" alt="Concho 19"
+                                        class="option-image">
+                                    19
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho20" name="conchos" value="20">
+                                <label for="concho20">
+                                    <img src="assets/21-Conchos/20_opt.webp" width="100%" height="auto" alt="Concho 20"
+                                        class="option-image">
+                                    20
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho21" name="conchos" value="21">
+                                <label for="concho21">
+                                    <img src="assets/21-Conchos/21_opt.webp" width="100%" height="auto" alt="Concho 21"
+                                        class="option-image">
+                                    21
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="concho22" name="conchos" value="22">
+                                <label for="concho22">
+                                    <img src="assets/21-Conchos/22_opt.webp" width="100%" height="auto" alt="Concho 22"
+                                        class="option-image">
+                                    22
+                                </label>
+                            </div>
                         </div>
                     </div>
 

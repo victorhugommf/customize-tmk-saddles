@@ -5,12 +5,8 @@
 *.gif
 *.bmp
 *.svg
-*.webp
 *.ico
-
-# Image directories
-assets/
-images/
+index.html.bak
 
 # OS generated files
 **/.DS_Store

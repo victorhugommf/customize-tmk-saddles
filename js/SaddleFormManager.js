@@ -43,10 +43,10 @@ class SaddleFormManager {
 
     }
 
-    handleSaddleBuildChange(buildType) {
-        this.currentBuild = buildType;
-        this.showSectionsForBuild(buildType);
-        this.handleRiggingOptions(buildType);
+    handleSaddleBuildChange(saddleBuild) {
+        this.currentBuild = saddleBuild;
+        this.showSectionsForBuild(saddleBuild);
+        this.handleRiggingOptions(saddleBuild);
     }
 
     handleStyleChange(style) {
@@ -98,8 +98,8 @@ class SaddleFormManager {
     //Rigging Options
     showRiggings(riggingIds) {
         riggingIds.forEach(id => {
-            $(id).show().css('opacity', '1');
-            $(id).find('input').prop('disabled', false);
+            $(id).closest('.checkbox-item').css('opacity', '1');
+            $(id).prop('disabled', false);
         });
     }
 
