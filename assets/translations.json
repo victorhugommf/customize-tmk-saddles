@@ -1,0 +1,347 @@
+{
+  "en": {
+    "title": "TOMAHAWK BARREL SADDLE",
+    "subtitle": "Custom Saddle Order Form",
+    "generated": "Generated:",
+    "customerInfo": "CUSTOMER INFORMATION",
+    "customerName": "Customer Name:",
+    "phoneNumber": "Phone Number:",
+    "email": "Email:",
+    "shippingAddress": "Shipping Address:",
+    "saddleSpecs": "SADDLE SPECIFICATIONS",
+    "seatSize": "Seat Size:",
+    "treeType": "Tree Type:",
+    "gulletSize": "Gullet Size:",
+    "saddleBuild": "Saddle Build:",
+    "designCustomization": "DESIGN & CUSTOMIZATION",
+    "style": "Style:",
+    "skirtStyle": "Skirt Style:",
+    "cantleStyle": "Cantle Style:",
+    "fenderStyle": "Fender Style:",
+    "jockeySeat": "Jockey Seat:",
+    "seatStyle": "Seat Style:",
+    "seatOptions": "Seat Options:",
+    "toolingOptions": "TOOLING & PATTERN OPTIONS",
+    "tooledCoverage": "Tooled Coverage:",
+    "plainParts": "Plain Parts",
+    "leatherColorRoughout": "Leather Color - Roughout:",
+    "leatherColorSmooth": "Leather Color - Smooth:",
+    "tooledParts": "Tooled Parts",
+    "leatherColorTooled": "Leather Color - Tooled:",
+    "generalTooling": "General Tooling",
+    "toolingPatternFloral": "Tooling Pattern Floral:",
+    "toolingPatternGeometric": "Tooling Pattern Geometric:",
+    "borderTooling": "Border Tooling",
+    "toolingPatternBorder": "Tooling Pattern Border:",
+    "liningRigging": "LINING & RIGGING",
+    "liningType": "Lining Type:",
+    "riggingStyle": "Rigging Style:",
+    "accessoriesOptions": "ACCESSORIES & OPTIONS",
+    "additionalFeatures": "Additional Saddle Features:",
+    "buckStitchingStyle": "Buck Stitching Style:",
+    "buckStitchColor": "Buck Stitch Color:",
+    "backCinch": "Back Cinch:",
+    "stirrups": "Stirrups:",
+    "backOfSkirt": "Back of Skirt:",
+    "conchos": "Conchos:",
+    "specialNotes": "Special Notes:",
+    "paymentShipping": "PAYMENT & SHIPPING",
+    "calculatedPrice": "Calculated Price:",
+    "deposit": "Deposit:",
+    "balanceDue": "Balance Due:",
+    "shippingMethod": "Shipping Method:",
+    "paymentMethod": "Payment Method:",
+    "otherPayment": "Other Payment:",
+    "footerText": "This document was generated automatically from the Tomahawk Barrel Saddle order form.",
+    "options": {
+      "treeType": {
+        "SAFE": "SAFE",
+        "BEAR": "BEAR",
+        "PERFORMANCE": "PERFORMANCE",
+        "CLASSIC": "CLASSIC"
+      },
+      "gulletSize": {
+        "other": "Other"
+      },
+      "saddleBuild": {
+        "Full Leather": "Full Leather",
+        "Hybrid": "Hybrid",
+        "Full Neoprene": "Full Neoprene"
+      },
+      "skirtStyle": {
+        "Square": "Square",
+        "45°": "45°",
+        "Square Round": "Square Round",
+        "Rounded": "Rounded",
+        "Relief": "Relief"
+      },
+      "cantleStyle": {
+        "Cheyenne Roll": "Cheyenne Roll",
+        "Pencil Roll": "Pencil Roll",
+        "Silver Laced": "Silver Laced"
+      },
+      "fenderStyle": {
+        "45°": "45°",
+        "Square": "Square",
+        "Round": "Round"
+      },
+      "jockeySeat": {
+        "Rough Out": "Rough Out",
+        "Smooth": "Smooth"
+      },
+      "seatStyle": {
+        "Hard": "Hard",
+        "Padded": "Padded"
+      },
+      "accentOptions": {
+        "Inlay": "Inlay",
+        "Suede": "Suede",
+        "Rough Out": "Rough Out"
+      },
+      "tooledCoverage": {
+        "plain": "Plain",
+        "1/2 tooled": "1/2 Tooled",
+        "3/4 tooled": "3/4 Tooled",
+        "full tooled": "Full Tooled"
+      },
+      "liningType": {
+        "Suede": "Suede",
+        "Fleece": "Fleece"
+      },
+      "accessoriesGroup": {
+        "Saddle String 4 or 6": "Saddle String 4 or 6",
+        "Rig Guard": "Rig Guard",
+        "Breast Collar": "Breast Collar",
+        "Back Cinch": "Back Cinch",
+        "Tie Strap": "Tie Strap"
+      },
+      "buckstitching": {
+        "None": "None",
+        "Natural": "Natural",
+        "Black": "Black",
+        "Brown": "Brown"
+      },
+      "backCinch": {
+        "None": "None",
+        "Hole Only": "Hole Only",
+        "Full": "Full"
+      },
+      "shippingMethod": {
+        "Standard": "Standard",
+        "Express": "Express",
+        "Pickup": "Pickup"
+      },
+      "paymentMethod": {
+        "Credit Card": "Credit Card",
+        "Bank Transfer": "Bank Transfer",
+        "Cash": "Cash",
+        "Other": "Other"
+      },
+      "seatOptions": {
+        "Suede 01 Turquoise Green": "Suede 01 Turquoise Green",
+        "Suede 02 Turquoise Blue": "Suede 02 Turquoise Blue",
+        "Suede 03 Royal Blue": "Suede 03 Royal Blue",
+        "Suede 04 Purple": "Suede 04 Purple",
+        "Suede 05 Red": "Suede 05 Red",
+        "Suede 06 Pink": "Suede 06 Pink",
+        "Suede 07 Moss Green": "Suede 07 Moss Green",
+        "Suede 08 Grey": "Suede 08 Grey",
+        "Suede 09 Dark Brown": "Suede 09 Dark Brown",
+        "Suede 10 Brown": "Suede 10 Brown",
+        "Suede 11 Light Brown": "Suede 11 Light Brown",
+        "Suede 12 Cream": "Suede 12 Cream",
+        "Smooth 13 Black": "Smooth 13 Black",
+        "Smooth 14 Coffee": "Smooth 14 Coffee",
+        "Smooth 15 Brown": "Smooth 15 Brown",
+        "Smooth 16 Tan": "Smooth 16 Tan",
+        "Rough Out 17 Black": "Rough Out 17 Black",
+        "Rough Out 18 Coffee": "Rough Out 18 Coffee",
+        "Rough Out 19 Brown": "Rough Out 19 Brown",
+        "Rough Out 20 Tan": "Rough Out 20 Tan"
+      }
+    }
+  },
+  "pt": {
+    "title": "SELA TOMAHAWK TAMBOR",
+    "subtitle": "Formulário de Pedido de Sela Personalizada",
+    "generated": "Gerado em:",
+    "customerInfo": "INFORMAÇÕES DO CLIENTE",
+    "customerName": "Nome do Cliente:",
+    "phoneNumber": "Número de Telefone:",
+    "email": "Email:",
+    "shippingAddress": "Endereço de Entrega:",
+    "saddleSpecs": "ESPECIFICAÇÕES DA SELA",
+    "seatSize": "Tamanho do Assento:",
+    "treeType": "Tipo de Armação:",
+    "gulletSize": "Tamanho do Gullet:",
+    "saddleBuild": "Tipo da Sela:",
+    "designCustomization": "DESIGN E PERSONALIZAÇÃO",
+    "style": "Modelo Híbrido:",
+    "skirtStyle": "Modelo da Aba:",
+    "cantleStyle": "Modelo da Virola:",
+    "fenderStyle": "Modelo do Paralama:",
+    "jockeySeat": "Aba do Assento:",
+    "seatStyle": "Modelo do Assento:",
+    "seatOptions": "Opções do Assento:",
+    "toolingOptions": "OPÇÕES DE BORDADO E PADRÕES",
+    "tooledCoverage": "Cobertura de Bordado:",
+    "plainParts": "Partes Lisas",
+    "leatherColorRoughout": "Cor do Couro - Virado:",
+    "leatherColorSmooth": "Cor do Couro - Liso:",
+    "tooledParts": "Partes com Bordado",
+    "leatherColorTooled": "Cor do Couro - Bordado:",
+    "generalTooling": "Modelo de Bordado",
+    "toolingPatternFloral": "Bordados Florais:",
+    "toolingPatternGeometric": "Bordados Geométricos:",
+    "borderTooling": "Bordados da Borda",
+    "toolingPatternBorder": "Padrão de Bordado de Borda:",
+    "liningRigging": "SUADOR E ARGOLAS",
+    "liningType": "Tipo de Suador:",
+    "riggingStyle": "Estilo de Argolas:",
+    "accessoriesOptions": "OPÇÕES DE ACESSÓRIOS",
+    "additionalFeatures": "Acessórios Adicionais:",
+    "buckStitchingStyle": "Modelo de Tenteado:",
+    "buckStitchColor": "Cor do Tenteado:",
+    "backCinch": "Barrigueira Traseira:",
+    "stirrups": "Modelo de Estribos:",
+    "backOfSkirt": "Parte Traseira da Aba:",
+    "conchos": "Conchos:",
+    "specialNotes": "Observações Especiais:",
+    "paymentShipping": "PAGAMENTO E ENVIO",
+    "calculatedPrice": "Preço Calculado:",
+    "deposit": "Depósito:",
+    "balanceDue": "Saldo Devedor:",
+    "shippingMethod": "Método de Envio:",
+    "paymentMethod": "Método de Pagamento:",
+    "otherPayment": "Outro Pagamento:",
+    "footerText": "Este documento foi gerado automaticamente a partir do formulário de pedido da Sela Tomahawk Barrel.",
+    "options": {
+      "treeType": {
+        "SAFE": "SAFE",
+        "BEAR": "BEAR",
+        "PERFORMANCE": "PERFORMANCE",
+        "CLASSIC": "CLASSIC"
+      },
+      "gulletSize": {
+        "other": "Outro"
+      },
+      "saddleBuild": {
+        "Full Leather": "Toda em Couro",
+        "Hybrid": "Híbrida",
+        "Full Neoprene": "Toda em Neoprene"
+      },
+      "skirtStyle": {
+        "Square": "Quadrada",
+        "45°": "45°",
+        "Square Round": "Quadrada Arredondada",
+        "Rounded": "Arredondada",
+        "Relief": "Alívio"
+      },
+      "cantleStyle": {
+        "Cheyenne Roll": "Virola Padrão",
+        "Pencil Roll": "Virola Rancheira",
+        "Silver Laced": "Virola Fitilhada"
+      },
+      "fenderStyle": {
+        "45°": "45°",
+        "Square": "Quadrada",
+        "Round": "Redonda"
+      },
+      "jockeySeat": {
+        "Round": "Redondo",
+        "Rounded": "Arredondado",
+        "Square": "Quadrado",
+        "45°": "45°"
+      },
+      "seatStyle": {
+        "Hard": "Assento Seco",
+        "Padded Smooth": "Assento Estofado",
+        "Inlay": "Bike Embutido",
+        "Stitched": "Tenteado"
+      },
+      "tooledCoverage": {
+        "plain": "Liso",
+        "1/8 Overlay Fenders": "1/8 com Paralamas",
+        "3/4 Overlay Fenders": "3/4 com Paralamas",
+        "3/4 Overlay Seat": "3/4 com Assento",
+        "3/4 Overlay Seat and Fenders": "3/4 com Assento e Paralamas",
+        "7/8 Overlay Seat": "7/8 com Assento",
+        "full tooled": "Totalmente Bordado"
+      },
+      "liningType": {
+        "Suede": "Vaqueta",
+        "Fleece": "Pelêgo"
+      },
+      "riggingStyle": {
+        "Double Square": "Quadrado Duplo na Aba",
+        "InskirtPlate": "D Embutido na Aba",
+        "Double Round Rigging": "Argola Neoprene",
+        "Drop Double Square": "Quadrado Duplo com Suporte",
+        "Drop Down Neoprene": "D com Suporte Neoprene",
+        "Drop Down": "D com Suporte Couro"
+      },
+      "accessoriesGroup": {
+        "Hoof Pick Holder on Latego": "Limpador de Casco no Látego",
+        "Hoof Pick Holder on Skirt": "Limpador de Casco na Aba Traseira",
+        "Rig Guard": "Protetor de Argolas",
+        "Saddle String 4 or 6": "Tento nas Margaridas"
+      },
+      "buckstitching": {
+        "Single Buckstitch": "Tenteado Simples",
+        "Double Buckstitch": "Tenteado Duplo",
+        "Double Copper Spot Border": "Fileira Dupla de Taxinha de Cobre",
+        "Single Copper Spot Border": "Fileira Simples de Taxinha de Cobre",
+        "X Buckstitch": "Tenteado em X"
+      },
+      "backCinch": {
+        "No Back Cinch": "Sem Barrigueira Traseira",
+        "Back Cinch Hole Only": "Apenas Buraco",
+        "Full Back Cinch": "Barrigueira Traseira Completa"
+      },
+      "stirrups": {
+        "Wood Chestnut": "Natural",
+        "Wood Latego": "Marrom",
+        "Wood Black": "Preto",
+        "Aluminium Black": "Alumínio Couro Preto",
+        "Aluminium Chocolate": "Alumínio Couro Preto"
+      },
+      "backSkirt": {
+        "SpinalRelief": "Alívio",
+        "Regular": "Normal"
+      },
+      "shippingMethod": {
+        "Standard": "Padrão",
+        "Express": "Expresso",
+        "Pickup": "Retirada"
+      },
+      "paymentMethod": {
+        "Credit Card": "Cartão de Crédito",
+        "Bank Transfer": "Transferência Bancária",
+        "Cash": "Dinheiro",
+        "Other": "Outro"
+      },
+      "seatOptions": {
+        "Suede 01 Turquoise Green": "Vaqueta 01 Verde Turquesa",
+        "Suede 02 Turquoise Blue": "Vaqueta 02 Azul Turquesa",
+        "Suede 03 Royal Blue": "Vaqueta 03 Azul Royal",
+        "Suede 04 Purple": "Vaqueta 04 Roxo",
+        "Suede 05 Red": "Vaqueta 05 Vermelho",
+        "Suede 06 Pink": "Vaqueta 06 Rosa",
+        "Suede 07 Moss Green": "Vaqueta 07 Verde Musgo",
+        "Suede 08 Grey": "Vaqueta 08 Cinza",
+        "Suede 09 Dark Brown": "Vaqueta 09 Marrom Escuro",
+        "Suede 10 Brown": "Vaqueta 10 Marrom",
+        "Suede 11 Light Brown": "Vaqueta 11 Marrom Claro",
+        "Suede 12 Cream": "Vaqueta 12 Creme",
+        "Smooth 13 Black": "Liso 13 Preto",
+        "Smooth 14 Coffee": "Liso 14 Café",
+        "Smooth 15 Brown": "Liso 15 Marrom",
+        "Smooth 16 Tan": "Liso 16 Bege",
+        "Rough Out 17 Black": "Virado 17 Preto",
+        "Rough Out 18 Coffee": "Virado 18 Café",
+        "Rough Out 19 Brown": "Virado 19 Marrom",
+        "Rough Out 20 Tan": "Virado 20 Bege"
+      }
+    }
+  }
+}

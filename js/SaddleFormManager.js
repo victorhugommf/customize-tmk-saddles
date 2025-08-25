@@ -20,7 +20,7 @@ class SaddleFormManager {
         $('input[name="seatStyle"]').on('change', e => this.handleSeatStyleChange($(e.target).val()));
         $('#tooledCoverage').on('change', this.handleToolingChange);
         $('#gulletSize').on('change', this.handleGulletChange);
-        $('input[name="accentOptions"]').on('change', this.handleAccentLimit);
+        $('input[name="seatOptions"]').on('change', this.handleAccentLimit);
         $('input[name="saddleBuild"], input[name="seatStyle"], input[name="accessoriesGroup"]')
             .on('change', () => this.updatePrice());
         this.$form.on('submit', e => {
@@ -88,10 +88,10 @@ class SaddleFormManager {
 
         if (seatStyle === 'Hard') {
             $seatOptionsGroup.css('opacity', '0.5');
-            $seatOptionsGroup.find('input[name="accentOptions"]').prop('disabled', true).prop('checked', false);
+            $seatOptionsGroup.find('input[name="seatOptions"]').prop('disabled', true).prop('checked', false);
         } else {
             $seatOptionsGroup.css('opacity', '1');
-            $seatOptionsGroup.find('input[name="accentOptions"]').prop('disabled', false);
+            $seatOptionsGroup.find('input[name="seatOptions"]').prop('disabled', false);
         }
     }
 
@@ -161,7 +161,7 @@ class SaddleFormManager {
     }
 
     handleAccentLimit() {
-        const $accentInputs = $('input[name="accentOptions"]');
+        const $accentInputs = $('input[name="seatOptions"]');
         const $checkedInputs = $accentInputs.filter(':checked');
 
         if ($checkedInputs.length >= 3) {
@@ -352,13 +352,13 @@ class SaddleFormManager {
 
         this.generatePDF();
         localStorage.removeItem('saddleFormData');
-        this.showNotification('Order submitted successfully! PDF is being generated...', 'success');
+        this.showNotification('Order submitted successfully! PDFs in English and Portuguese are being generated...', 'success');
     }
 
     generatePDF() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         const pdfGenerator = new PDFGenerator(doc, this.$form);
-        pdfGenerator.generate();
+        pdfGenerator.generateDualLanguage();
     }
 }
