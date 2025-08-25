@@ -211,7 +211,7 @@ class PDFGenerator {
 
     const gulletSize = this.getFieldValue('gulletSize');
     const gulletOther = this.getFieldValue('gulletOther');
-    const treeType = this.getFieldValue('treeType');
+    const treeType = this.getCheckedRadioValue('treeType');
 
     const specsData = [
       [this.getTranslation('seatSize'), this.getFieldValue('seatSize') + '"'],
@@ -242,7 +242,7 @@ class PDFGenerator {
   }
 
   addToolingOptions() {
-    const toolingOption = this.getFieldValue('tooledCoverage');
+    const toolingOption = this.getCheckedRadioValue('tooledCoverage');
     if (!toolingOption) return;
 
     this.addSectionTitle(this.getTranslation('toolingOptions'));
@@ -303,9 +303,9 @@ class PDFGenerator {
 
     const accessoriesData = [
       [this.getTranslation('additionalFeatures'), this.getCheckedValues('accessoriesGroup').join(', ')],
-      [this.getTranslation('buckStitchingStyle'), this.getTranslatedFieldValue('buckstitching')],
+      [this.getTranslation('buckStitchingStyle'), this.getTranslatedRadioValue('buckstitching')],
       [this.getTranslation('buckStitchColor'), this.getFieldValue('buckStitchColor')],
-      [this.getTranslation('backCinch'), this.getTranslatedFieldValue('backCinch')],
+      [this.getTranslation('backCinch'), this.getTranslatedRadioValue('backCinch')],
       [this.getTranslation('stirrups'), this.getFieldValue('stirrups')],
       [this.getTranslation('backOfSkirt'), this.getCheckedValue('backSkirt')],
       [this.getTranslation('conchos'), this.getFieldValue('conchos')],
@@ -399,8 +399,19 @@ class PDFGenerator {
     return $field.length ? $field.val() : '';
   }
 
+  getCheckedRadioValue(fieldName) {
+    const $field = this.$form.find(`[name="${fieldName}"]:checked`);
+    return $field.length ? $field.val() : '';
+  }
+
   getTranslatedFieldValue(fieldName) {
     const value = this.getFieldValue(fieldName);
+    if (!value) return '';
+    return this.getOptionTranslation(fieldName, value);
+  }
+
+  getTranslatedRadioValue(fieldName) {
+    const value = this.getCheckedRadioValue(fieldName);
     if (!value) return '';
     return this.getOptionTranslation(fieldName, value);
   }

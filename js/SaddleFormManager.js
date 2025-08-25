@@ -18,7 +18,7 @@ class SaddleFormManager {
         $('input[name="saddleBuild"]').on('change', e => this.handleSaddleBuildChange($(e.target).val()));
         $('input[name="style"]').on('change', e => this.handleStyleChange($(e.target).val()));
         $('input[name="seatStyle"]').on('change', e => this.handleSeatStyleChange($(e.target).val()));
-        $('#tooledCoverage').on('change', this.handleToolingChange);
+        $('input[name="tooledCoverage"]').on('change', e => this.handleToolingChange(e));
         $('#gulletSize').on('change', this.handleGulletChange);
         $('input[name="seatOptions"]').on('change', this.handleAccentLimit);
         $('input[name="saddleBuild"], input[name="seatStyle"], input[name="accessoriesGroup"]')
