@@ -8,7 +8,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
-  padding: 20px;
+  padding: 5px;
 }
 
 .container {
@@ -160,6 +160,9 @@ body {
   transition: all 0.3s ease;
   cursor: pointer;
   border: 2px solid transparent;
+  min-height: 60px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .checkbox-item:hover {
@@ -196,12 +199,18 @@ body {
 /* Style labels to act as clickable image containers */
 .checkbox-item label {
   cursor: pointer;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border: 3px solid transparent;
   border-radius: 8px;
   transition: all 0.3s ease;
   text-align: center;
   margin: 0;
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
 }
 
 
@@ -299,21 +308,66 @@ body {
   }
 
   .checkbox-grid {
-    grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
+    width: 100%;
+  }
+
+  .checkbox-item {
+    min-height: 60px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+
+  .checkbox-item label {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
   }
 }
 
 /* Para telas muito pequenas (celulares em modo retrato) */
 @media (max-width: 480px) {
   .checkbox-grid {
-    grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 8px;
+    width: 100%;
   }
 
   .checkbox-item {
-    padding: 8px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    min-height: 50px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .checkbox-item label {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.75rem;
+  }
+
+  .option-image {
+    margin-bottom: 2px;
   }
 }
 

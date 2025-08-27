@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final Grid Test</title>
+  <link rel="stylesheet" href="./global.css">
+  <style>
+    body {
+      padding: 10px;
+      background: #f0f0f0;
+    }
+
+    .test-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .debug-overlay {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 11px;
+      z-index: 1000;
+      max-width: 200px;
+    }
+
+    /* Debug styles to visualize grid */
+    .checkbox-grid {
+      border: 2px dashed #007bff !important;
+      position: relative;
+    }
+
+    .checkbox-grid::before {
+      content: 'GRID CONTAINER';
+      position: absolute;
+      top: -20px;
+      left: 0;
+      font-size: 10px;
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    .checkbox-item {
+      border: 1px solid #28a745 !important;
+      position: relative;
+    }
+
+    .checkbox-item::before {
+      content: attr(data-debug);
+      position: absolute;
+      top: -15px;
+      left: 2px;
+      font-size: 8px;
+      color: #28a745;
+      font-weight: bold;
+      background: white;
+      padding: 1px 3px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="debug-overlay" id="debugOverlay"></div>
+
+  <div class="test-container">
+    <h2>Grid Consistency Test</h2>
+    <p>Resize the window to test responsiveness. All items in each row should have the same size.</p>
+
+    <div class="form-group">
+      <label><strong>Test 1: 4 Items (Even)</strong></label>
+      <div class="checkbox-grid">
+        <div class="checkbox-item" data-debug="1">
+          <input type="radio" id="test1_1" name="test1" value="1">
+          <label for="test1_1">
+            <div style="width: 40px; height: 40px; background: #8B4513; border-radius: 50%; margin-bottom: 5px;"></div>
+            Option A
+          </label>
+        </div>
+        <div class="checkbox-item" data-debug="2">
+          <input type="radio" id="test1_2" name="test1" value="2">
+          <label for="test1_2">
+            <div style="width: 40px; height: 40px; background: #A0522D; border-radius: 50%; margin-bottom: 5px;"></div>
+            Option B
+          </label>
+        </div>
+        <div class="checkbox-item" data-debug="3">
+          <input type="radio" id="test1_3" name="test1" value="3">
+          <label for="test1_3">
+            <div style="width: 40px; height: 40px; background: #CD853F; border-radius: 50%; margin-bottom: 5px;"></div>
+            Option C
+          </label>
+        </div>
+        <div class="checkbox-item" data-debug="4">
+          <input type="radio" id="test1_4" name="test1" value="4">
+          <label for="test1_4">
+            <div style="width: 40px; height: 40px; background: #D2691E; border-radius: 50%; margin-bottom: 5px;"></div>
+            Option D
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label><strong>Test 2: 3 Items (Odd)</strong></label>
+      <div class="checkbox-grid">
+        <div class="checkbox-item" data-debug="1">
+          <input type="radio" id="test2_1" name="test2" value="1">
+          <label for="test2_1">Short</label>
+        </div>
+        <div class="checkbox-item" data-debug="2">
+          <input type="radio" id="test2_2" name="test2" value="2">
+          <label for="test2_2">Medium Text</label>
+        </div>
+        <div class="checkbox-item" data-debug="3">
+          <input type="radio" id="test2_3" name="test2" value="3">
+          <label for="test2_3">Very Long Option Text</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label><strong>Test 3: 5 Items (Many)</strong></label>
+      <div class="checkbox-grid">
+        <div class="checkbox-item" data-debug="1">
+          <input type="radio" id="test3_1" name="test3" value="1">
+          <label for="test3_1">1</label>
+        </div>
+        <div class="checkbox-item" data-debug="2">
+          <input type="radio" id="test3_2" name="test3" value="2">
+          <label for="test3_2">2</label>
+        </div>
+        <div class="checkbox-item" data-debug="3">
+          <input type="radio" id="test3_3" name="test3" value="3">
+          <label for="test3_3">3</label>
+        </div>
+        <div class="checkbox-item" data-debug="4">
+          <input type="radio" id="test3_4" name="test3" value="4">
+          <label for="test3_4">4</label>
+        </div>
+        <div class="checkbox-item" data-debug="5">
+          <input type="radio" id="test3_5" name="test3" value="5">
+          <label for="test3_5">5</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function updateDebugInfo() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const items = document.querySelectorAll('.checkbox-item');
+
+      let info = `Screen: ${width}x${height}px<br><br>`;
+
+      items.forEach((item, index) => {
+        const rect = item.getBoundingClientRect();
+        const debugNum = item.getAttribute('data-debug');
+        info += `Item ${debugNum}: ${Math.round(rect.width)}×${Math.round(rect.height)}px<br>`;
+      });
+
+      document.getElementById('debugOverlay').innerHTML = info;
+    }
+
+    updateDebugInfo();
+    window.addEventListener('resize', updateDebugInfo);
+
+    // Highlight items on hover for debugging
+    document.querySelectorAll('.checkbox-item').forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        item.style.backgroundColor = '#ffeb3b';
+        updateDebugInfo();
+      });
+      item.addEventListener('mouseleave', () => {
+        item.style.backgroundColor = '';
+      });
+    });
+  </script>
+</body>
+
+</html>
