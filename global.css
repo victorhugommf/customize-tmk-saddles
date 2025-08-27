@@ -299,7 +299,21 @@ body {
   }
 
   .checkbox-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+/* Para telas muito pequenas (celulares em modo retrato) */
+@media (max-width: 480px) {
+  .checkbox-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .checkbox-item {
+    padding: 8px;
+    font-size: 0.85rem;
   }
 }
 
