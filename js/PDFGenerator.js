@@ -48,7 +48,7 @@ class PDFGenerator {
       const message = language === 'en'
         ? 'Generating PDF in English...'
         : 'Gerando PDF em Português...';
-      this.showGenerationFeedback(message);
+      this.showGenerationFeedback(message, 'info');
 
       // Ensure translations are loaded
       await this.translationManager.loadTranslations();
@@ -76,15 +76,18 @@ class PDFGenerator {
       // Download PDF
       this.doc.save(fileName);
 
-      // Hide feedback
-      this.hideGenerationFeedback();
+      // Show success message
+      const successMessage = language === 'en'
+        ? 'PDF generated successfully!'
+        : 'PDF gerado com sucesso!';
+      this.showGenerationFeedback(successMessage, 'success');
 
     } catch (error) {
       console.error('Error generating PDF:', error);
       const errorMessage = language === 'en'
         ? 'Error generating PDF. Please try again.'
         : 'Erro ao gerar PDF. Tente novamente.';
-      this.showGenerationFeedback(errorMessage, true);
+      this.showGenerationFeedback(errorMessage, 'error');
     }
   }
 
@@ -207,10 +210,15 @@ class PDFGenerator {
     // Auto-hide after delay (except for info messages during generation)
     if (type !== 'info') {
       setTimeout(() => {
-        if (feedbackElement && feedbackElement.parentNode) {
-          feedbackElement.parentNode.removeChild(feedbackElement);
-        }
+        this.hideGenerationFeedback();
       }, 5000);
+    }
+  }
+
+  hideGenerationFeedback() {
+    const feedbackElement = document.getElementById('pdf-generation-feedback');
+    if (feedbackElement && feedbackElement.parentNode) {
+      feedbackElement.parentNode.removeChild(feedbackElement);
     }
   }
 
@@ -263,7 +271,7 @@ class PDFGenerator {
       [this.getTranslation('seatSize'), this.getFieldValue('seatSize') + '"'],
       [this.getTranslation('treeType'), this.getOptionTranslation('treeType', treeType)],
       [this.getTranslation('gulletSize'), gulletSize === 'other' ? `${this.getOptionTranslation('gulletSize', gulletSize)} - ${gulletOther}` : gulletSize],
-      [this.getTranslation('saddleBuild'), this.getCheckedValue('saddleBuild')],
+      [this.getTranslation('saddleBuild'), this.getNumberedRadioValue('saddleBuild')],
     ];
 
     this.addDataTable(specsData);
@@ -274,13 +282,13 @@ class PDFGenerator {
     this.addSectionTitle(this.getTranslation('designCustomization'));
 
     const designData = [
-      [this.getTranslation('style'), this.getCheckedValue('style')],
-      [this.getTranslation('skirtStyle'), this.getCheckedValue('skirtStyle')],
-      [this.getTranslation('cantleStyle'), this.getCheckedValue('cantleStyle')],
-      [this.getTranslation('fenderStyle'), this.getCheckedValue('fenderStyle')],
-      [this.getTranslation('jockeySeat'), this.getCheckedValue('jockeySeat')],
-      [this.getTranslation('seatStyle'), this.getCheckedValue('seatStyle')],
-      [this.getTranslation('seatOptions'), this.getCheckedValues('seatOptions').join(', ')],
+      [this.getTranslation('style'), this.getNumberedRadioValue('style')],
+      [this.getTranslation('skirtStyle'), this.getNumberedRadioValue('skirtStyle')],
+      [this.getTranslation('cantleStyle'), this.getNumberedRadioValue('cantleStyle')],
+      [this.getTranslation('fenderStyle'), this.getNumberedRadioValue('fenderStyle')],
+      [this.getTranslation('jockeySeat'), this.getNumberedRadioValue('jockeySeat')],
+      [this.getTranslation('seatStyle'), this.getNumberedRadioValue('seatStyle')],
+      [this.getTranslation('seatOptions'), this.getNumberedRadioValue('seatOptions')],
     ];
 
     this.addDataTable(designData.filter(item => item[1]));
@@ -302,30 +310,30 @@ class PDFGenerator {
     // Grupo 2 – Plain Parts
     this.addSectionTitle(this.getTranslation('plainParts'));
     const plainPartsData = [
-      [this.getTranslation('leatherColorRoughout'), this.getFieldValue('leatherColorRoughout')],
-      [this.getTranslation('leatherColorSmooth'), this.getFieldValue('leatherColorSmooth')]
+      [this.getTranslation('leatherColorRoughout'), this.getNumberedRadioValue('leatherColorRoughout')],
+      [this.getTranslation('leatherColorSmooth'), this.getNumberedRadioValue('leatherColorSmooth')]
     ];
     this.addDataTable(plainPartsData.filter(item => item[1]));
 
     // Grupo 3 – Tooled Parts
     this.addSectionTitle(this.getTranslation('tooledParts'));
     const tooledPartsData = [
-      [this.getTranslation('leatherColorTooled'), this.getFieldValue('leatherColorTooled')]
+      [this.getTranslation('leatherColorTooled'), this.getNumberedRadioValue('leatherColorTooled')]
     ];
     this.addDataTable(tooledPartsData.filter(item => item[1]));
 
     // Grupo 4 – General Tooling
     this.addSectionTitle(this.getTranslation('generalTooling'));
     const generalToolingData = [
-      [this.getTranslation('toolingPatternFloral'), this.getFieldValue('toolingPatternFloral')],
-      [this.getTranslation('toolingPatternGeometric'), this.getFieldValue('toolingPatternGeometric')]
+      [this.getTranslation('toolingPatternFloral'), this.getNumberedRadioValue('toolingPatternFloral')],
+      [this.getTranslation('toolingPatternGeometric'), this.getNumberedRadioValue('toolingPatternGeometric')]
     ];
     this.addDataTable(generalToolingData.filter(item => item[1]));
 
     // Grupo 5 – Border Tooling
     this.addSectionTitle(this.getTranslation('borderTooling'));
     const borderToolingData = [
-      [this.getTranslation('toolingPatternBorder'), this.getFieldValue('toolingPatternBorder')]
+      [this.getTranslation('toolingPatternBorder'), this.getNumberedRadioValue('toolingPatternBorder')]
     ];
     this.addDataTable(borderToolingData.filter(item => item[1]));
 
@@ -336,8 +344,8 @@ class PDFGenerator {
     this.addSectionTitle(this.getTranslation('liningRigging'));
 
     const liningData = [
-      [this.getTranslation('liningType'), this.getCheckedValue('liningType')],
-      [this.getTranslation('riggingStyle'), this.getCheckedValue('riggingStyle')],
+      [this.getTranslation('liningType'), this.getNumberedRadioValue('liningType')],
+      [this.getTranslation('riggingStyle'), this.getNumberedRadioValue('riggingStyle')],
     ];
 
     this.addDataTable(liningData.filter(item => item[1]));
@@ -348,13 +356,13 @@ class PDFGenerator {
     this.addSectionTitle(this.getTranslation('accessoriesOptions'));
 
     const accessoriesData = [
-      [this.getTranslation('additionalFeatures'), this.getCheckedValues('accessoriesGroup').join(', ')],
-      [this.getTranslation('buckStitchingStyle'), this.getTranslatedRadioValue('buckstitching')],
+      [this.getTranslation('additionalFeatures'), this.getNumberedRadioValue('accessoriesGroup')],
+      [this.getTranslation('buckStitchingStyle'), this.getNumberedRadioValue('buckstitching')],
       [this.getTranslation('buckStitchColor'), this.getFieldValue('buckStitchColor')],
-      [this.getTranslation('backCinch'), this.getTranslatedRadioValue('backCinch')],
-      [this.getTranslation('stirrups'), this.getFieldValue('stirrups')],
-      [this.getTranslation('backOfSkirt'), this.getCheckedValue('backSkirt')],
-      [this.getTranslation('conchos'), this.getFieldValue('conchos')],
+      [this.getTranslation('backCinch'), this.getNumberedRadioValue('backCinch')],
+      [this.getTranslation('stirrups'), this.getNumberedRadioValue('stirrups')],
+      [this.getTranslation('backOfSkirt'), this.getNumberedRadioValue('backSkirt')],
+      [this.getTranslation('conchos'), this.getCheckedValue('conchos')],
     ];
 
     this.addDataTable(accessoriesData.filter(item => item[1]));
@@ -381,8 +389,8 @@ class PDFGenerator {
       [this.getTranslation('calculatedPrice'), '$' + (this.getFieldValue('price') || '0.00')],
       [this.getTranslation('deposit'), '$' + (this.getFieldValue('deposit') || '0.00')],
       [this.getTranslation('balanceDue'), '$' + (this.getFieldValue('balanceDue') || '0.00')],
-      [this.getTranslation('shippingMethod'), this.getCheckedValue('shippingMethod')],
-      [this.getTranslation('paymentMethod'), this.getCheckedValue('paymentMethod')],
+      [this.getTranslation('shippingMethod'), this.getNumberedRadioValue('shippingMethod')],
+      [this.getTranslation('paymentMethod'), this.getNumberedRadioValue('paymentMethod')],
       [this.getTranslation('otherPayment'), this.getFieldValue('otherPaymentMethod')],
     ];
 
@@ -460,6 +468,19 @@ class PDFGenerator {
     const value = this.getCheckedRadioValue(fieldName);
     if (!value) return '';
     return this.getOptionTranslation(fieldName, value);
+  }
+
+  getNumberedRadioValue(fieldName) {
+    const $field = this.$form.find(`[name="${fieldName}"]:checked`);
+    if ($field.length) {
+      const allFields = this.$form.find(`[name="${fieldName}"]`);
+      const checkedIndex = allFields.index($field) + 1; // Start from 1
+      const formattedIndex = checkedIndex.toString().padStart(2, '0'); // Format as 01, 02, etc.
+      const originalValue = $field.val();
+      const translatedValue = this.getOptionTranslation(fieldName, originalValue);
+      return `${formattedIndex} - ${translatedValue}`;
+    }
+    return '';
   }
 
   getCheckedValue(fieldName) {
