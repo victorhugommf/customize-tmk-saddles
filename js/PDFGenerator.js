@@ -42,6 +42,52 @@ class PDFGenerator {
     this.doc.save(fileName);
   }
 
+  async generateSingleLanguage(language) {
+    try {
+      // Show user feedback
+      const message = language === 'en'
+        ? 'Generating PDF in English...'
+        : 'Gerando PDF em Português...';
+      this.showGenerationFeedback(message);
+
+      // Ensure translations are loaded
+      await this.translationManager.loadTranslations();
+
+      // Generate PDF in specified language
+      this.setLanguage(language);
+      this.resetPosition();
+      this.addHeader();
+      this.addCustomerInfo();
+      this.addSaddleSpecs();
+      this.addDesignCustomization();
+      this.addToolingOptions();
+      this.addLiningRigging();
+      this.addAccessories();
+      this.addPaymentShipping();
+      this.addFooter();
+
+      const blob = this.doc.output('blob');
+      const url = URL.createObjectURL(blob);
+      const fileName = this.generateFileName(language);
+
+      // Open PDF in new tab
+      window.open(url, '_blank');
+
+      // Download PDF
+      this.doc.save(fileName);
+
+      // Hide feedback
+      this.hideGenerationFeedback();
+
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      const errorMessage = language === 'en'
+        ? 'Error generating PDF. Please try again.'
+        : 'Erro ao gerar PDF. Tente novamente.';
+      this.showGenerationFeedback(errorMessage, true);
+    }
+  }
+
   async generateDualLanguage() {
     try {
       // Show user feedback

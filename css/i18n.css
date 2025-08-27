@@ -1,0 +1,116 @@
+/* Language Toggle Styles */
+.language-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  min-width: 80px;
+}
+
+.lang-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.lang-btn:active {
+  transform: translateY(0);
+}
+
+.flag-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.lang-text {
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .language-toggle {
+    top: 10px;
+    right: 10px;
+  }
+
+  .lang-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+    min-width: 70px;
+  }
+
+  .flag-icon {
+    font-size: 16px;
+  }
+}
+
+/* Animation for language switch */
+.translating {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.translating * {
+  pointer-events: none;
+}
+
+/ * PDF Buttons Styles */ .pdf-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pdf-btn-en,
+.pdf-btn-pt {
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.pdf-btn-en {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+.pdf-btn-en:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+.pdf-btn-pt {
+  background: linear-gradient(135deg, #059669, #047857);
+}
+
+.pdf-btn-pt:hover {
+  background: linear-gradient(135deg, #047857, #065f46);
+}
+
+/* Responsive adjustments for PDF buttons */
+@media (max-width: 768px) {
+  .pdf-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pdf-btn-en,
+  .pdf-btn-pt {
+    width: 100%;
+    max-width: none;
+  }
+}

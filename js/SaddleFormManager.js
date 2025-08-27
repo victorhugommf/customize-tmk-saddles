@@ -23,10 +23,9 @@ class SaddleFormManager {
         $('input[name="seatOptions"]').on('change', this.handleAccentLimit);
         $('input[name="saddleBuild"], input[name="seatStyle"], input[name="accessoriesGroup"]')
             .on('change', () => this.updatePrice());
-        this.$form.on('submit', e => {
-            e.preventDefault();
-            this.handleSubmit();
-        });
+        // PDF generation buttons
+        $('#generatePdfEn').on('click', () => this.handlePdfGeneration('en'));
+        $('#generatePdfPt').on('click', () => this.handlePdfGeneration('pt'));
         this.$form.find('input, select, textarea').on('change', () => {
             this.updateProgress();
         });
@@ -344,21 +343,28 @@ class SaddleFormManager {
 
 
 
-    handleSubmit() {
+    handlePdfGeneration(language) {
         if (!this.validateForm()) {
-            this.showNotification('Please fill in all required fields', 'error');
+            const message = language === 'en'
+                ? 'Please fill in all required fields'
+                : 'Por favor, preencha todos os campos obrigatórios';
+            this.showNotification(message, 'error');
             return;
         }
 
-        this.generatePDF();
+        this.generatePDF(language);
         localStorage.removeItem('saddleFormData');
-        this.showNotification('Order submitted successfully! PDFs in English and Portuguese are being generated...', 'success');
+
+        const message = language === 'en'
+            ? 'PDF in English is being generated...'
+            : 'PDF em Português está sendo gerado...';
+        this.showNotification(message, 'success');
     }
 
-    generatePDF() {
+    generatePDF(language) {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         const pdfGenerator = new PDFGenerator(doc, this.$form);
-        pdfGenerator.generateDualLanguage();
+        pdfGenerator.generateSingleLanguage(language);
     }
 }

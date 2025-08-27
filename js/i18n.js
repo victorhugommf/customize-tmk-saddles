@@ -1,0 +1,213 @@
+class I18nManager {
+  constructor() {
+    this.currentLanguage = 'en';
+    this.translations = {};
+    this.init();
+  }
+
+  async init() {
+    await this.loadTranslations();
+    this.detectLanguage();
+    this.setupLanguageToggle();
+    this.translatePage();
+  }
+
+  async loadTranslations() {
+    try {
+      const response = await fetch('assets/translations.json');
+      this.translations = await response.json();
+    } catch (error) {
+      console.error('Error loading translations:', error);
+    }
+  }
+
+  detectLanguage() {
+    // Check localStorage first
+    const savedLanguage = localStorage.getItem('preferredLanguage');
+    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'pt')) {
+      this.currentLanguage = savedLanguage;
+      return;
+    }
+
+    // Check browser language
+    const browserLanguage = navigator.language || navigator.userLanguage;
+    if (browserLanguage.startsWith('pt')) {
+      this.currentLanguage = 'pt';
+    } else {
+      this.currentLanguage = 'en';
+    }
+  }
+
+  setupLanguageToggle() {
+    // Create language toggle button
+    const languageToggle = document.createElement('div');
+    languageToggle.className = 'language-toggle';
+    languageToggle.innerHTML = `
+            <button id="langToggle" class="lang-btn">
+                <span class="flag-icon">${this.currentLanguage === 'en' ? '🇺🇸' : '🇧🇷'}</span>
+                <span class="lang-text">${this.currentLanguage === 'en' ? 'EN' : 'PT'}</span>
+            </button>
+        `;
+
+    // Insert at the top of the container
+    const container = document.querySelector('.container');
+    if (container) {
+      container.insertBefore(languageToggle, container.firstChild);
+    }
+
+    // Add event listener
+    document.getElementById('langToggle').addEventListener('click', () => {
+      this.toggleLanguage();
+    });
+  }
+
+  toggleLanguage() {
+    this.currentLanguage = this.currentLanguage === 'en' ? 'pt' : 'en';
+    localStorage.setItem('preferredLanguage', this.currentLanguage);
+    this.translatePage();
+    this.updateToggleButton();
+  }
+
+  updateToggleButton() {
+    const flagIcon = document.querySelector('.flag-icon');
+    const langText = document.querySelector('.lang-text');
+
+    if (flagIcon && langText) {
+      flagIcon.textContent = this.currentLanguage === 'en' ? '🇺🇸' : '🇧🇷';
+      langText.textContent = this.currentLanguage === 'en' ? 'EN' : 'PT';
+    }
+  }
+
+  translatePage() {
+    // Add translating class for smooth transition
+    document.body.classList.add('translating');
+
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(element => {
+      const key = element.getAttribute('data-i18n');
+      const translation = this.getTranslation(key);
+      if (translation) {
+        if (element.tagName === 'BUTTON') {
+          // For buttons, preserve the emoji and update text
+          const currentText = element.textContent.trim();
+          const emoji = currentText.match(/^[\u{1F000}-\u{1F6FF}]|^[\u{2600}-\u{26FF}]/u);
+          if (emoji) {
+            element.textContent = `${emoji[0]} ${translation}`;
+          } else {
+            element.textContent = translation;
+          }
+        } else if (element.tagName === 'INPUT' && element.type === 'submit') {
+          element.value = translation;
+        } else if (element.hasAttribute('placeholder')) {
+          element.placeholder = translation;
+        } else if (element.tagName === 'TITLE') {
+          element.textContent = translation;
+          document.title = translation;
+        } else {
+          // For section titles, preserve emojis
+          const currentText = element.textContent.trim();
+          const emoji = currentText.match(/^[\u{1F000}-\u{1F6FF}]|^[\u{2600}-\u{26FF}]/u);
+          if (emoji && element.classList.contains('section-title')) {
+            element.textContent = `${emoji[0]} ${translation}`;
+          } else {
+            element.textContent = translation;
+          }
+        }
+      }
+    });
+
+    // Translate select options and radio labels
+    this.translateSelectOptions();
+    this.translateRadioLabels();
+
+    // Update document title
+    const titleTranslation = this.getTranslation('pageTitle');
+    if (titleTranslation) {
+      document.title = titleTranslation;
+    }
+
+    // Update HTML lang attribute
+    document.documentElement.lang = this.currentLanguage;
+
+    // Remove translating class after a short delay
+    setTimeout(() => {
+      document.body.classList.remove('translating');
+    }, 300);
+  }
+
+  translateSelectOptions() {
+    const selects = document.querySelectorAll('select[data-i18n-options]');
+    selects.forEach(select => {
+      const optionsKey = select.getAttribute('data-i18n-options');
+      const options = select.querySelectorAll('option[value]:not([value=""])');
+
+      options.forEach(option => {
+        const value = option.value;
+        const translationPath = `options.${optionsKey}.${value}`;
+        const translation = this.getTranslation(translationPath);
+        if (translation) {
+          option.textContent = translation;
+        }
+      });
+    });
+  }
+
+  translateRadioLabels() {
+    const radioGroups = document.querySelectorAll('[data-i18n-radio]');
+    radioGroups.forEach(group => {
+      const optionsKey = group.getAttribute('data-i18n-radio');
+      const radios = group.querySelectorAll('input[type="radio"]');
+
+      radios.forEach(radio => {
+        const value = radio.value;
+        const label = radio.nextElementSibling;
+        if (label && label.tagName === 'LABEL') {
+          const translationPath = `options.${optionsKey}.${value}`;
+          const translation = this.getTranslation(translationPath);
+          if (translation) {
+            // Find text nodes in the label
+            const walker = document.createTreeWalker(
+              label,
+              NodeFilter.SHOW_TEXT,
+              null,
+              false
+            );
+
+            let textNode;
+            const textNodes = [];
+            while (textNode = walker.nextNode()) {
+              if (textNode.textContent.trim()) {
+                textNodes.push(textNode);
+              }
+            }
+
+            // Update the last text node (usually the label text)
+            if (textNodes.length > 0) {
+              textNodes[textNodes.length - 1].textContent = translation;
+            }
+          }
+        }
+      });
+    });
+  }
+
+  getTranslation(key) {
+    const keys = key.split('.');
+    let translation = this.translations[this.currentLanguage];
+
+    for (const k of keys) {
+      if (translation && translation[k]) {
+        translation = translation[k];
+      } else {
+        return null;
+      }
+    }
+
+    return translation;
+  }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  window.i18nManager = new I18nManager();
+});
