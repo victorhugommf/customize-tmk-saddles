@@ -165,7 +165,24 @@ class I18nManager {
           const translationPath = `options.${optionsKey}.${value}`;
           const translation = this.getTranslation(translationPath);
           if (translation) {
-            // Find text nodes in the label
+            // Store original text on first translation if not already stored
+            if (!label.dataset.originalText) {
+              // Find the text content, excluding images
+              const textContent = Array.from(label.childNodes)
+                .filter(node => node.nodeType === Node.TEXT_NODE)
+                .map(node => node.textContent.trim())
+                .filter(text => text.length > 0)
+                .join(' ');
+
+              if (textContent) {
+                label.dataset.originalText = textContent;
+              } else {
+                // Fallback: use the full text content minus any image alt text
+                label.dataset.originalText = label.textContent.trim();
+              }
+            }
+
+            // Find and update text nodes, preserving images
             const walker = document.createTreeWalker(
               label,
               NodeFilter.SHOW_TEXT,
@@ -181,10 +198,19 @@ class I18nManager {
               }
             }
 
-            // Update the last text node (usually the label text)
-            if (textNodes.length > 0) {
-              textNodes[textNodes.length - 1].textContent = translation;
+            // Simple and reliable approach: replace all text nodes with the translation
+            // First, remove all existing text nodes
+            const nodesToRemove = [];
+            for (let node of label.childNodes) {
+              if (node.nodeType === Node.TEXT_NODE) {
+                nodesToRemove.push(node);
+              }
             }
+            nodesToRemove.forEach(node => node.remove());
+
+            // Add the translated text at the end
+            const textNode = document.createTextNode(translation);
+            label.appendChild(textNode);
           }
         }
       });

@@ -8,12 +8,126 @@ class PDFGenerator {
     this.leftMargin = 20;
     this.rightMargin = 190;
     this.translationManager = TranslationManager.getInstance();
+    this.imageCache = new Map(); // Cache para imagens convertidas
+    this.highQualityMode = true; // Flag para modo de alta qualidade
   }
 
   setLanguage(language) {
     this.language = language;
     this.translationManager.setLanguage(language);
   }
+
+
+
+  // Método para obter a imagem selecionada de um campo radio
+  async getSelectedImage(fieldName) {
+    const $checkedField = this.$form.find(`[name="${fieldName}"]:checked`);
+    if ($checkedField.length) {
+      // Procurar a imagem no label associado ao radio button
+      const $label = $checkedField.siblings('label').add($checkedField.next('label'));
+      let $img = $label.find('img.option-image');
+
+      // Se não encontrou, procurar no elemento pai (para estruturas diferentes)
+      if (!$img.length) {
+        $img = $checkedField.closest('.checkbox-item').find('img.option-image');
+      }
+
+      if ($img.length) {
+        const imgSrc = $img.attr('src');
+
+        // Verificar cache primeiro
+        if (this.imageCache.has(imgSrc)) {
+          return this.imageCache.get(imgSrc);
+        }
+
+        // Converter imagem para base64 com fundo branco e obter dimensões
+        const imageData = await this.imageToBase64WithDimensions($img[0]);
+        if (imageData) {
+          this.imageCache.set(imgSrc, imageData);
+          return imageData;
+        }
+      }
+    }
+    return null;
+  }
+
+  // Método para converter imagem para base64 com fundo branco e retornar dimensões
+  async imageToBase64WithDimensions(imgElement) {
+    return new Promise((resolve) => {
+      try {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Criar uma nova imagem para garantir que está carregada
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+
+        img.onload = function () {
+          // Usar as dimensões originais da imagem
+          const originalWidth = img.naturalWidth || img.width;
+          const originalHeight = img.naturalHeight || img.height;
+
+          canvas.width = originalWidth;
+          canvas.height = originalHeight;
+
+          // Preencher com fundo branco para evitar transparência preta
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          // Configurar contexto para melhor qualidade
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+
+          // Desenhar a imagem sobre o fundo branco
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+          try {
+            // Usar JPEG com alta qualidade para evitar problemas de transparência
+            const dataURL = canvas.toDataURL('image/jpeg', 0.92);
+            resolve({
+              base64: dataURL,
+              width: originalWidth,
+              height: originalHeight
+            });
+          } catch (error) {
+            console.warn('Erro ao converter imagem para base64:', error);
+            resolve(null);
+          }
+        };
+
+        img.onerror = function () {
+          console.warn('Erro ao carregar imagem:', imgElement.src);
+          resolve(null);
+        };
+
+        img.src = imgElement.src;
+      } catch (error) {
+        console.warn('Erro no processamento da imagem:', error);
+        resolve(null);
+      }
+    });
+  }
+
+  // Método para calcular dimensões mantendo proporção
+  calculateImageDimensions(originalWidth, originalHeight, maxWidth, maxHeight) {
+    const aspectRatio = originalWidth / originalHeight;
+
+    let newWidth = maxWidth;
+    let newHeight = maxWidth / aspectRatio;
+
+    // Se a altura calculada exceder o máximo, ajustar pela altura
+    if (newHeight > maxHeight) {
+      newHeight = maxHeight;
+      newWidth = maxHeight * aspectRatio;
+    }
+
+    return {
+      width: newWidth,
+      height: newHeight
+    };
+  }
+
+
 
   getTranslation(key) {
     return this.translationManager.getTranslation(key);
@@ -23,14 +137,14 @@ class PDFGenerator {
     return this.translationManager.getOptionTranslation(fieldName, optionValue);
   }
 
-  generate() {
+  async generate() {
     this.addHeader();
     this.addCustomerInfo();
-    this.addSaddleSpecs();
-    this.addDesignCustomization();
-    this.addToolingOptions();
-    this.addLiningRigging();
-    this.addAccessories();
+    await this.addSaddleSpecs();
+    await this.addDesignCustomization();
+    await this.addToolingOptions();
+    await this.addLiningRigging();
+    await this.addAccessories();
     this.addPaymentShipping();
     this.addFooter();
 
@@ -58,11 +172,11 @@ class PDFGenerator {
       this.resetPosition();
       this.addHeader();
       this.addCustomerInfo();
-      this.addSaddleSpecs();
-      this.addDesignCustomization();
-      this.addToolingOptions();
-      this.addLiningRigging();
-      this.addAccessories();
+      await this.addSaddleSpecs();
+      await this.addDesignCustomization();
+      await this.addToolingOptions();
+      await this.addLiningRigging();
+      await this.addAccessories();
       this.addPaymentShipping();
       this.addFooter();
 
@@ -104,11 +218,11 @@ class PDFGenerator {
       this.resetPosition();
       this.addHeader();
       this.addCustomerInfo();
-      this.addSaddleSpecs();
-      this.addDesignCustomization();
-      this.addToolingOptions();
-      this.addLiningRigging();
-      this.addAccessories();
+      await this.addSaddleSpecs();
+      await this.addDesignCustomization();
+      await this.addToolingOptions();
+      await this.addLiningRigging();
+      await this.addAccessories();
       this.addPaymentShipping();
       this.addFooter();
 
@@ -137,11 +251,11 @@ class PDFGenerator {
           portuguesePDF.resetPosition();
           portuguesePDF.addHeader();
           portuguesePDF.addCustomerInfo();
-          portuguesePDF.addSaddleSpecs();
-          portuguesePDF.addDesignCustomization();
-          portuguesePDF.addToolingOptions();
-          portuguesePDF.addLiningRigging();
-          portuguesePDF.addAccessories();
+          await portuguesePDF.addSaddleSpecs();
+          await portuguesePDF.addDesignCustomization();
+          await portuguesePDF.addToolingOptions();
+          await portuguesePDF.addLiningRigging();
+          await portuguesePDF.addAccessories();
           portuguesePDF.addPaymentShipping();
           portuguesePDF.addFooter();
 
@@ -260,107 +374,137 @@ class PDFGenerator {
     this.addSectionDivider();
   }
 
-  addSaddleSpecs() {
+  async addSaddleSpecs() {
     this.addSectionTitle(this.getTranslation('saddleSpecs'));
 
     const gulletSize = this.getFieldValue('gulletSize');
     const gulletOther = this.getFieldValue('gulletOther');
     const treeType = this.getCheckedRadioValue('treeType');
 
+    // Obter imagens selecionadas
+    const treeTypeImage = await this.getSelectedImage('treeType');
+    const saddleBuildImage = await this.getSelectedImage('saddleBuild');
+
     const specsData = [
       [this.getTranslation('seatSize'), this.getFieldValue('seatSize') + '"'],
-      [this.getTranslation('treeType'), this.getOptionTranslation('treeType', treeType)],
+      [this.getTranslation('treeType'), this.getOptionTranslation('treeType', treeType), treeTypeImage],
       [this.getTranslation('gulletSize'), gulletSize === 'other' ? `${this.getOptionTranslation('gulletSize', gulletSize)} - ${gulletOther}` : gulletSize],
-      [this.getTranslation('saddleBuild'), this.getNumberedRadioValue('saddleBuild')],
+      [this.getTranslation('saddleBuild'), this.getNumberedRadioValue('saddleBuild'), saddleBuildImage],
     ];
 
     this.addDataTable(specsData);
     this.addSectionDivider();
   }
 
-  addDesignCustomization() {
+  async addDesignCustomization() {
     this.addSectionTitle(this.getTranslation('designCustomization'));
 
+    // Obter imagens selecionadas
+    const styleImage = await this.getSelectedImage('style');
+    const skirtStyleImage = await this.getSelectedImage('skirtStyle');
+    const cantleStyleImage = await this.getSelectedImage('cantleStyle');
+    const fenderStyleImage = await this.getSelectedImage('fenderStyle');
+    const jockeySeatImage = await this.getSelectedImage('jockeySeat');
+    const seatStyleImage = await this.getSelectedImage('seatStyle');
+    const seatOptionsImage = await this.getSelectedImage('seatOptions');
+
     const designData = [
-      [this.getTranslation('style'), this.getNumberedRadioValue('style')],
-      [this.getTranslation('skirtStyle'), this.getNumberedRadioValue('skirtStyle')],
-      [this.getTranslation('cantleStyle'), this.getNumberedRadioValue('cantleStyle')],
-      [this.getTranslation('fenderStyle'), this.getNumberedRadioValue('fenderStyle')],
-      [this.getTranslation('jockeySeat'), this.getNumberedRadioValue('jockeySeat')],
-      [this.getTranslation('seatStyle'), this.getNumberedRadioValue('seatStyle')],
-      [this.getTranslation('seatOptions'), this.getNumberedRadioValue('seatOptions')],
+      [this.getTranslation('style'), this.getNumberedRadioValue('style'), styleImage],
+      [this.getTranslation('skirtStyle'), this.getNumberedRadioValue('skirtStyle'), skirtStyleImage],
+      [this.getTranslation('cantleStyle'), this.getNumberedRadioValue('cantleStyle'), cantleStyleImage],
+      [this.getTranslation('fenderStyle'), this.getNumberedRadioValue('fenderStyle'), fenderStyleImage],
+      [this.getTranslation('jockeySeat'), this.getNumberedRadioValue('jockeySeat'), jockeySeatImage],
+      [this.getTranslation('seatStyle'), this.getNumberedRadioValue('seatStyle'), seatStyleImage],
+      [this.getTranslation('seatOptions'), this.getNumberedRadioValue('seatOptions'), seatOptionsImage],
     ];
 
     this.addDataTable(designData.filter(item => item[1]));
     this.addSectionDivider();
   }
 
-  addToolingOptions() {
+  async addToolingOptions() {
     const toolingOption = this.getCheckedRadioValue('tooledCoverage');
     if (!toolingOption) return;
 
     this.addSectionTitle(this.getTranslation('toolingOptions'));
 
     // Grupo 1 – Cobertura
+    const tooledCoverageImage = await this.getSelectedImage('tooledCoverage');
     const coverageData = [
-      [this.getTranslation('tooledCoverage'), this.getOptionTranslation('tooledCoverage', toolingOption)]
+      [this.getTranslation('tooledCoverage'), this.getOptionTranslation('tooledCoverage', toolingOption), tooledCoverageImage]
     ];
     this.addDataTable(coverageData);
 
     // Grupo 2 – Plain Parts
     this.addSectionTitle(this.getTranslation('plainParts'));
+    const leatherColorImage = await this.getSelectedImage('leatherColor');
     const plainPartsData = [
-      [this.getTranslation('leatherColorLabel'), this.getNumberedRadioValue('leatherColor')]
+      [this.getTranslation('leatherColorLabel'), this.getNumberedRadioValue('leatherColor'), leatherColorImage]
     ];
     this.addDataTable(plainPartsData.filter(item => item[1]));
 
     // Grupo 3 – Tooled Parts
     this.addSectionTitle(this.getTranslation('tooledParts'));
+    const leatherColorTooledImage = await this.getSelectedImage('leatherColorTooled');
     const tooledPartsData = [
-      [this.getTranslation('leatherColorTooled'), this.getNumberedRadioValue('leatherColorTooled')]
+      [this.getTranslation('leatherColorTooled'), this.getNumberedRadioValue('leatherColorTooled'), leatherColorTooledImage]
     ];
     this.addDataTable(tooledPartsData.filter(item => item[1]));
 
     // Grupo 4 – General Tooling
     this.addSectionTitle(this.getTranslation('generalTooling'));
+    const toolingPatternImage = await this.getSelectedImage('toolingPattern');
     const generalToolingData = [
-      [this.getTranslation('toolingPattern'), this.getNumberedRadioValue('toolingPattern')]
+      [this.getTranslation('toolingPattern'), this.getNumberedRadioValue('toolingPattern'), toolingPatternImage]
     ];
     this.addDataTable(generalToolingData.filter(item => item[1]));
 
     // Grupo 5 – Border Tooling
     this.addSectionTitle(this.getTranslation('borderTooling'));
+    const toolingPatternBorderImage = await this.getSelectedImage('toolingPatternBorder');
     const borderToolingData = [
-      [this.getTranslation('toolingPatternBorder'), this.getNumberedRadioValue('toolingPatternBorder')]
+      [this.getTranslation('toolingPatternBorder'), this.getNumberedRadioValue('toolingPatternBorder'), toolingPatternBorderImage]
     ];
     this.addDataTable(borderToolingData.filter(item => item[1]));
 
     this.addSectionDivider();
   }
 
-  addLiningRigging() {
+  async addLiningRigging() {
     this.addSectionTitle(this.getTranslation('liningRigging'));
 
+    // Obter imagens selecionadas
+    const liningTypeImage = await this.getSelectedImage('liningType');
+    const riggingStyleImage = await this.getSelectedImage('riggingStyle');
+
     const liningData = [
-      [this.getTranslation('liningType'), this.getNumberedRadioValue('liningType')],
-      [this.getTranslation('riggingStyle'), this.getNumberedRadioValue('riggingStyle')],
+      [this.getTranslation('liningType'), this.getNumberedRadioValue('liningType'), liningTypeImage],
+      [this.getTranslation('riggingStyle'), this.getNumberedRadioValue('riggingStyle'), riggingStyleImage],
     ];
 
     this.addDataTable(liningData.filter(item => item[1]));
     this.addSectionDivider();
   }
 
-  addAccessories() {
+  async addAccessories() {
     this.addSectionTitle(this.getTranslation('accessoriesOptions'));
 
+    // Obter imagens selecionadas
+    const accessoriesGroupImage = await this.getSelectedImage('accessoriesGroup');
+    const buckstitchingImage = await this.getSelectedImage('buckstitching');
+    const backCinchImage = await this.getSelectedImage('backCinch');
+    const stirrupsImage = await this.getSelectedImage('stirrups');
+    const backSkirtImage = await this.getSelectedImage('backSkirt');
+    const conchosImage = await this.getSelectedImage('conchos');
+
     const accessoriesData = [
-      [this.getTranslation('additionalFeatures'), this.getNumberedRadioValue('accessoriesGroup')],
-      [this.getTranslation('buckStitchingStyle'), this.getNumberedRadioValue('buckstitching')],
+      [this.getTranslation('additionalFeatures'), this.getNumberedRadioValue('accessoriesGroup'), accessoriesGroupImage],
+      [this.getTranslation('buckStitchingStyle'), this.getNumberedRadioValue('buckstitching'), buckstitchingImage],
       [this.getTranslation('buckStitchColor'), this.getFieldValue('buckStitchColor')],
-      [this.getTranslation('backCinch'), this.getNumberedRadioValue('backCinch')],
-      [this.getTranslation('stirrups'), this.getNumberedRadioValue('stirrups')],
-      [this.getTranslation('backOfSkirt'), this.getNumberedRadioValue('backSkirt')],
-      [this.getTranslation('conchos'), this.getCheckedValue('conchos')],
+      [this.getTranslation('backCinch'), this.getNumberedRadioValue('backCinch'), backCinchImage],
+      [this.getTranslation('stirrups'), this.getNumberedRadioValue('stirrups'), stirrupsImage],
+      [this.getTranslation('backOfSkirt'), this.getNumberedRadioValue('backSkirt'), backSkirtImage],
+      [this.getTranslation('conchos'), this.getCheckedValue('conchos'), conchosImage],
     ];
 
     this.addDataTable(accessoriesData.filter(item => item[1]));
@@ -420,15 +564,60 @@ class PDFGenerator {
   }
 
   addDataTable(data) {
-    data.forEach(([label, value]) => {
+    data.forEach(([label, value, imageData]) => {
       if (value) {
-        this.checkPageBreak(7);
+        const hasImage = imageData && imageData !== null;
+        const requiredSpace = hasImage ? 45 : 7; // Mais espaço para imagens 2x maiores
+
+        this.checkPageBreak(requiredSpace);
+
         this.doc.setFont(undefined, 'bold');
         this.doc.text(label, this.leftMargin, this.yPosition);
         this.doc.setFont(undefined, 'normal');
+
         const splitValue = this.doc.splitTextToSize(value, this.rightMargin - this.leftMargin - 60);
         this.doc.text(splitValue, this.leftMargin + 60, this.yPosition);
-        this.yPosition += Math.max(7, splitValue.length * 5);
+
+        let textHeight = Math.max(7, splitValue.length * 5);
+
+        // Adicionar imagem se disponível
+        if (hasImage) {
+          try {
+            const maxWidth = 50;  // 2x o tamanho anterior (25 -> 50)
+            const maxHeight = 36; // 2x o tamanho anterior (18 -> 36)
+
+            let imageWidth = maxWidth;
+            let imageHeight = maxHeight;
+            let base64Data = imageData;
+
+            // Se imageData é um objeto com dimensões, calcular proporções corretas
+            if (typeof imageData === 'object' && imageData.base64) {
+              base64Data = imageData.base64;
+              const dimensions = this.calculateImageDimensions(
+                imageData.width,
+                imageData.height,
+                maxWidth,
+                maxHeight
+              );
+              imageWidth = dimensions.width;
+              imageHeight = dimensions.height;
+            }
+
+            const imageX = this.rightMargin - maxWidth - 2;
+            const imageY = this.yPosition - 10; // Ajustar posição Y para imagem maior
+
+            // Detectar formato da imagem
+            const format = base64Data.startsWith('data:image/png') ? 'PNG' : 'JPEG';
+
+            // Adicionar imagem com proporções corretas
+            this.doc.addImage(base64Data, format, imageX, imageY, imageWidth, imageHeight);
+            textHeight = Math.max(textHeight, maxHeight + 8); // Mais espaço para imagem maior
+          } catch (error) {
+            console.warn('Erro ao adicionar imagem ao PDF:', error);
+          }
+        }
+
+        this.yPosition += textHeight;
       }
     });
   }

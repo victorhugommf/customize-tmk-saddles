@@ -147,12 +147,16 @@
         "Round": "Round"
       },
       "jockeySeat": {
-        "Rough Out": "Rough Out",
-        "Smooth": "Smooth"
+        "Round": "Round",
+        "Rounded": "Rounded",
+        "Square": "Square",
+        "45°": "45°"
       },
       "seatStyle": {
+        "Inlay": "Inlay",
         "Hard": "Hard",
-        "Padded": "Padded"
+        "Padded Smooth": "Padded Smooth",
+        "Stitched": "Stitched"
       },
       "accentOptions": {
         "Inlay": "Inlay",
@@ -161,13 +165,28 @@
       },
       "tooledCoverage": {
         "plain": "Plain",
-        "1/2 tooled": "1/2 Tooled",
-        "3/4 tooled": "3/4 Tooled",
-        "full tooled": "Full Tooled"
+        "1/6": "1/6",
+        "1/8": "1/8",
+        "1/8 Overlay Fenders": "1/8 Overlay Fenders",
+        "3/4": "3/4",
+        "3/4 Overlay Fenders": "3/4 Overlay Fenders",
+        "3/4 Overlay Seat": "3/4 Overlay Seat",
+        "3/4 Overlay Seat and Fenders": "3/4 Overlay Seat and Fenders",
+        "7/8": "7/8",
+        "7/8 Overlay Seat": "7/8 Overlay Seat",
+        "Full": "Full"
       },
       "liningType": {
         "Suede": "Suede",
         "Fleece": "Fleece"
+      },
+      "riggingStyle": {
+        "Double Square": "Double Square",
+        "InskirtPlate": "InskirtPlate",
+        "Double Round Rigging": "Double Round Rigging",
+        "Drop Double Square": "Drop Double Square",
+        "Drop Down Neoprene": "Drop Down Neoprene",
+        "Drop Down": "Drop Down"
       },
       "accessoriesGroup": {
         "Saddle String 4 or 6": "Saddle String 4 or 6",
@@ -186,6 +205,41 @@
         "None": "None",
         "Hole Only": "Hole Only",
         "Full": "Full"
+      },
+      "stirrups": {
+        "Wood Chestnut": "Wood Chestnut",
+        "Wood Latego": "Wood Latego",
+        "Wood Black": "Wood Black",
+        "Aluminium Black": "Aluminium Black",
+        "Aluminium Chocolate": "Aluminium Chocolate"
+      },
+      "backSkirt": {
+        "Spinal Relief": "Spinal Relief",
+        "Regular": "Regular"
+      },
+      "conchos": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "13",
+        "14": "14",
+        "15": "15",
+        "16": "16",
+        "17": "17",
+        "18": "18",
+        "19": "19",
+        "20": "20",
+        "21": "21",
+        "22": "22"
       },
       "shippingMethod": {
         "Standard": "Standard",

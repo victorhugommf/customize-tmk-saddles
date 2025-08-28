@@ -24,8 +24,8 @@ class SaddleFormManager {
         $('input[name="saddleBuild"], input[name="seatStyle"], input[name="accessoriesGroup"]')
             .on('change', () => this.updatePrice());
         // PDF generation buttons
-        $('#generatePdfEn').on('click', () => this.handlePdfGeneration('en'));
-        $('#generatePdfPt').on('click', () => this.handlePdfGeneration('pt'));
+        $('#generatePdfEn').on('click', async () => await this.handlePdfGeneration('en'));
+        $('#generatePdfPt').on('click', async () => await this.handlePdfGeneration('pt'));
         this.$form.find('input, select, textarea').on('change', () => {
             this.updateProgress();
         });
@@ -343,7 +343,7 @@ class SaddleFormManager {
 
 
 
-    handlePdfGeneration(language) {
+    async handlePdfGeneration(language) {
         if (!this.validateForm()) {
             const message = language === 'en'
                 ? 'Please fill in all required fields'
@@ -352,7 +352,7 @@ class SaddleFormManager {
             return;
         }
 
-        this.generatePDF(language);
+        await this.generatePDF(language);
         localStorage.removeItem('saddleFormData');
 
         const message = language === 'en'
@@ -361,10 +361,10 @@ class SaddleFormManager {
         this.showNotification(message, 'success');
     }
 
-    generatePDF(language) {
+    async generatePDF(language) {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         const pdfGenerator = new PDFGenerator(doc, this.$form);
-        pdfGenerator.generateSingleLanguage(language);
+        await pdfGenerator.generateSingleLanguage(language);
     }
 }
