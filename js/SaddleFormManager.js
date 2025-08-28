@@ -106,8 +106,6 @@ class SaddleFormManager {
         ];
         sectionsToShow.forEach(sectionId => {
             $(sectionId).show();
-            $(sectionId).find('input[type="radio"]').prop('checked', false);
-            $(sectionId).find('select').val('');
         });
 
         console.log('Seção de Tooling ativada para Hybrid');
@@ -115,17 +113,17 @@ class SaddleFormManager {
 
     showFullNeopreneSections() {
         // Desativar toda a seção de Tooling & Pattern Options para Full Neoprene
-        const toolingSection = $('#toolingPatternOptions');
+        // const toolingSection = $('#toolingPatternOptions');
 
-        // Esconder a seção completa
-        toolingSection.hide();
+        // // Esconder a seção completa
+        // toolingSection.hide();
 
-        // Limpar todas as seleções de tooling
-        toolingSection.find('input[type="radio"]').prop('checked', false);
-        toolingSection.find('select').val('');
+        // // Limpar todas as seleções de tooling
+        // toolingSection.find('input[type="radio"]').prop('checked', false);
+        // toolingSection.find('select').val('');
 
-        // Desativar todos os inputs da seção
-        toolingSection.find('input, select').prop('disabled', true);
+        // // Desativar todos os inputs da seção
+        // toolingSection.find('input, select').prop('disabled', true);
 
         console.log('Seção de Tooling desativada para Full Neoprene');
     }
