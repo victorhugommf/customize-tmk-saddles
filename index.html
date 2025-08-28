@@ -653,11 +653,11 @@
                     <h2>Plain Parts</h2>
 
                     <div class="form-group">
-                        <label>Leather Color - Roughout</label>
-                        <div class="checkbox-grid">
+                        <label data-i18n="leatherColorLabel">Leather Color</label>
+                        <div class="checkbox-grid" data-i18n-radio="leatherColor">
+                            <!-- Roughout Options -->
                             <div class="checkbox-item">
-                                <input type="radio" id="roughout01" name="leatherColorRoughout"
-                                    value="Roughout 01 Natural">
+                                <input type="radio" id="roughout01" name="leatherColor" value="Roughout 01 Natural">
                                 <label for="roughout01">
                                     <img src="imgs/10-PlainParts/01-RoughoutLeather/Roughout 01-Natural_opt.webp"
                                         width="100%" height="auto" alt="Roughout 01 Natural" class="option-image">
@@ -665,8 +665,7 @@
                                 </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="radio" id="roughout02" name="leatherColorRoughout"
-                                    value="Roughout 02 Chocolate">
+                                <input type="radio" id="roughout02" name="leatherColor" value="Roughout 02 Chocolate">
                                 <label for="roughout02">
                                     <img src="imgs/10-PlainParts/01-RoughoutLeather/Roughout 02-Chocolate_opt.webp"
                                         width="100%" height="auto" alt="Roughout 02 Chocolate" class="option-image">
@@ -674,8 +673,7 @@
                                 </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="radio" id="roughout03" name="leatherColorRoughout"
-                                    value="Roughout 03 Black">
+                                <input type="radio" id="roughout03" name="leatherColor" value="Roughout 03 Black">
                                 <label for="roughout03">
                                     <img src="imgs/10-PlainParts/01-RoughoutLeather/Roughout 03-Black_opt.webp"
                                         width="100%" height="auto" alt="Roughout 03 Black" class="option-image">
@@ -683,21 +681,16 @@
                                 </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="radio" id="roughout04" name="leatherColorRoughout"
-                                    value="Roughout 04 Chestnut">
+                                <input type="radio" id="roughout04" name="leatherColor" value="Roughout 04 Chestnut">
                                 <label for="roughout04">
                                     <img src="imgs/10-PlainParts/01-RoughoutLeather/Roughout 04-Chestnut_opt.webp"
                                         width="100%" height="auto" alt="Roughout 04 Chestnut" class="option-image">
                                     Roughout 04 Chestnut
                                 </label>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Leather Color - Smooth</label>
-                        <div class="checkbox-grid">
+                            <!-- Smooth Options -->
                             <div class="checkbox-item">
-                                <input type="radio" id="smoothChocolate" name="leatherColorSmooth"
+                                <input type="radio" id="smoothChocolate" name="leatherColor"
                                     value="Smooth 01 Chocolate">
                                 <label for="smoothChocolate">
                                     <img src="imgs/10-PlainParts/02-SmoothLeather/Smooth 01-Chocolate_opt.webp"
@@ -706,7 +699,7 @@
                                 </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="radio" id="smoothTan" name="leatherColorSmooth" value="Smooth 02 Tan">
+                                <input type="radio" id="smoothTan" name="leatherColor" value="Smooth 02 Tan">
                                 <label for="smoothTan">
                                     <img src="imgs/10-PlainParts/02-SmoothLeather/Smooth 02-Tan_opt.webp" width="100%"
                                         height="auto" alt="Smooth 02 Tan" class="option-image">
@@ -714,8 +707,7 @@
                                 </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="radio" id="smoothNatural" name="leatherColorSmooth"
-                                    value="Smooth 03 Natural">
+                                <input type="radio" id="smoothNatural" name="leatherColor" value="Smooth 03 Natural">
                                 <label for="smoothNatural">
                                     <img src="imgs/10-PlainParts/02-SmoothLeather/Smooth 03-Natural_opt.webp"
                                         width="100%" height="auto" alt="Smooth 03 Natural" class="option-image">
@@ -723,7 +715,7 @@
                                 </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="radio" id="smoothBlack" name="leatherColorSmooth" value="Smooth 05 Black">
+                                <input type="radio" id="smoothBlack" name="leatherColor" value="Smooth 05 Black">
                                 <label for="smoothBlack">
                                     <img src="imgs/10-PlainParts/02-SmoothLeather/Smooth 04-Black_opt.webp" width="100%"
                                         height="auto" alt="Smooth 05 Black" class="option-image">
@@ -808,252 +800,246 @@
                         <h3>General Tooling</h3>
 
                         <div class="form-group">
-                            <label>Tooling Pattern - Floral</label>
+                            <label>Tooling Pattern</label>
                             <div class="checkbox-grid">
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF01" name="toolingPatternFloral" value="F01">
+                                    <input type="radio" id="floralF01" name="toolingPattern" value="F01">
                                     <label for="floralF01">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F01_opt.webp" width="100%"
                                             height="auto" alt="F01" class="option-image">
-                                        F01
+                                        F01 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF02" name="toolingPatternFloral" value="F02">
+                                    <input type="radio" id="floralF02" name="toolingPattern" value="F02">
                                     <label for="floralF02">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F02_opt.webp" width="100%"
                                             height="auto" alt="F02" class="option-image">
-                                        F02
+                                        F02 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF03" name="toolingPatternFloral" value="F03">
+                                    <input type="radio" id="floralF03" name="toolingPattern" value="F03">
                                     <label for="floralF03">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F03_opt.webp" width="100%"
                                             height="auto" alt="F03" class="option-image">
-                                        F03
+                                        F03 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF04" name="toolingPatternFloral" value="F04">
+                                    <input type="radio" id="floralF04" name="toolingPattern" value="F04">
                                     <label for="floralF04">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F04_opt.webp" width="100%"
                                             height="auto" alt="F04" class="option-image">
-                                        F04
+                                        F04 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF05" name="toolingPatternFloral" value="F05">
+                                    <input type="radio" id="floralF05" name="toolingPattern" value="F05">
                                     <label for="floralF05">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F05_opt.webp" width="100%"
                                             height="auto" alt="F05" class="option-image">
-                                        F05
+                                        F05 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF06" name="toolingPatternFloral" value="F06">
+                                    <input type="radio" id="floralF06" name="toolingPattern" value="F06">
                                     <label for="floralF06">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F06_opt.webp" width="100%"
                                             height="auto" alt="F06" class="option-image">
-                                        F06
+                                        F06 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF07" name="toolingPatternFloral" value="F07">
+                                    <input type="radio" id="floralF07" name="toolingPattern" value="F07">
                                     <label for="floralF07">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F07_opt.webp" width="100%"
                                             height="auto" alt="F07" class="option-image">
-                                        F07
+                                        F07 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF08" name="toolingPatternFloral" value="F08">
+                                    <input type="radio" id="floralF08" name="toolingPattern" value="F08">
                                     <label for="floralF08">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F08_opt.webp" width="100%"
                                             height="auto" alt="F08" class="option-image">
-                                        F08
+                                        F08 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF09" name="toolingPatternFloral" value="F09">
+                                    <input type="radio" id="floralF09" name="toolingPattern" value="F09">
                                     <label for="floralF09">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F09_opt.webp" width="100%"
                                             height="auto" alt="F09" class="option-image">
-                                        F09
+                                        F09 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF10" name="toolingPatternFloral" value="F10">
+                                    <input type="radio" id="floralF10" name="toolingPattern" value="F10">
                                     <label for="floralF10">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F10_opt.webp" width="100%"
                                             height="auto" alt="F10" class="option-image">
-                                        F10
+                                        F10 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF11" name="toolingPatternFloral" value="F11">
+                                    <input type="radio" id="floralF11" name="toolingPattern" value="F11">
                                     <label for="floralF11">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F11_opt.webp" width="100%"
                                             height="auto" alt="F11" class="option-image">
-                                        F11
+                                        F11 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF12" name="toolingPatternFloral" value="F12">
+                                    <input type="radio" id="floralF12" name="toolingPattern" value="F12">
                                     <label for="floralF12">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F12_opt.webp" width="100%"
                                             height="auto" alt="F12" class="option-image">
-                                        F12
+                                        F12 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF13" name="toolingPatternFloral" value="F13">
+                                    <input type="radio" id="floralF13" name="toolingPattern" value="F13">
                                     <label for="floralF13">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F13_opt.webp" width="100%"
                                             height="auto" alt="F13" class="option-image">
-                                        F13
+                                        F13 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF14" name="toolingPatternFloral" value="F14">
+                                    <input type="radio" id="floralF14" name="toolingPattern" value="F14">
                                     <label for="floralF14">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F14_opt.webp" width="100%"
                                             height="auto" alt="F14" class="option-image">
-                                        F14
+                                        F14 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF15" name="toolingPatternFloral" value="F15">
+                                    <input type="radio" id="floralF15" name="toolingPattern" value="F15">
                                     <label for="floralF15">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F15_opt.webp" width="100%"
                                             height="auto" alt="F15" class="option-image">
-                                        F15
+                                        F15 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="floralF16" name="toolingPatternFloral" value="F16">
+                                    <input type="radio" id="floralF16" name="toolingPattern" value="F16">
                                     <label for="floralF16">
                                         <img src="imgs/12-GeneralTooling/01-Floral/Floral_TMK_F16_opt.webp" width="100%"
                                             height="auto" alt="F16" class="option-image">
-                                        F16
+                                        F16 - Floral
                                     </label>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Tooling Pattern - Geometric</label>
-                            <div class="checkbox-grid">
                                 <div class="checkbox-item">
-                                    <input type="radio" id="geometricG01" name="toolingPatternGeometric" value="G01">
+                                    <input type="radio" id="geometricG01" name="toolingPattern" value="G01">
                                     <label for="geometricG01">
                                         <img src="imgs/12-GeneralTooling/02-Geometric/Geometric_TMK_G01_opt.webp"
                                             width="100%" height="auto" alt="G01" class="option-image">
-                                        G01
+                                        G01 - Geometric
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="geometricG02" name="toolingPatternGeometric" value="G02">
+                                    <input type="radio" id="geometricG02" name="toolingPattern" value="G02">
                                     <label for="geometricG02">
                                         <img src="imgs/12-GeneralTooling/02-Geometric/Geometric_TMK_G02_opt.webp"
                                             width="100%" height="auto" alt="G02" class="option-image">
-                                        G02
+                                        G02 - Geometric
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="geometricG03" name="toolingPatternGeometric" value="G03">
+                                    <input type="radio" id="geometricG03" name="toolingPattern" value="G03">
                                     <label for="geometricG03">
                                         <img src="imgs/12-GeneralTooling/02-Geometric/Geometric_TMK_G03_opt.webp"
                                             width="100%" height="auto" alt="G03" class="option-image">
-                                        G03
+                                        G03 - Geometric
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="geometricG04" name="toolingPatternGeometric" value="G04">
+                                    <input type="radio" id="geometricG04" name="toolingPattern" value="G04">
                                     <label for="geometricG04">
                                         <img src="imgs/12-GeneralTooling/02-Geometric/Geometric_TMK_G04_opt.webp"
                                             width="100%" height="auto" alt="G04" class="option-image">
-                                        G04
+                                        G04 - Geometric
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="geometricG05" name="toolingPatternGeometric" value="G05">
+                                    <input type="radio" id="geometricG05" name="toolingPattern" value="G05">
                                     <label for="geometricG05">
                                         <img src="imgs/12-GeneralTooling/02-Geometric/Geometric_TMK_G05_opt.webp"
                                             width="100%" height="auto" alt="G05" class="option-image">
-                                        G05
+                                        G05 - Geometric
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="geometricG06" name="toolingPatternGeometric" value="G06">
+                                    <input type="radio" id="geometricG06" name="toolingPattern" value="G06">
                                     <label for="geometricG06">
                                         <img src="imgs/12-GeneralTooling/02-Geometric/Geometric_TMK_G06_opt.webp"
                                             width="100%" height="auto" alt="G06" class="option-image">
-                                        G06
+                                        G06 - Geometric
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="geometricG07" name="toolingPatternGeometric" value="G07">
+                                    <input type="radio" id="geometricG07" name="toolingPattern" value="G07">
                                     <label for="geometricG07">
                                         <img src="imgs/12-GeneralTooling/02-Geometric/Geometric_TMK_G07_opt.webp"
                                             width="100%" height="auto" alt="G07" class="option-image">
-                                        G07
+                                        G07 - Geometric
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="geometricG08" name="toolingPatternGeometric" value="G08">
+                                    <input type="radio" id="geometricG08" name="toolingPattern" value="G08">
                                     <label for="geometricG08">
                                         <img src="imgs/12-GeneralTooling/02-Geometric/Geometric_TMK_G08_opt.webp"
                                             width="100%" height="auto" alt="G08" class="option-image">
-                                        G08
+                                        G08 - Geometric
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="geometricG09" name="toolingPatternGeometric" value="G09">
+                                    <input type="radio" id="geometricG09" name="toolingPattern" value="G09">
                                     <label for="geometricG09">
                                         <img src="imgs/12-GeneralTooling/02-Geometric/Geometric_TMK_G09_opt.webp"
                                             width="100%" height="auto" alt="G09" class="option-image">
-                                        G09
+                                        G09 - Geometric
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="geometricG10" name="toolingPatternGeometric" value="G10">
+                                    <input type="radio" id="geometricG10" name="toolingPattern" value="G10">
                                     <label for="geometricG10">
                                         <img src="imgs/12-GeneralTooling/02-Geometric/Geometric_TMK_G10_opt.webp"
                                             width="100%" height="auto" alt="G10" class="option-image">
-                                        G10
+                                        G10 - Geometric
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="geometricG11" name="toolingPatternGeometric" value="G11">
+                                    <input type="radio" id="geometricG11" name="toolingPattern" value="G11">
                                     <label for="geometricG11">
                                         <img src="imgs/12-GeneralTooling/02-Geometric/Geometric_TMK_G11_opt.webp"
                                             width="100%" height="auto" alt="G11" class="option-image">
-                                        G11
+                                        G11 - Geometric
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="geometricG12" name="toolingPatternGeometric" value="G12">
+                                    <input type="radio" id="geometricG12" name="toolingPattern" value="G12">
                                     <label for="geometricG12">
                                         <img src="imgs/12-GeneralTooling/02-Geometric/Geometric_TMK_G12_opt.webp"
                                             width="100%" height="auto" alt="G12" class="option-image">
-                                        G12
+                                        G12 - Geometric
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="geometricG13" name="toolingPatternGeometric" value="G13">
+                                    <input type="radio" id="geometricG13" name="toolingPattern" value="G13">
                                     <label for="geometricG13">
                                         <img src="imgs/12-GeneralTooling/02-Geometric/Geometric_TMK_G13_opt.webp"
                                             width="100%" height="auto" alt="G13" class="option-image">
-                                        G13
+                                        G13 - Geometric
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="geometricG14" name="toolingPatternGeometric" value="G14">
+                                    <input type="radio" id="geometricG14" name="toolingPattern" value="G14">
                                     <label for="geometricG14">
                                         <img src="imgs/12-GeneralTooling/02-Geometric/Geometric_TMK_G14_opt.webp"
                                             width="100%" height="auto" alt="G14" class="option-image">
-                                        G14
+                                        G14 - Geometric
                                     </label>
                                 </div>
                             </div>
@@ -1191,7 +1177,7 @@
                                 <input type="radio" id="dropDownNeoprene" name="riggingStyle"
                                     value="Drop Down Neoprene">
                                 <label for="dropDownNeoprene">
-                                    <img src="imgs/15-RiggingStyle/06-DropDown_opt.webp" width="100%" height="auto"
+                                    <img src="imgs/15-RiggingStyle/04-Drop Down_opt.webp" width="100%" height="auto"
                                         alt="Drop Down Neoprene" class="option-image">
                                     Drop Down Neoprene
                                 </label>
@@ -1199,7 +1185,7 @@
                             <div class="checkbox-item">
                                 <input type="radio" id="dropDown" name="riggingStyle" value="Drop Down">
                                 <label for="dropDown">
-                                    <img src="imgs/15-RiggingStyle/04-Drop Down_opt.webp" width="100%" height="auto"
+                                    <img src="imgs/15-RiggingStyle/06-DropDown_opt.webp" width="100%" height="auto"
                                         alt="Drop Down" class="option-image">
                                     Drop Down
                                 </label>

@@ -310,8 +310,7 @@ class PDFGenerator {
     // Grupo 2 – Plain Parts
     this.addSectionTitle(this.getTranslation('plainParts'));
     const plainPartsData = [
-      [this.getTranslation('leatherColorRoughout'), this.getNumberedRadioValue('leatherColorRoughout')],
-      [this.getTranslation('leatherColorSmooth'), this.getNumberedRadioValue('leatherColorSmooth')]
+      [this.getTranslation('leatherColorLabel'), this.getNumberedRadioValue('leatherColor')]
     ];
     this.addDataTable(plainPartsData.filter(item => item[1]));
 
@@ -325,8 +324,7 @@ class PDFGenerator {
     // Grupo 4 – General Tooling
     this.addSectionTitle(this.getTranslation('generalTooling'));
     const generalToolingData = [
-      [this.getTranslation('toolingPatternFloral'), this.getNumberedRadioValue('toolingPatternFloral')],
-      [this.getTranslation('toolingPatternGeometric'), this.getNumberedRadioValue('toolingPatternGeometric')]
+      [this.getTranslation('toolingPattern'), this.getNumberedRadioValue('toolingPattern')]
     ];
     this.addDataTable(generalToolingData.filter(item => item[1]));
 
