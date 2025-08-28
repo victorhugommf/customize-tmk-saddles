@@ -35,11 +35,26 @@ class SaddleFormManager {
     hideAllDynamicSections() {
         const sectionsToHide = [
             '#hybridStyleGroup',
-            '#gulletOtherGroup'
+            '#gulletOtherGroup',
+            '#toolingPatternOptions'
         ];
         sectionsToHide.forEach(sectionId => $(sectionId).addClass('hidden'));
 
 
+    }
+
+    hideSaddleBuildDynamicItems() {
+        const sectionsToHide = [
+            '#toolingPatternOptions',
+            '#tooledCoverage',
+            '#leatherColor',
+            '#hybridStyleGroup'
+        ];
+        sectionsToHide.forEach(sectionId => {
+            $(sectionId).hide();
+            $(sectionId).find('input[type="radio"]').prop('checked', false);
+            $(sectionId).find('select').val('');
+        });
     }
 
     handleSaddleBuildChange(saddleBuild) {
@@ -54,7 +69,7 @@ class SaddleFormManager {
 
 
     showSectionsForBuild(buildType) {
-        this.hideAllDynamicSections();
+        this.hideSaddleBuildDynamicItems();
         switch (buildType) {
             case 'Full Leather': this.showFullLeatherSections(); break;
             case 'Hybrid': this.showHybridSections(); break;
@@ -63,21 +78,56 @@ class SaddleFormManager {
     }
 
     showFullLeatherSections() {
+        // Mostrar e reativar a seção de Tooling para Full Leather        
+        const sectionsToShow = [
+            '#toolingPatternOptions',
+            '#tooledCoverage',
+            '#leatherColor',
+        ];
+        sectionsToShow.forEach(sectionId => {
+            $(sectionId).show();
+        });
+
+        // Desativar riggings de neoprene
         const riggingNeoprene = ['#doubleRoundRigging', '#dropDoubleSquare', '#dropDownNeoprene'];
         riggingNeoprene.forEach(id => {
             $(id).css('opacity', '0.5');
             $(id).prop('disabled', true).prop('checked', false);
         });
+
+        console.log('Seção de Tooling ativada para Full Leather');
     }
 
     showHybridSections() {
-        const sections = ['#hybridStyleGroup'];
-        sections.forEach(id => $(id).removeClass('hidden'));
+        // Mostrar seções específicas do Hybrid   
+        const sectionsToShow = [
+            '#hybridStyleGroup',
+            '#toolingPatternOptions'
+        ];
+        sectionsToShow.forEach(sectionId => {
+            $(sectionId).show();
+            $(sectionId).find('input[type="radio"]').prop('checked', false);
+            $(sectionId).find('select').val('');
+        });
+
+        console.log('Seção de Tooling ativada para Hybrid');
     }
 
     showFullNeopreneSections() {
-        const sections = ['#toolingPatternOptions'];
-        sections.forEach(id => $(id).hide());
+        // Desativar toda a seção de Tooling & Pattern Options para Full Neoprene
+        const toolingSection = $('#toolingPatternOptions');
+
+        // Esconder a seção completa
+        toolingSection.hide();
+
+        // Limpar todas as seleções de tooling
+        toolingSection.find('input[type="radio"]').prop('checked', false);
+        toolingSection.find('select').val('');
+
+        // Desativar todos os inputs da seção
+        toolingSection.find('input, select').prop('disabled', true);
+
+        console.log('Seção de Tooling desativada para Full Neoprene');
     }
 
     handleSeatStyleChange(seatStyle) {

@@ -122,6 +122,7 @@
                         <select id="gulletSize" name="gulletSize" data-i18n-options="gulletSize">
                             <option value="" data-i18n="selectOption">Select...</option>
                             <option value="6.5">6.5"</option>
+                            <option value="6.75">6.75"</option>
                             <option value="7">7"</option>
                             <option value="7.25">7.25"</option>
                             <option value="other">Other</option>
@@ -554,7 +555,7 @@
                 <!-- Tooling & Pattern Options -->
                 <div class="section" id="toolingPatternOptions">
                     <h2 class="section-title" data-i18n="toolingSection">🔨 Tooling & Pattern Options</h2>
-                    <div class="form-group">
+                    <div class="form-group" id="tooledCoverage">
                         <label data-i18n="tooledCoverageLabel">Tooled Coverage</label>
                         <div class="checkbox-grid" data-i18n-radio="tooledCoverage">
                             <div class="checkbox-item">
@@ -650,9 +651,9 @@
                             </div>
                         </div>
                     </div>
-                    <h2>Plain Parts</h2>
 
-                    <div class="form-group">
+                    <div class="form-group" id="leatherColor">
+                        <h2>Plain Parts</h2>
                         <label data-i18n="leatherColorLabel">Leather Color</label>
                         <div class="checkbox-grid" data-i18n-radio="leatherColor">
                             <!-- Roughout Options -->

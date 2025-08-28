@@ -423,6 +423,13 @@ class PDFGenerator {
   }
 
   async addToolingOptions() {
+    // Verificar se o Saddle Build selecionado é "Hybrid"
+    const saddleBuild = this.getCheckedRadioValue('saddleBuild');
+    if (saddleBuild === 'Hybrid') {
+      // Se for Hybrid, não mostrar as opções de tooling
+      return;
+    }
+
     const toolingOption = this.getCheckedRadioValue('tooledCoverage');
     if (!toolingOption) return;
 
