@@ -196,6 +196,11 @@ body {
   display: none;
 }
 
+/* Hide checkbox buttons for accessoriesGroup multi-select */
+.checkbox-item input[type="checkbox"][name="accessoriesGroup"] {
+  display: none;
+}
+
 /* Style labels to act as clickable image containers */
 .checkbox-item label {
   cursor: pointer;

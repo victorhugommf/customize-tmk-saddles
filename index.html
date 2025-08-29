@@ -1202,7 +1202,7 @@
                         <label data-i18n="additionalFeaturesLabel">Additional Saddle Features</label>
                         <div class="checkbox-grid" data-i18n-radio="accessoriesGroup">
                             <div class="checkbox-item">
-                                <input type="radio" id="hoofPickHolder" name="accessoriesGroup"
+                                <input type="checkbox" id="hoofPickHolder" name="accessoriesGroup"
                                     value="Hoof Pick Holder on Latego">
                                 <label for="hoofPickHolder">
                                     <img src="imgs/16-AcessoriesOptions/01-Hoof Pick Holder_opt.webp" width="100%"
@@ -1211,7 +1211,7 @@
                                 </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="radio" id="backCinchHole" name="accessoriesGroup"
+                                <input type="checkbox" id="backCinchHole" name="accessoriesGroup"
                                     value="Hoof Pick Holder on Skirt">
                                 <label for="backCinchHole">
                                     <img src="imgs/16-AcessoriesOptions/02-Back Cinch Hole_opt.webp" width="100%"
@@ -1220,7 +1220,7 @@
                                 </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="radio" id="rigGuard" name="accessoriesGroup" value="Rig Guard">
+                                <input type="checkbox" id="rigGuard" name="accessoriesGroup" value="Rig Guard">
                                 <label for="rigGuard">
                                     <img src="imgs/16-AcessoriesOptions/03-Rig Guard_opt.webp" width="100%"
                                         height="auto" alt="Rig Guard" class="option-image">
@@ -1228,7 +1228,7 @@
                                 </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="radio" id="saddleStrings" name="accessoriesGroup"
+                                <input type="checkbox" id="saddleStrings" name="accessoriesGroup"
                                     value="Saddle String 4 or 6">
                                 <label for="saddleStrings">
                                     <img src="imgs/16-AcessoriesOptions/05-Saddle String 4 or 6_opt.webp" width="100%"
@@ -1239,7 +1239,15 @@
                         </div>
                     </div>
 
-
+                    <!-- Select para Saddle String quantity -->
+                    <div class="form-group" id="saddleStringQuantityGroup" style="display: none;">
+                        <label data-i18n="saddleStringQuantityLabel">Number of Saddle Strings</label>
+                        <select id="saddleStringQuantity" name="saddleStringQuantity" class="form-select">
+                            <option value="" data-i18n="selectOption">Select...</option>
+                            <option value="4" data-i18n="fourStrings">4 Strings</option>
+                            <option value="6" data-i18n="sixStrings">6 Strings</option>
+                        </select>
+                    </div>
 
                     <div class="form-group">
                         <label data-i18n="buckStitchingStyleLabel">Buck Stitching Style</label>
@@ -1287,7 +1295,9 @@
                                 </label>
                             </div>
                         </div>
+
                     </div>
+
                     <div class="form-group">
                         <style>
                             .color-palette {

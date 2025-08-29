@@ -48,6 +48,50 @@ class PDFGenerator {
         }
       }
     }
+  }
+
+  // Método para obter múltiplas imagens selecionadas de campos checkbox
+  async getMultipleSelectedImages(fieldName) {
+    const $checkedFields = this.$form.find(`[name="${fieldName}"]:checked`);
+    if ($checkedFields.length) {
+      const images = [];
+
+      for (let i = 0; i < $checkedFields.length; i++) {
+        const $checkedField = $($checkedFields[i]);
+
+        // Procurar a imagem no label associado ao checkbox
+        const $label = $checkedField.siblings('label').add($checkedField.next('label'));
+        let $img = $label.find('img.option-image');
+
+        // Se não encontrou, procurar no elemento pai (para estruturas diferentes)
+        if (!$img.length) {
+          $img = $checkedField.closest('.checkbox-item').find('img.option-image');
+        }
+
+        if ($img.length) {
+          const imgSrc = $img.attr('src');
+
+          // Verificar cache primeiro
+          let imageData;
+          if (this.imageCache.has(imgSrc)) {
+            imageData = this.imageCache.get(imgSrc);
+          } else {
+            // Converter imagem para base64 com fundo branco e obter dimensões
+            imageData = await this.imageToBase64WithDimensions($img[0]);
+            if (imageData) {
+              this.imageCache.set(imgSrc, imageData);
+            }
+          }
+
+          if (imageData) {
+            images.push(imageData);
+          }
+        }
+      }
+
+      return images.length > 0 ? images : null;
+    }
+    return null;
     return null;
   }
 
@@ -497,7 +541,7 @@ class PDFGenerator {
     this.addSectionTitle(this.getTranslation('accessoriesOptions'));
 
     // Obter imagens selecionadas
-    const accessoriesGroupImage = await this.getSelectedImage('accessoriesGroup');
+    const accessoriesGroupImage = await this.getMultipleSelectedImages('accessoriesGroup');
     const buckstitchingImage = await this.getSelectedImage('buckstitching');
     const backCinchImage = await this.getSelectedImage('backCinch');
     const stirrupsImage = await this.getSelectedImage('stirrups');
@@ -505,7 +549,7 @@ class PDFGenerator {
     const conchosImage = await this.getSelectedImage('conchos');
 
     const accessoriesData = [
-      [this.getTranslation('additionalFeatures'), this.getNumberedRadioValue('accessoriesGroup'), accessoriesGroupImage],
+      [this.getTranslation('additionalFeatures'), this.getMultipleCheckedValues('accessoriesGroup'), accessoriesGroupImage],
       [this.getTranslation('buckStitchingStyle'), this.getNumberedRadioValue('buckstitching'), buckstitchingImage],
       [this.getTranslation('buckStitchColor'), this.getFieldValue('buckStitchColor')],
       [this.getTranslation('backCinch'), this.getNumberedRadioValue('backCinch'), backCinchImage],
@@ -574,7 +618,17 @@ class PDFGenerator {
     data.forEach(([label, value, imageData]) => {
       if (value) {
         const hasImage = imageData && imageData !== null;
-        const requiredSpace = hasImage ? 45 : 7; // Mais espaço para imagens 2x maiores
+        // Calcular espaço necessário baseado no número de imagens
+        let requiredSpace = 7; // Espaço base
+        if (hasImage) {
+          if (Array.isArray(imageData)) {
+            // Múltiplas imagens: 45px por imagem + 5px de espaçamento
+            requiredSpace = (imageData.length * 45) + ((imageData.length - 1) * 5) + 8;
+          } else {
+            // Imagem única
+            requiredSpace = 45;
+          }
+        }
 
         this.checkPageBreak(requiredSpace);
 
@@ -587,38 +641,77 @@ class PDFGenerator {
 
         let textHeight = Math.max(7, splitValue.length * 5);
 
-        // Adicionar imagem se disponível
+        // Adicionar imagem(ns) se disponível(is)
         if (hasImage) {
           try {
             const maxWidth = 50;  // 2x o tamanho anterior (25 -> 50)
             const maxHeight = 36; // 2x o tamanho anterior (18 -> 36)
 
-            let imageWidth = maxWidth;
-            let imageHeight = maxHeight;
-            let base64Data = imageData;
+            // Verificar se é um array de imagens (múltiplas seleções)
+            if (Array.isArray(imageData)) {
+              let currentImageY = this.yPosition - 10;
+              let totalImageHeight = 0;
 
-            // Se imageData é um objeto com dimensões, calcular proporções corretas
-            if (typeof imageData === 'object' && imageData.base64) {
-              base64Data = imageData.base64;
-              const dimensions = this.calculateImageDimensions(
-                imageData.width,
-                imageData.height,
-                maxWidth,
-                maxHeight
-              );
-              imageWidth = dimensions.width;
-              imageHeight = dimensions.height;
+              imageData.forEach((singleImageData, index) => {
+                let imageWidth = maxWidth;
+                let imageHeight = maxHeight;
+                let base64Data = singleImageData;
+
+                // Se singleImageData é um objeto com dimensões, calcular proporções corretas
+                if (typeof singleImageData === 'object' && singleImageData.base64) {
+                  base64Data = singleImageData.base64;
+                  const dimensions = this.calculateImageDimensions(
+                    singleImageData.width,
+                    singleImageData.height,
+                    maxWidth,
+                    maxHeight
+                  );
+                  imageWidth = dimensions.width;
+                  imageHeight = dimensions.height;
+                }
+
+                const imageX = this.rightMargin - maxWidth - 2;
+
+                // Detectar formato da imagem
+                const format = base64Data.startsWith('data:image/png') ? 'PNG' : 'JPEG';
+
+                // Adicionar imagem com proporções corretas
+                this.doc.addImage(base64Data, format, imageX, currentImageY, imageWidth, imageHeight);
+
+                currentImageY += imageHeight + 5; // Espaço entre imagens
+                totalImageHeight += imageHeight + 5;
+              });
+
+              textHeight = Math.max(textHeight, totalImageHeight + 8);
+            } else {
+              // Imagem única (comportamento original)
+              let imageWidth = maxWidth;
+              let imageHeight = maxHeight;
+              let base64Data = imageData;
+
+              // Se imageData é um objeto com dimensões, calcular proporções corretas
+              if (typeof imageData === 'object' && imageData.base64) {
+                base64Data = imageData.base64;
+                const dimensions = this.calculateImageDimensions(
+                  imageData.width,
+                  imageData.height,
+                  maxWidth,
+                  maxHeight
+                );
+                imageWidth = dimensions.width;
+                imageHeight = dimensions.height;
+              }
+
+              const imageX = this.rightMargin - maxWidth - 2;
+              const imageY = this.yPosition - 10; // Ajustar posição Y para imagem maior
+
+              // Detectar formato da imagem
+              const format = base64Data.startsWith('data:image/png') ? 'PNG' : 'JPEG';
+
+              // Adicionar imagem com proporções corretas
+              this.doc.addImage(base64Data, format, imageX, imageY, imageWidth, imageHeight);
+              textHeight = Math.max(textHeight, maxHeight + 8); // Mais espaço para imagem maior
             }
-
-            const imageX = this.rightMargin - maxWidth - 2;
-            const imageY = this.yPosition - 10; // Ajustar posição Y para imagem maior
-
-            // Detectar formato da imagem
-            const format = base64Data.startsWith('data:image/png') ? 'PNG' : 'JPEG';
-
-            // Adicionar imagem com proporções corretas
-            this.doc.addImage(base64Data, format, imageX, imageY, imageWidth, imageHeight);
-            textHeight = Math.max(textHeight, maxHeight + 8); // Mais espaço para imagem maior
           } catch (error) {
             console.warn('Erro ao adicionar imagem ao PDF:', error);
           }
@@ -686,6 +779,35 @@ class PDFGenerator {
       const originalValue = $field.val();
       const translatedValue = this.getOptionTranslation(fieldName, originalValue);
       return `${formattedIndex} - ${translatedValue}`;
+    }
+    return '';
+  }
+
+  getMultipleCheckedValues(fieldName) {
+    const $checkedFields = this.$form.find(`[name="${fieldName}"]:checked`);
+    if ($checkedFields.length) {
+      const allFields = this.$form.find(`[name="${fieldName}"]`);
+      const values = [];
+
+      $checkedFields.each((index, field) => {
+        const $field = $(field);
+        const checkedIndex = allFields.index($field) + 1; // Start from 1
+        const formattedIndex = checkedIndex.toString().padStart(2, '0'); // Format as 01, 02, etc.
+        let originalValue = $field.val();
+
+        // Verificar se é Saddle String e adicionar a quantidade
+        if (originalValue === 'Saddle String 4 or 6') {
+          const saddleStringQuantity = this.$form.find('#saddleStringQuantity').val();
+          if (saddleStringQuantity) {
+            originalValue = `Saddle String ${saddleStringQuantity}`;
+          }
+        }
+
+        const translatedValue = this.getOptionTranslation(fieldName, originalValue);
+        values.push(`${formattedIndex} - ${translatedValue}`);
+      });
+
+      return values.join(', ');
     }
     return '';
   }

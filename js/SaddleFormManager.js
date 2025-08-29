@@ -21,6 +21,7 @@ class SaddleFormManager {
         $('input[name="tooledCoverage"]').on('change', e => this.handleToolingChange(e));
         $('#gulletSize').on('change', this.handleGulletChange);
         $('input[name="seatOptions"]').on('change', this.handleAccentLimit);
+        $('input[name="accessoriesGroup"]').on('change', e => this.handleAccessoriesChange(e));
         $('input[name="saddleBuild"], input[name="seatStyle"], input[name="accessoriesGroup"]')
             .on('change', () => this.updatePrice());
         // PDF generation buttons
@@ -226,6 +227,19 @@ class SaddleFormManager {
         }
     }
 
+    handleAccessoriesChange(e) {
+        const $saddleStringQuantityGroup = $('#saddleStringQuantityGroup');
+        const $saddleStringsCheckbox = $('#saddleStrings');
+
+        if ($saddleStringsCheckbox.is(':checked')) {
+            $saddleStringQuantityGroup.show();
+            $('#saddleStringQuantity').prop('required', true);
+        } else {
+            $saddleStringQuantityGroup.hide();
+            $('#saddleStringQuantity').prop('required', false).val('');
+        }
+    }
+
     // Continúa com os demais métodos no mesmo estilo...
     setupAutoSave() {
         this.autoSaveInterval = setInterval(() => {
@@ -368,6 +382,7 @@ class SaddleFormManager {
     getFormData() {
         const saddleBuild = $('input[name="saddleBuild"]:checked').val();
         const seatStyle = $('input[name="seatStyle"]:checked').val();
+        const saddleStringQuantity = $('#saddleStringQuantity').val();
 
         const accessoriesGroup = [];
         $('input[name="accessoriesGroup"]:checked').each(function () {
@@ -377,7 +392,8 @@ class SaddleFormManager {
         return {
             saddleBuild,
             seatStyle,
-            accessoriesGroup
+            accessoriesGroup,
+            saddleStringQuantity
         };
     }
 

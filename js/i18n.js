@@ -118,7 +118,7 @@ class I18nManager {
 
     // Translate select options and radio labels
     this.translateSelectOptions();
-    this.translateRadioLabels();
+    this.translateInputLabels();
 
     // Update document title
     const titleTranslation = this.getTranslation('pageTitle');
@@ -152,15 +152,15 @@ class I18nManager {
     });
   }
 
-  translateRadioLabels() {
+  translateInputLabels() {
     const radioGroups = document.querySelectorAll('[data-i18n-radio]');
     radioGroups.forEach(group => {
       const optionsKey = group.getAttribute('data-i18n-radio');
-      const radios = group.querySelectorAll('input[type="radio"]');
+      const inputs = group.querySelectorAll('input[type="radio"], input[type="checkbox"]');
 
-      radios.forEach(radio => {
-        const value = radio.value;
-        const label = radio.nextElementSibling;
+      inputs.forEach(input => {
+        const value = input.value;
+        const label = input.nextElementSibling;
         if (label && label.tagName === 'LABEL') {
           const translationPath = `options.${optionsKey}.${value}`;
           const translation = this.getTranslation(translationPath);
@@ -209,7 +209,7 @@ class I18nManager {
             nodesToRemove.forEach(node => node.remove());
 
             // Add the translated text at the end
-            const textNode = document.createTextNode(translation);
+            textNode = document.createTextNode(translation);
             label.appendChild(textNode);
           }
         }

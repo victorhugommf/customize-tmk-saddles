@@ -45,6 +45,9 @@
     "riggingStyleLabel": "Rigging Style",
     "accessoriesSection": "⚙️ Accessories & Options",
     "additionalFeaturesLabel": "Additional Saddle Features",
+    "saddleStringQuantityLabel": "Number of Saddle Strings",
+    "fourStrings": "4 Strings",
+    "sixStrings": "6 Strings",
     "buckStitchingStyleLabel": "Buck Stitching Style",
     "buckStitchColorLabel": "Buck Stitch Color",
     "backCinchLabel": "Back Cinch",
@@ -189,11 +192,10 @@
         "Drop Down": "Drop Down"
       },
       "accessoriesGroup": {
-        "Saddle String 4 or 6": "Saddle String 4 or 6",
+        "Hoof Pick Holder on Latego": "Hoof Pick Holder on Latego",
+        "Hoof Pick Holder on Skirt": "Hoof Pick Holder on Skirt",
         "Rig Guard": "Rig Guard",
-        "Breast Collar": "Breast Collar",
-        "Back Cinch": "Back Cinch",
-        "Tie Strap": "Tie Strap"
+        "Saddle String 4 or 6": "Saddle String 4 or 6"
       },
       "buckstitching": {
         "None": "None",
@@ -364,6 +366,9 @@
     "riggingStyleLabel": "Estilo de Argolas",
     "accessoriesSection": "⚙️ Acessórios e Opções",
     "additionalFeaturesLabel": "Acessórios Adicionais",
+    "saddleStringQuantityLabel": "Número de Tentos da Margarida",
+    "fourStrings": "4 Tentos",
+    "sixStrings": "6 Tentos",
     "buckStitchingStyleLabel": "Modelo de Tenteado",
     "buckStitchColorLabel": "Cor do Tenteado",
     "backCinchLabel": "Barrigueira Traseira",
