@@ -28,6 +28,7 @@
     "jockeySeatLabel": "Jockey Seat",
     "seatStyleLabel": "Seat Style",
     "seatOptionsLabel": "Seat Options",
+    "neopreneColorLabel": "Neoprene Color",
     "toolingSection": "🔨 Tooling & Pattern Options",
     "tooledCoverageLabel": "Tooled Coverage",
     "plainPartsSection": "Plain Parts",
@@ -276,6 +277,21 @@
         "Rough Out 19 Brown": "Rough Out 19 Brown",
         "Rough Out 20 Tan": "Rough Out 20 Tan"
       },
+      "neopreneColor": {
+        "Neoprene 01 Turquoise Green": "Neoprene 01 Turquoise Green",
+        "Neoprene 02 Turquoise Blue": "Neoprene 02 Turquoise Blue",
+        "Neoprene 03 Royal Blue": "Neoprene 03 Royal Blue",
+        "Neoprene 04 Purple": "Neoprene 04 Purple",
+        "Neoprene 05 Red": "Neoprene 05 Red",
+        "Neoprene 06 Pink": "Neoprene 06 Pink",
+        "Neoprene 07 Moss Green": "Neoprene 07 Moss Green",
+        "Neoprene 08 Grey": "Neoprene 08 Grey",
+        "Neoprene 09 Dark Brown": "Neoprene 09 Dark Brown",
+        "Neoprene 10 Brown": "Neoprene 10 Brown",
+        "Neoprene 11 Light Brown": "Neoprene 11 Light Brown",
+        "Neoprene 12 Cream": "Neoprene 12 Cream",
+        "Neoprene 13 Black": "Neoprene 13 Black"
+      },
       "leatherColor": {
         "Roughout 01 Natural": "Roughout 01 Natural",
         "Roughout 02 Chocolate": "Roughout 02 Chocolate",
@@ -349,6 +365,7 @@
     "jockeySeatLabel": "Aba do Assento",
     "seatStyleLabel": "Modelo do Assento",
     "seatOptionsLabel": "Opções do Assento",
+    "neopreneColorLabel": "Cor do Neoprene",
     "toolingSection": "🔨 Opções de Bordado e Padrões",
     "tooledCoverageLabel": "Cobertura de Bordado",
     "plainPartsSection": "Partes Lisas",
@@ -561,6 +578,21 @@
         "Smooth 15 Coffee": "Liso 15 Café",
         "Smooth 16 Brown": "Liso 16 Marrom",
         "Smooth 17 Tan": "Liso 17 Bege"
+      },
+      "neopreneColor": {
+        "Neoprene 01 Turquoise Green": "Neoprene 01 Verde Turquesa",
+        "Neoprene 02 Turquoise Blue": "Neoprene 02 Azul Turquesa",
+        "Neoprene 03 Royal Blue": "Neoprene 03 Azul Real",
+        "Neoprene 04 Purple": "Neoprene 04 Roxo",
+        "Neoprene 05 Red": "Neoprene 05 Vermelho",
+        "Neoprene 06 Pink": "Neoprene 06 Rosa",
+        "Neoprene 07 Moss Green": "Neoprene 07 Verde Musgo",
+        "Neoprene 08 Grey": "Neoprene 08 Cinza",
+        "Neoprene 09 Dark Brown": "Neoprene 09 Marrom Escuro",
+        "Neoprene 10 Brown": "Neoprene 10 Marrom",
+        "Neoprene 11 Light Brown": "Neoprene 11 Marrom Claro",
+        "Neoprene 12 Cream": "Neoprene 12 Creme",
+        "Neoprene 13 Black": "Neoprene 13 Preto"
       },
       "leatherColor": {
         "Roughout 01 Natural": "Rugoso 01 Natural",

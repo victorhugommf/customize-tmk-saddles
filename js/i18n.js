@@ -218,6 +218,12 @@ class I18nManager {
   }
 
   getTranslation(key) {
+    // Special handling: neopreneColor uses the same translations as seatOptions
+    if (key.startsWith('options.neopreneColor.')) {
+      const seatOptionsKey = key.replace('options.neopreneColor.', 'options.seatOptions.');
+      return this.getTranslation(seatOptionsKey);
+    }
+
     const keys = key.split('.');
     let translation = this.translations[this.currentLanguage];
 

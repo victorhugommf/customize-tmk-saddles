@@ -37,7 +37,8 @@ class SaddleFormManager {
         const sectionsToHide = [
             '#hybridStyleGroup',
             '#gulletOtherGroup',
-            '#toolingPatternOptions'
+            '#toolingPatternOptions',
+            '#neopreneColorGroup'
         ];
         sectionsToHide.forEach(sectionId => $(sectionId).addClass('hidden'));
 
@@ -49,7 +50,8 @@ class SaddleFormManager {
             '#toolingPatternOptions',
             '#tooledCoverage',
             '#leatherColor',
-            '#hybridStyleGroup'
+            '#hybridStyleGroup',
+            '#neopreneColorGroup'
         ];
         sectionsToHide.forEach(sectionId => {
             $(sectionId).hide();
@@ -103,7 +105,8 @@ class SaddleFormManager {
         // Mostrar seções específicas do Hybrid   
         const sectionsToShow = [
             '#hybridStyleGroup',
-            '#toolingPatternOptions'
+            '#toolingPatternOptions',
+            '#neopreneColorGroup'
         ];
         sectionsToShow.forEach(sectionId => {
             $(sectionId).show();
@@ -113,20 +116,15 @@ class SaddleFormManager {
     }
 
     showFullNeopreneSections() {
-        // Desativar toda a seção de Tooling & Pattern Options para Full Neoprene
-        // const toolingSection = $('#toolingPatternOptions');
+        // Mostrar apenas a seção de Neoprene Color para Full Neoprene
+        const sectionsToShow = [
+            '#neopreneColorGroup'
+        ];
+        sectionsToShow.forEach(sectionId => {
+            $(sectionId).show();
+        });
 
-        // // Esconder a seção completa
-        // toolingSection.hide();
-
-        // // Limpar todas as seleções de tooling
-        // toolingSection.find('input[type="radio"]').prop('checked', false);
-        // toolingSection.find('select').val('');
-
-        // // Desativar todos os inputs da seção
-        // toolingSection.find('input, select').prop('disabled', true);
-
-        console.log('Seção de Tooling desativada para Full Neoprene');
+        console.log('Seção de Neoprene Color ativada para Full Neoprene');
     }
 
     handleSeatStyleChange(seatStyle) {
