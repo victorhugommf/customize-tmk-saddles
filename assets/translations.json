@@ -332,7 +332,12 @@
         "G11": "G11 - Geometric",
         "G12": "G12 - Geometric",
         "G13": "G13 - Geometric",
-        "G14": "G14 - Geometric"
+        "G14": "G14 - Geometric",
+        "G15": "G15 - Geometric",
+        "G16": "G16 - Geometric",
+        "F18": "F18 - Floral",
+        "F020": "F020 - Floral",
+        "H01": "H01 - Hybrid"
       }
     }
   },
@@ -634,7 +639,12 @@
         "G11": "G11 - Geométrico",
         "G12": "G12 - Geométrico",
         "G13": "G13 - Geométrico",
-        "G14": "G14 - Geométrico"
+        "G14": "G14 - Geométrico",
+        "G15": "G15 - Geométrico",
+        "G16": "G16 - Geométrico",
+        "F18": "F18 - Floral",
+        "F020": "F020 - Floral",
+        "H01": "H01 - Híbrido"
       }
     }
   }
