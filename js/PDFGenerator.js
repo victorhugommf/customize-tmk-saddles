@@ -576,6 +576,11 @@ class PDFGenerator {
   }
 
   addPaymentShipping() {
+    // Não incluir seção PAYMENT & SHIPPING para PDFs em português
+    if (this.language === 'pt') {
+      return;
+    }
+
     this.addSectionTitle(this.getTranslation('paymentShipping'));
 
     const paymentData = [
