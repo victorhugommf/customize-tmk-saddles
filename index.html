@@ -2021,12 +2021,7 @@
     <!-- jsPDF Library for PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-    <script>
-        // Cache-busting for PDF-related JavaScript files
-        const pdfCacheVersion = Date.now();
-        document.write('<script src="js/TranslationManager.js?v=' + pdfCacheVersion + '"><\/script>');
-        document.write('<script src="js/PDFGenerator.js?v=' + pdfCacheVersion + '"><\/script>');
-    </script>
+
     <script>
         // Initialize the form manager after DOM is loaded
         $(document).ready(function () {
