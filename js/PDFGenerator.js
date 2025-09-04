@@ -452,6 +452,9 @@ class PDFGenerator {
     const seatStyleImage = await this.getSelectedImage('seatStyle');
     const seatOptionsImage = await this.getSelectedImage('seatOptions');
 
+    // Obter imagem do neoprene color se selecionado
+    const neopreneColorImage = await this.getSelectedImage('neopreneColor');
+
     const designData = [
       [this.getTranslation('style'), this.getNumberedRadioValue('style'), styleImage],
       [this.getTranslation('skirtStyle'), this.getNumberedRadioValue('skirtStyle'), skirtStyleImage],
@@ -460,6 +463,7 @@ class PDFGenerator {
       [this.getTranslation('jockeySeat'), this.getNumberedRadioValue('jockeySeat'), jockeySeatImage],
       [this.getTranslation('seatStyle'), this.getNumberedRadioValue('seatStyle'), seatStyleImage],
       [this.getTranslation('seatOptions'), this.getNumberedRadioValue('seatOptions'), seatOptionsImage],
+      [this.getTranslation('neopreneColorLabel'), this.getNumberedRadioValue('neopreneColor'), neopreneColorImage],
     ];
 
     this.addDataTable(designData.filter(item => item[1]));
@@ -467,34 +471,43 @@ class PDFGenerator {
   }
 
   async addToolingOptions() {
-    // Verificar se o Saddle Build selecionado é "Hybrid"
+    // Verificar se o Saddle Build selecionado é "Full Neoprene" (que não tem tooling)
     const saddleBuild = this.getCheckedRadioValue('saddleBuild');
-    if (saddleBuild === 'Hybrid') {
-      // Se for Hybrid, não mostrar as opções de tooling
+    if (saddleBuild === 'Full Neoprene') {
+      // Se for Full Neoprene, não mostrar as opções de tooling
       return;
     }
 
-    const toolingOption = this.getCheckedRadioValue('tooledCoverage');
-    if (!toolingOption) return;
+    // Para Hybrid, não verificar tooledCoverage pois não é usado
+    // Para Full Leather, verificar se tooledCoverage foi selecionado
+    if (saddleBuild === 'Full Leather') {
+      const toolingOption = this.getCheckedRadioValue('tooledCoverage');
+      if (!toolingOption) return;
+    }
 
     this.addSectionTitle(this.getTranslation('toolingOptions'));
 
-    // Grupo 1 – Cobertura
-    const tooledCoverageImage = await this.getSelectedImage('tooledCoverage');
-    const coverageData = [
-      [this.getTranslation('tooledCoverage'), this.getOptionTranslation('tooledCoverage', toolingOption), tooledCoverageImage]
-    ];
-    this.addDataTable(coverageData);
+    // Grupo 1 – Cobertura (apenas para Full Leather)
+    if (saddleBuild === 'Full Leather') {
+      const toolingOption = this.getCheckedRadioValue('tooledCoverage');
+      const tooledCoverageImage = await this.getSelectedImage('tooledCoverage');
+      const coverageData = [
+        [this.getTranslation('tooledCoverage'), this.getOptionTranslation('tooledCoverage', toolingOption), tooledCoverageImage]
+      ];
+      this.addDataTable(coverageData);
+    }
 
-    // Grupo 2 – Plain Parts
-    this.addSectionTitle(this.getTranslation('plainParts'));
-    const leatherColorImage = await this.getSelectedImage('leatherColor');
-    const plainPartsData = [
-      [this.getTranslation('leatherColorLabel'), this.getNumberedRadioValue('leatherColor'), leatherColorImage]
-    ];
-    this.addDataTable(plainPartsData.filter(item => item[1]));
+    // Grupo 2 – Plain Parts (apenas para Full Leather)
+    if (saddleBuild === 'Full Leather') {
+      this.addSectionTitle(this.getTranslation('plainParts'));
+      const leatherColorImage = await this.getSelectedImage('leatherColor');
+      const plainPartsData = [
+        [this.getTranslation('leatherColorLabel'), this.getNumberedRadioValue('leatherColor'), leatherColorImage]
+      ];
+      this.addDataTable(plainPartsData.filter(item => item[1]));
+    }
 
-    // Grupo 3 – Tooled Parts
+    // Grupo 3 – Tooled Parts (para Full Leather e Hybrid)
     this.addSectionTitle(this.getTranslation('tooledParts'));
     const leatherColorTooledImage = await this.getSelectedImage('leatherColorTooled');
     const tooledPartsData = [
@@ -502,7 +515,7 @@ class PDFGenerator {
     ];
     this.addDataTable(tooledPartsData.filter(item => item[1]));
 
-    // Grupo 4 – General Tooling
+    // Grupo 4 – General Tooling (para Full Leather e Hybrid)
     this.addSectionTitle(this.getTranslation('generalTooling'));
     const toolingPatternImage = await this.getSelectedImage('toolingPattern');
     const generalToolingData = [
@@ -510,7 +523,7 @@ class PDFGenerator {
     ];
     this.addDataTable(generalToolingData.filter(item => item[1]));
 
-    // Grupo 5 – Border Tooling
+    // Grupo 5 – Border Tooling (para Full Leather e Hybrid)
     this.addSectionTitle(this.getTranslation('borderTooling'));
     const toolingPatternBorderImage = await this.getSelectedImage('toolingPatternBorder');
     const borderToolingData = [
@@ -543,20 +556,39 @@ class PDFGenerator {
     // Obter imagens selecionadas
     const accessoriesGroupImage = await this.getMultipleSelectedImages('accessoriesGroup');
     const buckstitchingImage = await this.getSelectedImage('buckstitching');
+    const studsImage = await this.getSelectedImage('studs');
+    const studsColorsImage = await this.getSelectedImage('studsColors');
     const backCinchImage = await this.getSelectedImage('backCinch');
     const stirrupsImage = await this.getSelectedImage('stirrups');
     const backSkirtImage = await this.getSelectedImage('backSkirt');
     const conchosImage = await this.getSelectedImage('conchos');
 
+    // Verificar se buckstitching foi selecionado
+    const buckstitchingSelected = this.getCheckedRadioValue('buckstitching');
+
+    // Verificar se studs foi selecionado
+    const studsSelected = this.getCheckedRadioValue('studs');
+
     const accessoriesData = [
       [this.getTranslation('additionalFeatures'), this.getMultipleCheckedValues('accessoriesGroup'), accessoriesGroupImage],
       [this.getTranslation('buckStitchingStyle'), this.getNumberedRadioValue('buckstitching'), buckstitchingImage],
-      [this.getTranslation('buckStitchColor'), this.getFieldValue('buckStitchColor')],
+      [this.getTranslation('studs'), this.getNumberedRadioValue('studs'), studsImage],
       [this.getTranslation('backCinch'), this.getNumberedRadioValue('backCinch'), backCinchImage],
       [this.getTranslation('stirrups'), this.getNumberedRadioValue('stirrups'), stirrupsImage],
       [this.getTranslation('backOfSkirt'), this.getNumberedRadioValue('backSkirt'), backSkirtImage],
       [this.getTranslation('conchos'), this.getCheckedValue('conchos'), conchosImage],
     ];
+
+    // Adicionar Buck Stitching Color apenas se buckstitching foi selecionado
+    if (buckstitchingSelected) {
+      accessoriesData.splice(2, 0, [this.getTranslation('buckStitchColor'), this.getFieldValue('buckStitchColor')]);
+    }
+
+    // Adicionar Studs Colors apenas se studs foi selecionado
+    if (studsSelected) {
+      const studsColorIndex = buckstitchingSelected ? 4 : 3; // Ajustar índice baseado na presença do Buck Stitching Color
+      accessoriesData.splice(studsColorIndex, 0, [this.getTranslation('studsColorsLabel'), this.getNumberedRadioValue('studsColors'), studsColorsImage]);
+    }
 
     this.addDataTable(accessoriesData.filter(item => item[1]));
 

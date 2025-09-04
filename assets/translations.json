@@ -51,6 +51,8 @@
     "sixStrings": "6 Strings",
     "buckStitchingStyleLabel": "Buck Stitching Style",
     "buckStitchColorLabel": "Buck Stitch Color",
+    "studsLabel": "Studs",
+    "studsColorsLabel": "Studs Colors",
     "backCinchLabel": "Back Cinch",
     "stirrupsLabel": "Stirrups",
     "backOfSkirtLabel": "Back of Skirt",
@@ -203,6 +205,16 @@
         "Natural": "Natural",
         "Black": "Black",
         "Brown": "Brown"
+      },
+      "studs": {
+        "Single Studs": "Single Studs",
+        "Double Studs": "Double Studs",
+        "Single Buckstitching Studs": "Single Buckstitching Studs",
+        "Double Buckstitching Studs": "Double Buckstitching Studs"
+      },
+      "studsColors": {
+        "Copper": "Copper",
+        "Silver": "Silver"
       },
       "backCinch": {
         "None": "None",
@@ -393,6 +405,8 @@
     "sixStrings": "6 Tentos",
     "buckStitchingStyleLabel": "Modelo de Tenteado",
     "buckStitchColorLabel": "Cor do Tenteado",
+    "studsLabel": "Tachas",
+    "studsColorsLabel": "Cores das Tachas",
     "backCinchLabel": "Barrigueira Traseira",
     "stirrupsLabel": "Modelo de Estribos",
     "backOfSkirtLabel": "Parte Traseira da Aba",
@@ -537,6 +551,16 @@
         "Double Copper Spot Border": "Fileira Dupla de Taxinha de Cobre",
         "Single Copper Spot Border": "Fileira Simples de Taxinha de Cobre",
         "X Buckstitch": "Tenteado em X"
+      },
+      "studs": {
+        "Single Studs": "Tachas Simples",
+        "Double Studs": "Tachas Duplas",
+        "Single Buckstitching Studs": "Tachas Simples com Tenteado",
+        "Double Buckstitching Studs": "Tachas Duplas com Tenteado"
+      },
+      "studsColors": {
+        "Copper": "Cobre",
+        "Silver": "Prata"
       },
       "backCinch": {
         "No Back Cinch": "Sem Barrigueira Traseira",

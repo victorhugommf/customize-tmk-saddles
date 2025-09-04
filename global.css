@@ -151,6 +151,10 @@ body {
   gap: 15px;
 }
 
+.checkbox-grid.flex {
+  display: flex;
+}
+
 .checkbox-item {
   display: flex;
   align-items: center;
@@ -216,6 +220,10 @@ body {
   width: 100%;
   min-height: 100%;
   box-sizing: border-box;
+}
+
+.studColors .checkbox-item {
+  max-width: 160px;
 }
 
 

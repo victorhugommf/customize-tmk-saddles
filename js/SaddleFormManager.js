@@ -22,6 +22,8 @@ class SaddleFormManager {
         $('#gulletSize').on('change', this.handleGulletChange);
         $('input[name="seatOptions"]').on('change', this.handleAccentLimit);
         $('input[name="accessoriesGroup"]').on('change', e => this.handleAccessoriesChange(e));
+        $('input[name="buckstitching"]').on('change', e => this.handleBuckstitchingChange(e));
+        $('input[name="studs"]').on('change', e => this.handleStudsChange(e));
         $('input[name="saddleBuild"], input[name="seatStyle"], input[name="accessoriesGroup"]')
             .on('change', () => this.updatePrice());
         // PDF generation buttons
@@ -42,7 +44,9 @@ class SaddleFormManager {
         ];
         sectionsToHide.forEach(sectionId => $(sectionId).addClass('hidden'));
 
-
+        // Esconder seções de cores inicialmente
+        this.hideBuckstitchingColorSection();
+        this.hideStudsColorSection();
     }
 
     hideSaddleBuildDynamicItems() {
@@ -236,6 +240,67 @@ class SaddleFormManager {
             $saddleStringQuantityGroup.hide();
             $('#saddleStringQuantity').prop('required', false).val('');
         }
+    }
+
+    handleBuckstitchingChange(e) {
+        const $buckstitchingColorSection = this.getBuckstitchingColorSection();
+        const isAnyBuckstitchingSelected = $('input[name="buckstitching"]:checked').length > 0;
+
+        if (isAnyBuckstitchingSelected) {
+            this.showBuckstitchingColorSection();
+        } else {
+            this.hideBuckstitchingColorSection();
+        }
+    }
+
+    handleStudsChange(e) {
+        const $studsColorSection = this.getStudsColorSection();
+        const isAnyStudsSelected = $('input[name="studs"]:checked').length > 0;
+
+        if (isAnyStudsSelected) {
+            this.showStudsColorSection();
+        } else {
+            this.hideStudsColorSection();
+        }
+    }
+
+    getBuckstitchingColorSection() {
+        // Procurar pela seção que contém o Buck Stitching Color
+        return $('.form-group').filter(function () {
+            return $(this).find('label[for="buckstitchColoer"], input[name="buckStitchColor"]').length > 0;
+        });
+    }
+
+    getStudsColorSection() {
+        // Procurar pela seção que contém o Studs Colors
+        return $('.form-group').filter(function () {
+            return $(this).find('input[name="studsColors"]').length > 0;
+        });
+    }
+
+    showBuckstitchingColorSection() {
+        const $section = this.getBuckstitchingColorSection();
+        $section.show().removeClass('hidden');
+    }
+
+    hideBuckstitchingColorSection() {
+        const $section = this.getBuckstitchingColorSection();
+        $section.hide().addClass('hidden');
+        // Limpar seleções quando esconder
+        $section.find('input[name="buckStitchColor"]').val('');
+        $section.find('.color-dot').removeClass('selected');
+    }
+
+    showStudsColorSection() {
+        const $section = this.getStudsColorSection();
+        $section.show().removeClass('hidden');
+    }
+
+    hideStudsColorSection() {
+        const $section = this.getStudsColorSection();
+        $section.hide().addClass('hidden');
+        // Limpar seleções quando esconder
+        $section.find('input[name="studsColors"]').prop('checked', false);
     }
 
     // Continúa com os demais métodos no mesmo estilo...
