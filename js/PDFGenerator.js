@@ -457,13 +457,13 @@ class PDFGenerator {
 
     const designData = [
       [this.getTranslation('style'), this.getNumberedRadioValue('style'), styleImage],
+      [this.getTranslation('neopreneColorLabel'), this.getNumberedRadioValue('neopreneColor'), neopreneColorImage],
       [this.getTranslation('skirtStyle'), this.getNumberedRadioValue('skirtStyle'), skirtStyleImage],
       [this.getTranslation('cantleStyle'), this.getNumberedRadioValue('cantleStyle'), cantleStyleImage],
       [this.getTranslation('fenderStyle'), this.getNumberedRadioValue('fenderStyle'), fenderStyleImage],
       [this.getTranslation('jockeySeat'), this.getNumberedRadioValue('jockeySeat'), jockeySeatImage],
       [this.getTranslation('seatStyle'), this.getNumberedRadioValue('seatStyle'), seatStyleImage],
       [this.getTranslation('seatOptions'), this.getNumberedRadioValue('seatOptions'), seatOptionsImage],
-      [this.getTranslation('neopreneColorLabel'), this.getNumberedRadioValue('neopreneColor'), neopreneColorImage],
     ];
 
     this.addDataTable(designData.filter(item => item[1]));
