@@ -5,21 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="pageTitle">Custom Saddle Order Form - Tomahawk</title>
+
+    <!-- Prevent HTML caching -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <!-- Cache-busting for CSS files -->
     <script>
-        const cssCacheVersion = Date.now();
-        document.write('<link rel="stylesheet" href="./global.css?v=' + cssCacheVersion + '">');
-        document.write('<link rel="stylesheet" href="css/i18n.css?v=' + cssCacheVersion + '">');
+        const cacheVersion = Date.now();
+        document.write('<link rel="stylesheet" href="./global.css?v=' + cacheVersion + '">');
+        document.write('<link rel="stylesheet" href="css/i18n.css?v=' + cacheVersion + '">');
     </script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <!-- Cache-busting for local JavaScript files -->
     <script>
-        const cacheVersion = Date.now();
         document.write('<script src="js/i18n.js?v=' + cacheVersion + '"><\/script>');
         document.write('<script src="js/SaddleFormManager.js?v=' + cacheVersion + '"><\/script>');
         document.write('<script src="js/saddlePriceCalculator.js?v=' + cacheVersion + '"><\/script>');
+        document.write('<script src="js/TranslationManager.js?v=' + cacheVersion + '"><\/script>');
+        document.write('<script src="js/PDFGenerator.js?v=' + cacheVersion + '"><\/script>');
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
 
