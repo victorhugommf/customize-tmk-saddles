@@ -652,86 +652,49 @@ class PDFGenerator {
   }
 
   addDataTable(data) {
-    data.forEach(([label, value, imageData]) => {
-      if (value) {
-        const hasImage = imageData && imageData !== null;
-        // Calcular espaço necessário baseado no número de imagens
-        let requiredSpace = 7; // Espaço base
-        if (hasImage) {
+    const validData = data.filter(([label, value]) => value);
+
+    validData.forEach(([label, value, imageData], index) => {
+      const hasImage = imageData && imageData !== null;
+
+      // Calcular espaço necessário para texto
+      let requiredSpace = 7; // Espaço base para texto
+
+      this.checkPageBreak(requiredSpace);
+
+      // Adicionar texto (label e value)
+      this.doc.setFont(undefined, 'bold');
+      this.doc.text(label, this.leftMargin, this.yPosition);
+      this.doc.setFont(undefined, 'normal');
+
+      const splitValue = this.doc.splitTextToSize(value, this.rightMargin - this.leftMargin);
+      this.doc.text(splitValue, this.leftMargin + 60, this.yPosition);
+
+      let textHeight = Math.max(7, splitValue.length * 5);
+      this.yPosition += textHeight;
+
+      // Adicionar imagem(ns) ABAIXO do texto se disponível(is)
+      if (hasImage) {
+        try {
+          const maxWidth = 50;
+          const maxHeight = 36;
+
+          // Verificar se é um array de imagens (múltiplas seleções)
           if (Array.isArray(imageData)) {
-            // Múltiplas imagens: 45px por imagem + 5px de espaçamento
-            requiredSpace = (imageData.length * 45) + ((imageData.length - 1) * 5) + 8;
-          } else {
-            // Imagem única
-            requiredSpace = 45;
-          }
-        }
+            let currentImageX = this.leftMargin + 60; // Começar na mesma posição do texto
+            let maxImageHeight = 0;
 
-        this.checkPageBreak(requiredSpace);
-
-        this.doc.setFont(undefined, 'bold');
-        this.doc.text(label, this.leftMargin, this.yPosition);
-        this.doc.setFont(undefined, 'normal');
-
-        const splitValue = this.doc.splitTextToSize(value, this.rightMargin - this.leftMargin - 60);
-        this.doc.text(splitValue, this.leftMargin + 60, this.yPosition);
-
-        let textHeight = Math.max(7, splitValue.length * 5);
-
-        // Adicionar imagem(ns) se disponível(is)
-        if (hasImage) {
-          try {
-            const maxWidth = 50;  // 2x o tamanho anterior (25 -> 50)
-            const maxHeight = 36; // 2x o tamanho anterior (18 -> 36)
-
-            // Verificar se é um array de imagens (múltiplas seleções)
-            if (Array.isArray(imageData)) {
-              let currentImageY = this.yPosition - 10;
-              let totalImageHeight = 0;
-
-              imageData.forEach((singleImageData, index) => {
-                let imageWidth = maxWidth;
-                let imageHeight = maxHeight;
-                let base64Data = singleImageData;
-
-                // Se singleImageData é um objeto com dimensões, calcular proporções corretas
-                if (typeof singleImageData === 'object' && singleImageData.base64) {
-                  base64Data = singleImageData.base64;
-                  const dimensions = this.calculateImageDimensions(
-                    singleImageData.width,
-                    singleImageData.height,
-                    maxWidth,
-                    maxHeight
-                  );
-                  imageWidth = dimensions.width;
-                  imageHeight = dimensions.height;
-                }
-
-                const imageX = this.rightMargin - maxWidth - 2;
-
-                // Detectar formato da imagem
-                const format = base64Data.startsWith('data:image/png') ? 'PNG' : 'JPEG';
-
-                // Adicionar imagem com proporções corretas
-                this.doc.addImage(base64Data, format, imageX, currentImageY, imageWidth, imageHeight);
-
-                currentImageY += imageHeight + 5; // Espaço entre imagens
-                totalImageHeight += imageHeight + 5;
-              });
-
-              textHeight = Math.max(textHeight, totalImageHeight + 8);
-            } else {
-              // Imagem única (comportamento original)
+            imageData.forEach((singleImageData, index) => {
               let imageWidth = maxWidth;
               let imageHeight = maxHeight;
-              let base64Data = imageData;
+              let base64Data = singleImageData;
 
-              // Se imageData é um objeto com dimensões, calcular proporções corretas
-              if (typeof imageData === 'object' && imageData.base64) {
-                base64Data = imageData.base64;
+              // Se singleImageData é um objeto com dimensões, calcular proporções corretas
+              if (typeof singleImageData === 'object' && singleImageData.base64) {
+                base64Data = singleImageData.base64;
                 const dimensions = this.calculateImageDimensions(
-                  imageData.width,
-                  imageData.height,
+                  singleImageData.width,
+                  singleImageData.height,
                   maxWidth,
                   maxHeight
                 );
@@ -739,30 +702,79 @@ class PDFGenerator {
                 imageHeight = dimensions.height;
               }
 
-              const imageX = this.rightMargin - maxWidth - 2;
-              const imageY = this.yPosition - 10; // Ajustar posição Y para imagem maior
+              // Verificar se a imagem cabe na linha atual
+              if (currentImageX + imageWidth > this.rightMargin) {
+                // Mover para próxima linha
+                this.yPosition += maxImageHeight + 5;
+                currentImageX = this.leftMargin + 60;
+                maxImageHeight = 0;
+              }
 
               // Detectar formato da imagem
               const format = base64Data.startsWith('data:image/png') ? 'PNG' : 'JPEG';
 
-              // Adicionar imagem com proporções corretas
-              this.doc.addImage(base64Data, format, imageX, imageY, imageWidth, imageHeight);
-              textHeight = Math.max(textHeight, maxHeight + 8); // Mais espaço para imagem maior
-            }
-          } catch (error) {
-            console.warn('Erro ao adicionar imagem ao PDF:', error);
-          }
-        }
+              // Adicionar imagem abaixo do texto
+              this.doc.addImage(base64Data, format, currentImageX, this.yPosition, imageWidth, imageHeight);
 
-        this.yPosition += textHeight;
+              currentImageX += imageWidth + 5; // Espaço entre imagens horizontalmente
+              maxImageHeight = Math.max(maxImageHeight, imageHeight);
+            });
+
+            this.yPosition += maxImageHeight + 8; // Espaço após as imagens
+          } else {
+            // Imagem única
+            let imageWidth = maxWidth;
+            let imageHeight = maxHeight;
+            let base64Data = imageData;
+
+            // Se imageData é um objeto com dimensões, calcular proporções corretas
+            if (typeof imageData === 'object' && imageData.base64) {
+              base64Data = imageData.base64;
+              const dimensions = this.calculateImageDimensions(
+                imageData.width,
+                imageData.height,
+                maxWidth,
+                maxHeight
+              );
+              imageWidth = dimensions.width;
+              imageHeight = dimensions.height;
+            }
+
+            const imageX = this.leftMargin + 60; // Mesma posição do texto
+            const imageY = this.yPosition; // Logo abaixo do texto
+
+            // Detectar formato da imagem
+            const format = base64Data.startsWith('data:image/png') ? 'PNG' : 'JPEG';
+
+            // Adicionar imagem abaixo do texto
+            this.doc.addImage(base64Data, format, imageX, imageY, imageWidth, imageHeight);
+            this.yPosition += imageHeight + 8; // Espaço após a imagem
+          }
+        } catch (error) {
+          console.warn('Erro ao adicionar imagem ao PDF:', error);
+        }
+      }
+
+      // Adicionar linha simples entre opções (exceto na última)
+      if (index < validData.length - 1) {
+        this.addOptionDivider();
       }
     });
   }
 
   addSectionDivider() {
-    this.checkPageBreak(10);
+    this.checkPageBreak(15);
+    // Linha dupla para seções principais
     this.doc.line(this.leftMargin, this.yPosition, this.rightMargin, this.yPosition);
-    this.yPosition += 10;
+    this.doc.line(this.leftMargin, this.yPosition + 2, this.rightMargin, this.yPosition + 2);
+    this.yPosition += 15;
+  }
+
+  addOptionDivider() {
+    this.checkPageBreak(8);
+    // Linha simples para separar opções individuais - comprimento total da página
+    this.doc.line(this.leftMargin, this.yPosition, this.rightMargin, this.yPosition);
+    this.yPosition += 8;
   }
 
   checkPageBreak(requiredSpace) {
