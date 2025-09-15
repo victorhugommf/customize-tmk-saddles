@@ -327,8 +327,7 @@ body {
     width: 100%;
   }
 
-  /* Classe específica para conchos - 3 colunas no mobile */
-  .checkbox-grid.conchos-grid {
+  .checkbox-grid.col3 {
     grid-template-columns: 1fr 1fr 1fr;
   }
 
@@ -363,8 +362,7 @@ body {
     width: 100%;
   }
 
-  /* Classe específica para conchos - 3 colunas no mobile pequeno */
-  .checkbox-grid.conchos-grid {
+  .checkbox-grid.col3 {
     grid-template-columns: 1fr 1fr 1fr;
   }
 
