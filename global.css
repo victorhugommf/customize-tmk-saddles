@@ -327,6 +327,11 @@ body {
     width: 100%;
   }
 
+  /* Classe específica para conchos - 3 colunas no mobile */
+  .checkbox-grid.conchos-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
   .checkbox-item {
     min-height: 60px;
     width: 100%;
@@ -356,6 +361,11 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
     width: 100%;
+  }
+
+  /* Classe específica para conchos - 3 colunas no mobile pequeno */
+  .checkbox-grid.conchos-grid {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
   .checkbox-item {
