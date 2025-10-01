@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="pageTitle">Custom Saddle Order Form - Tomahawk</title>
+    <title data-i18n="pageTitle">Internal Order Form - Tomahawk</title>
 
     <!-- Prevent HTML caching -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -23,11 +23,11 @@
     <script>
         document.write('<script src="js/i18n.js?v=' + cacheVersion + '"><\/script>');
         document.write('<script src="js/SaddleFormManager.js?v=' + cacheVersion + '"><\/script>');
-        document.write('<script src="js/saddlePriceCalculator.js?v=' + cacheVersion + '"><\/script>');
+
         document.write('<script src="js/TranslationManager.js?v=' + cacheVersion + '"><\/script>');
         document.write('<script src="js/PDFGenerator.js?v=' + cacheVersion + '"><\/script>');
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
+
 
 
 
@@ -37,7 +37,7 @@
     <div class="container">
         <div class="header">
             <h1 data-i18n="headerTitle">🐎 Tomahawk Barrel Saddle</h1>
-            <p data-i18n="headerSubtitle">Custom Order Form</p>
+            <p data-i18n="headerSubtitle">Internal Order Form</p>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
@@ -45,34 +45,6 @@
 
         <div class="form-content">
             <form id="saddleForm">
-                <!-- Customer Information -->
-                <div class="section">
-                    <h2 class="section-title" data-i18n="customerInfoSection">👤 Customer Information</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="customerName"><span data-i18n="customerNameLabel">Customer Name</span> <span
-                                    class="required" data-i18n="requiredField">*</span></label>
-                            <input type="text" id="customerName" name="customerName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone"><span data-i18n="phoneLabel">Phone Number</span> <span class="required"
-                                    data-i18n="requiredField">*</span></label>
-                            <input type="tel" id="phone" name="phone" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email"><span data-i18n="emailLabel">Email</span> <span class="required"
-                                    data-i18n="requiredField">*</span></label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group textarea-group">
-                            <label for="address"><span data-i18n="addressLabel">Shipping Address</span> <span
-                                    class="required" data-i18n="requiredField">*</span></label>
-                            <textarea id="address" name="address" required data-i18n="addressPlaceholder"
-                                placeholder="Complete shipping address"></textarea>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Saddle Specifications -->
                 <div class="section">
                     <h2 class="section-title" data-i18n="saddleSpecsSection">🏇 Saddle Specifications</h2>
@@ -2652,89 +2624,16 @@
                         </div>
                     </div>
 
-                    <!-- Payment & Shipping -->
-                    <div class="section payment-section">
-                        <h2 class="section-title" data-i18n="pricingSection">💳 Payment & Shipping</h2>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="deposit" data-i18n="calculatedPriceLabel">Calculated Price ($)</label>
-                                <input type="number" id="price" name="price" value="0.00" disabled
-                                    class="readonly-input">
-                            </div>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="deposit" data-i18n="depositLabel">Deposit ($)</label>
-                                <input type="number" id="deposit" name="deposit" min="0" step="0.01" placeholder="0.00">
-                            </div>
-                            <div class="form-group">
-                                <label for="balanceDue" data-i18n="balanceDueLabel">Balance Due Before Shipping
-                                    ($)</label>
-                                <input type="number" id="balanceDue" name="balanceDue" min="0" step="0.01"
-                                    placeholder="0.00">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label data-i18n="shippingMethodLabel">Shipping Method</label>
-                            <div class="checkbox-grid" data-i18n-radio="shippingMethod">
-                                <div class="checkbox-item">
-                                    <input type="radio" id="localPickup" name="shippingMethod" value="Local Pickup">
-                                    <label for="localPickup">Local Pickup</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="radio" id="shipToAddress" name="shippingMethod"
-                                        value="Ship to Address">
-                                    <label for="shipToAddress">Ship to Address Above</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label data-i18n="paymentMethodLabel">Payment Method</label>
-                            <div class="checkbox-grid" data-i18n-radio="paymentMethod">
-                                <div class="checkbox-item">
-                                    <input type="radio" id="paypal" name="paymentMethod" value="PayPal">
-                                    <label for="paypal">PayPal</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="radio" id="venmo" name="paymentMethod" value="Venmo">
-                                    <label for="venmo">Venmo</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="radio" id="etransfer" name="paymentMethod" value="e-Transfer">
-                                    <label for="etransfer">e-Transfer</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="radio" id="creditCard" name="paymentMethod" value="Credit Card">
-                                    <label for="creditCard">Credit Card</label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="radio" id="otherPayment" name="paymentMethod" value="Other">
-                                    <label for="otherPayment">Other</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="otherPaymentMethod">Other Payment Method (if applicable)</label>
-                            <input type="text" id="otherPaymentMethod" name="otherPaymentMethod"
-                                placeholder="Specify payment method">
-                        </div>
-                    </div>
-
                     <div class="submit-section">
                         <div class="pdf-buttons">
                             <button type="button" class="submit-btn pdf-btn-en" id="generatePdfEn">
-                                🇺🇸 Generate PDF (English)
+                                🇺🇸 Generate Internal Order (English)
                             </button>
                             <button type="button" class="submit-btn pdf-btn-pt" id="generatePdfPt">
-                                🇧🇷 Gerar PDF (Português)
+                                🇧🇷 Gerar Pedido Interno (Português)
                             </button>
                         </div>
-                        <p style="margin-top: 15px; color: #666; font-size: 0.9rem;" data-i18n="termsText">
-                            By submitting this form, you agree to our terms and conditions.
-                        </p>
+
                     </div>
             </form>
         </div>
@@ -2748,10 +2647,6 @@
         // Initialize the form manager after DOM is loaded
         $(document).ready(function () {
             new SaddleFormManager();
-            // Aplica máscara no campo de telefone
-            $("#phone").inputmask("(999) 999-9999", {
-                "clearIncomplete": true
-            });
         });
     </script>
 
