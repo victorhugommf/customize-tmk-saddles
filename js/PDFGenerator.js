@@ -452,11 +452,13 @@ class PDFGenerator {
     const seatStyleImage = await this.getSelectedImage('seatStyle');
     const seatOptionsImage = await this.getSelectedImage('seatOptions');
 
-    // Obter imagem do neoprene color se selecionado
+    // Obter imagens do neoprene type e color se selecionados
+    const neopreneTypeImage = await this.getSelectedImage('neopreneType');
     const neopreneColorImage = await this.getSelectedImage('neopreneColor');
 
     const designData = [
       [this.getTranslation('style'), this.getNumberedRadioValue('style'), styleImage],
+      [this.getTranslation('neopreneTypeLabel'), this.getNumberedRadioValue('neopreneType'), neopreneTypeImage],
       [this.getTranslation('neopreneColorLabel'), this.getNumberedRadioValue('neopreneColor'), neopreneColorImage],
       [this.getTranslation('skirtStyle'), this.getNumberedRadioValue('skirtStyle'), skirtStyleImage],
       [this.getTranslation('cantleStyle'), this.getNumberedRadioValue('cantleStyle'), cantleStyleImage],

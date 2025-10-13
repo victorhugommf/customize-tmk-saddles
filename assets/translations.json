@@ -28,6 +28,7 @@
     "jockeySeatLabel": "Jockey Seat",
     "seatStyleLabel": "Seat Style",
     "seatOptionsLabel": "Seat Options",
+    "neopreneTypeLabel": "Full Neoprene Type",
     "neopreneColorLabel": "Neoprene Color",
     "toolingSection": "🔨 Tooling & Pattern Options",
     "tooledCoverageLabel": "Tooled Coverage",
@@ -289,6 +290,10 @@
         "Rough Out 19 Brown": "Rough Out 19 Brown",
         "Rough Out 20 Tan": "Rough Out 20 Tan"
       },
+      "neopreneType": {
+        "Neoprene Mista": "Mixed Neoprene",
+        "Neoprene Virada": "Full Suede"
+      },
       "neopreneColor": {
         "Neoprene 01 Turquoise Green": "Neoprene 01 Turquoise Green",
         "Neoprene 02 Turquoise Blue": "Neoprene 02 Turquoise Blue",
@@ -382,6 +387,7 @@
     "jockeySeatLabel": "Aba do Assento",
     "seatStyleLabel": "Modelo do Assento",
     "seatOptionsLabel": "Opções do Assento",
+    "neopreneTypeLabel": "Tipo de Neoprene Completo",
     "neopreneColorLabel": "Cor do Neoprene",
     "toolingSection": "🔨 Opções de Bordado e Padrões",
     "tooledCoverageLabel": "Cobertura de Bordado",
@@ -607,6 +613,10 @@
         "Smooth 15 Coffee": "Liso 15 Café",
         "Smooth 16 Brown": "Liso 16 Marrom",
         "Smooth 17 Tan": "Liso 17 Bege"
+      },
+      "neopreneType": {
+        "Neoprene Mista": "Neoprene Mista",
+        "Neoprene Virada": "Neoprene Virada"
       },
       "neopreneColor": {
         "Neoprene 01 Turquoise Green": "Neoprene 01 Verde Turquesa",

@@ -40,6 +40,7 @@ class SaddleFormManager {
             '#hybridStyleGroup',
             '#gulletOtherGroup',
             '#toolingPatternOptions',
+            '#neopreneTypeGroup',
             '#neopreneColorGroup'
         ];
         sectionsToHide.forEach(sectionId => $(sectionId).addClass('hidden'));
@@ -55,6 +56,7 @@ class SaddleFormManager {
             '#tooledCoverage',
             '#leatherColor',
             '#hybridStyleGroup',
+            '#neopreneTypeGroup',
             '#neopreneColorGroup'
         ];
         sectionsToHide.forEach(sectionId => {
@@ -120,15 +122,16 @@ class SaddleFormManager {
     }
 
     showFullNeopreneSections() {
-        // Mostrar apenas a seção de Neoprene Color para Full Neoprene
+        // Mostrar seções de Neoprene Type e Neoprene Color para Full Neoprene
         const sectionsToShow = [
+            '#neopreneTypeGroup',
             '#neopreneColorGroup'
         ];
         sectionsToShow.forEach(sectionId => {
             $(sectionId).show();
         });
 
-        console.log('Seção de Neoprene Color ativada para Full Neoprene');
+        console.log('Seções de Neoprene Type e Neoprene Color ativadas para Full Neoprene');
     }
 
     handleSeatStyleChange(seatStyle) {
