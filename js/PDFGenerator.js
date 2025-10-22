@@ -463,6 +463,8 @@ class PDFGenerator {
       [this.getTranslation('skirtStyle'), this.getNumberedRadioValue('skirtStyle'), skirtStyleImage],
       [this.getTranslation('cantleStyle'), this.getNumberedRadioValue('cantleStyle'), cantleStyleImage],
       [this.getTranslation('fenderStyle'), this.getNumberedRadioValue('fenderStyle'), fenderStyleImage],
+      [this.getTranslation('stirrupSizeLabel'), this.getFieldValue('stirrupSize')],
+      [this.getTranslation('fenderHeightLabel'), this.getFieldValue('fenderHeight')],
       [this.getTranslation('jockeySeat'), this.getNumberedRadioValue('jockeySeat'), jockeySeatImage],
       [this.getTranslation('seatStyle'), this.getNumberedRadioValue('seatStyle'), seatStyleImage],
       [this.getTranslation('seatOptions'), this.getNumberedRadioValue('seatOptions'), seatOptionsImage],

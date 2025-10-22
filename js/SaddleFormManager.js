@@ -26,6 +26,9 @@ class SaddleFormManager {
         $('input[name="studs"]').on('change', e => this.handleStudsChange(e));
         $('input[name="saddleBuild"], input[name="seatStyle"], input[name="accessoriesGroup"]')
             .on('change', () => this.updatePrice());
+
+        // Interactive table for stirrup measurements and fender height
+        $('.size-row').on('click', e => this.handleSizeRowClick(e));
         // PDF generation buttons
         $('#generatePdfEn').on('click', async () => await this.handlePdfGeneration('en'));
         $('#generatePdfPt').on('click', async () => await this.handlePdfGeneration('pt'));
@@ -48,6 +51,9 @@ class SaddleFormManager {
         // Esconder seções de cores inicialmente
         this.hideBuckstitchingColorSection();
         this.hideStudsColorSection();
+
+        // Aplicar regras iniciais dos studs (nenhum buckstitching selecionado)
+        this.updateStudsOptions(null);
     }
 
     hideSaddleBuildDynamicItems() {
@@ -247,13 +253,17 @@ class SaddleFormManager {
 
     handleBuckstitchingChange(e) {
         const $buckstitchingColorSection = this.getBuckstitchingColorSection();
-        const isAnyBuckstitchingSelected = $('input[name="buckstitching"]:checked').length > 0;
+        const selectedBuckstitching = $('input[name="buckstitching"]:checked').val();
+        const isValidBuckstitchingSelected = selectedBuckstitching && selectedBuckstitching !== 'None';
 
-        if (isAnyBuckstitchingSelected) {
+        if (isValidBuckstitchingSelected) {
             this.showBuckstitchingColorSection();
         } else {
             this.hideBuckstitchingColorSection();
         }
+
+        // Atualizar opções de studs baseado na seleção de buckstitching
+        this.updateStudsOptions(selectedBuckstitching);
     }
 
     handleStudsChange(e) {
@@ -304,6 +314,54 @@ class SaddleFormManager {
         $section.hide().addClass('hidden');
         // Limpar seleções quando esconder
         $section.find('input[name="studsColors"]').prop('checked', false);
+    }
+
+    updateStudsOptions(buckstitchingSelection) {
+        // Limpar seleção atual de studs
+        $('input[name="studs"]').prop('checked', false);
+
+        // Esconder seção de cores de studs
+        this.hideStudsColorSection();
+
+        // Resetar todos os studs para visível e habilitado
+        const $allStudsOptions = $('input[name="studs"]').closest('.checkbox-item');
+        $allStudsOptions.css('opacity', '1').find('input').prop('disabled', false);
+
+        // Aplicar regras baseadas na seleção de buckstitching
+        if (!buckstitchingSelection || buckstitchingSelection === 'None') {
+            // Nenhum buckstitching selecionado: mostrar apenas single studs / double studs
+            $('#studs3, #studs4').closest('.checkbox-item').css('opacity', '0.5').find('input').prop('disabled', true);
+        } else if (buckstitchingSelection === 'Single Buckstitch') {
+            // Single buckstitch: mostrar apenas single buckstitch studs
+            $('#studs1, #studs2, #studs4').closest('.checkbox-item').css('opacity', '0.5').find('input').prop('disabled', true);
+        } else if (buckstitchingSelection === 'Double Buckstitch') {
+            // Double buckstitch: mostrar apenas double buckstitch studs
+            $('#studs1, #studs2, #studs3').closest('.checkbox-item').css('opacity', '0.5').find('input').prop('disabled', true);
+        } else {
+            // X Buckstitch ou outros: permitir todas as opções
+            // Já resetamos acima, então não precisa fazer nada
+        }
+    }
+
+    handleSizeRowClick(e) {
+        const $row = $(e.currentTarget);
+        const size = $row.data('size');
+        const fenderHeight = $row.data('fender-height');
+
+        // Remove seleção anterior
+        $('.size-row').removeClass('selected');
+
+        // Adiciona seleção à linha clicada
+        $row.addClass('selected');
+
+        // Atualiza os campos hidden
+        $('#selectedStirrupSize').val(size);
+        $('#selectedFenderHeight').val(fenderHeight);
+
+        console.log('Selected size:', size, 'Fender height:', fenderHeight);
+
+        // Atualizar progresso
+        this.updateProgress();
     }
 
     // Continúa com os demais métodos no mesmo estilo...

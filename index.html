@@ -513,6 +513,119 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label data-i18n="stirrupsLabel">Stirrups Option</label>
+                        <div class="checkbox-grid" data-i18n-radio="stirrups">
+                            <div class="checkbox-item">
+                                <input type="radio" id="stirrups2" name="stirrups" value="Wood Chestnut">
+                                <label for="stirrups2">
+                                    <img src="imgs/19-StirrupsOptions/02-Wood Chestnut_opt.webp" width="100%"
+                                        height="auto" alt="Wood Chestnut" loading="lazy" class="option-image">
+                                    Wood Chestnut
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="stirrups3" name="stirrups" value="Wood Latego">
+                                <label for="stirrups3">
+                                    <img src="imgs/19-StirrupsOptions/03-Wood Latego_opt.webp" width="100%"
+                                        height="auto" alt="Wood Latego" loading="lazy" class="option-image">
+                                    Wood Latego
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="stirrups4" name="stirrups" value="Wood Black">
+                                <label for="stirrups4">
+                                    <img src="imgs/19-StirrupsOptions/04-Wood Black_opt.webp" width="100%" height="auto"
+                                        alt="Wood Black" loading="lazy" class="option-image">
+                                    Wood Black
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="stirrups5" name="stirrups" value="Aluminium Black">
+                                <label for="stirrups5">
+                                    <img src="imgs/19-StirrupsOptions/05-Aluminium Black_opt.webp" width="100%"
+                                        height="auto" alt="Aluminium Black" loading="lazy" class="option-image">
+                                    Aluminium Black
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="stirrups6" name="stirrups" value="Aluminium Chocolate">
+                                <label for="stirrups6">
+                                    <img src="imgs/19-StirrupsOptions/06-Aluminium Chocolate_opt.webp" width="100%"
+                                        height="auto" alt="Aluminium Chocolate" loading="lazy" class="option-image">
+                                    Aluminium Chocolate
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="stirrupMeasurementsLabel">Stirrup Measurements & Fender Height</label>
+
+                        <div class="stirrup-measurements-container">
+                            <!-- SVG Illustrations -->
+                            <div class="measurements-illustrations">
+                                <div class="illustration-item">
+                                    <h4 data-i18n="stirrupMeasurementsTitle">Stirrup Measurements</h4>
+                                    <img src="imgs/19-StirrupsOptions/Estribo.svg" alt="Stirrup Measurements"
+                                        class="measurement-svg">
+                                </div>
+                                <div class="illustration-item">
+                                    <h4 data-i18n="fenderMeasurementsTitle">Fender Measurements</h4>
+                                    <img src="imgs/05-FendersStyle/Fender-measure.svg" alt="Fender Measurements"
+                                        class="measurement-svg">
+                                </div>
+                            </div>
+
+                            <p class="table-instruction" data-i18n="tableInstruction">Click on a row to select the size
+                            </p>
+                            <div class="table-wrapper">
+                                <table class="stirrup-measurements-table interactive-table">
+                                    <thead>
+                                        <tr>
+                                            <th data-i18n="stirrupSizeLabel">Size</th>
+                                            <th data-i18n="stirrupNeckLabel">Neck</th>
+                                            <th data-i18n="stirrupHeightLabel">Height</th>
+                                            <th data-i18n="stirrupTreadLabel">Tread</th>
+                                            <th data-i18n="stirrupWidthLabel">Width</th>
+                                            <th data-i18n="fenderHeightLabel">Fender Height</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="size-row" data-size="adult" data-fender-height="45cm">
+                                            <td><strong data-i18n="stirrupAdult">Adult</strong></td>
+                                            <td>7.5cm</td>
+                                            <td>12.5cm</td>
+                                            <td>5.5cm</td>
+                                            <td>12.5cm</td>
+                                            <td><strong>45cm</strong></td>
+                                        </tr>
+                                        <tr class="size-row" data-size="juvenile" data-fender-height="39cm">
+                                            <td><strong data-i18n="stirrupJuvenile">Juvenile</strong></td>
+                                            <td>7.0cm</td>
+                                            <td>12.0cm</td>
+                                            <td>3.5cm</td>
+                                            <td>9.5cm</td>
+                                            <td><strong>39cm</strong></td>
+                                        </tr>
+                                        <tr class="size-row" data-size="child" data-fender-height="33.5cm">
+                                            <td><strong data-i18n="stirrupChild">Child</strong></td>
+                                            <td>6.0cm</td>
+                                            <td>10.7cm</td>
+                                            <td>3.5cm</td>
+                                            <td>9.5cm</td>
+                                            <td><strong>33.5cm</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Hidden inputs para armazenar as seleções -->
+                            <input type="hidden" id="selectedStirrupSize" name="stirrupSize" value="">
+                            <input type="hidden" id="selectedFenderHeight" name="fenderHeight" value="">
+                        </div>
+                    </div>
+
+
 
                     <div class="form-group">
                         <label data-i18n="jockeySeatLabel">Jockey Seat</label>
@@ -551,6 +664,8 @@
                             </div>
                         </div>
                     </div>
+
+
 
                     <div class="form-group">
                         <label data-i18n="seatStyleLabel">Seat Style</label>
@@ -1127,7 +1242,7 @@
                                     <label for="floralF18">
                                         <img src="imgs/12-GeneralTooling/01-Floral/F-18_opt.webp" width="100%"
                                             height="auto" alt="F18" loading="lazy" class="option-image">
-                                        F18 - Floral
+                                        F17 - Floral
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
@@ -1135,7 +1250,7 @@
                                     <label for="floralF020">
                                         <img src="imgs/12-GeneralTooling/01-Floral/F-20_opt.webp" width="100%"
                                             height="auto" alt="F020" loading="lazy" class="option-image">
-                                        F020 - Floral
+                                        C01 - Cactus
                                     </label>
                                 </div>
                                 <div class="checkbox-item">
@@ -1380,23 +1495,6 @@
                                 </label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="radio" id="InskirtPlate" name="riggingStyle" value="InskirtPlate">
-                                <label for="InskirtPlate">
-                                    <img src="imgs/15-RiggingStyle/03-InskirtPlate_opt.webp" width="100%" height="auto"
-                                        alt="Inskirt Plate" loading="lazy" class="option-image">
-                                    Inskirt Plate
-                                </label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="radio" id="doubleRoundRigging" name="riggingStyle"
-                                    value="Double Round Rigging">
-                                <label for="doubleRoundRigging">
-                                    <img src="imgs/15-RiggingStyle/05-DoubleRoundRigging_opt.webp" width="100%"
-                                        height="auto" alt="Double Round Rigging" loading="lazy" class="option-image">
-                                    Double Round Rigging
-                                </label>
-                            </div>
-                            <div class="checkbox-item">
                                 <input type="radio" id="dropDoubleSquare" name="riggingStyle"
                                     value="Drop Double Square">
                                 <label for="dropDoubleSquare">
@@ -1406,12 +1504,29 @@
                                 </label>
                             </div>
                             <div class="checkbox-item">
+                                <input type="radio" id="InskirtPlate" name="riggingStyle" value="InskirtPlate">
+                                <label for="InskirtPlate">
+                                    <img src="imgs/15-RiggingStyle/03-InskirtPlate_opt.webp" width="100%" height="auto"
+                                        alt="Inskirt Plate" loading="lazy" class="option-image">
+                                    Inskirt Plate
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
                                 <input type="radio" id="dropDownNeoprene" name="riggingStyle"
                                     value="Drop Down Neoprene">
                                 <label for="dropDownNeoprene">
                                     <img src="imgs/15-RiggingStyle/04-Drop Down_opt.webp" width="100%" height="auto"
                                         alt="Drop Down Neoprene" loading="lazy" class="option-image">
                                     Drop Down Neoprene
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="radio" id="doubleRoundRigging" name="riggingStyle"
+                                    value="Double Round Rigging">
+                                <label for="doubleRoundRigging">
+                                    <img src="imgs/15-RiggingStyle/05-DoubleRoundRigging_opt.webp" width="100%"
+                                        height="auto" alt="Double Round Rigging" loading="lazy" class="option-image">
+                                    Double Round Rigging
                                 </label>
                             </div>
                             <div class="checkbox-item">
@@ -1486,6 +1601,14 @@
                         <label data-i18n="buckStitchingStyleLabel">Buckstitching</label>
                         <div class="checkbox-grid" data-i18n-radio="buckstitching">
                             <div class="checkbox-item">
+                                <input type="radio" id="buckstitchNone" name="buckstitching" value="None">
+                                <label for="buckstitchNone">
+                                    <div class="no-image-placeholder">
+                                        <span data-i18n="noneOption">None</span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
                                 <input type="radio" id="buckstitch1" name="buckstitching" value="Single Buckstitch">
                                 <label for="buckstitch1">
                                     <img src="imgs/17-BuckStitchingStyle/01-Single Buckstich_opt.webp" width="100%"
@@ -1538,6 +1661,19 @@
                             .color-dot.selected {
                                 border-color: #000;
                                 border-width: 3px;
+                            }
+
+                            .no-image-placeholder {
+                                width: 100%;
+                                height: 120px;
+                                border: 2px dashed #ccc;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                background-color: #f9f9f9;
+                                border-radius: 8px;
+                                font-weight: bold;
+                                color: #666;
                             }
                         </style>
                         <label for="buckstitchColoer">Buck Stitching Color</label>
@@ -1701,51 +1837,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label data-i18n="stirrupsLabel">Stirrups Option</label>
-                        <div class="checkbox-grid" data-i18n-radio="stirrups">
-                            <div class="checkbox-item">
-                                <input type="radio" id="stirrups2" name="stirrups" value="Wood Chestnut">
-                                <label for="stirrups2">
-                                    <img src="imgs/19-StirrupsOptions/02-Wood Chestnut_opt.webp" width="100%"
-                                        height="auto" alt="Wood Chestnut" loading="lazy" class="option-image">
-                                    Wood Chestnut
-                                </label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="radio" id="stirrups3" name="stirrups" value="Wood Latego">
-                                <label for="stirrups3">
-                                    <img src="imgs/19-StirrupsOptions/03-Wood Latego_opt.webp" width="100%"
-                                        height="auto" alt="Wood Latego" loading="lazy" class="option-image">
-                                    Wood Latego
-                                </label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="radio" id="stirrups4" name="stirrups" value="Wood Black">
-                                <label for="stirrups4">
-                                    <img src="imgs/19-StirrupsOptions/04-Wood Black_opt.webp" width="100%" height="auto"
-                                        alt="Wood Black" loading="lazy" class="option-image">
-                                    Wood Black
-                                </label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="radio" id="stirrups5" name="stirrups" value="Aluminium Black">
-                                <label for="stirrups5">
-                                    <img src="imgs/19-StirrupsOptions/05-Aluminium Black_opt.webp" width="100%"
-                                        height="auto" alt="Aluminium Black" loading="lazy" class="option-image">
-                                    Aluminium Black
-                                </label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="radio" id="stirrups6" name="stirrups" value="Aluminium Chocolate">
-                                <label for="stirrups6">
-                                    <img src="imgs/19-StirrupsOptions/06-Aluminium Chocolate_opt.webp" width="100%"
-                                        height="auto" alt="Aluminium Chocolate" loading="lazy" class="option-image">
-                                    Aluminium Chocolate
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div class="form-group">
                         <label>Back of Skirt</label>
@@ -2669,7 +2761,8 @@
                     <div class="section">
                         <h2 class="section-title" data-i18n="specialNotesLabel">📝 Special Notes / Requests</h2>
                         <div class="form-group textarea-group">
-                            <label for="specialNotes" data-i18n="specialNotesLabel">Special Notes and Requests</label>
+                            <label for="specialNotes" data-i18n="specialNotesLabel">Special Notes and
+                                Requests</label>
                             <textarea id="specialNotes" name="specialNotes" data-i18n="specialNotesPlaceholder"
                                 placeholder="Describe any special requests or important notes for your order..."></textarea>
                         </div>
