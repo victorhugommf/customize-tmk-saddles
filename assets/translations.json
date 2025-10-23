@@ -220,10 +220,12 @@
         "Drop Down": "Drop Down"
       },
       "accessoriesGroup": {
-        "Hoof Pick Holder on Latego": "Hoof Pick Holder on Latego",
+        "Hoof Pick Holder": "Hoof Pick Holder",
         "Hoof Pick Holder on Skirt": "Hoof Pick Holder on Skirt",
         "Rig Guard": "Rig Guard",
-        "Saddle String 4 or 6": "Saddle String 4 or 6"
+        "Full Back Cinch": "Full Back Cinch",
+        "Saddle String 4 or 6": "Saddle String 4 or 6",
+        "Back Cinch Hole Only": "Back Cinch Hole Only"
       },
       "buckstitching": {
         "None": "None",
@@ -594,10 +596,12 @@
         "Drop Down": "D com Suporte Couro"
       },
       "accessoriesGroup": {
-        "Hoof Pick Holder on Latego": "Limpador de Casco no Látego",
+        "Hoof Pick Holder": "Limpador de Casco",
         "Hoof Pick Holder on Skirt": "Limpador de Casco na Aba Traseira",
         "Rig Guard": "Protetor de Argolas",
-        "Saddle String 4 or 6": "Tento nas Margaridas"
+        "Full Back Cinch": "Barrigueira Traseira Completa",
+        "Saddle String 4 or 6": "Tento nas Margaridas",
+        "Back Cinch Hole Only": "Apenas Buraco para Barrigueira"
       },
       "buckstitching": {
         "None": "Nenhum",

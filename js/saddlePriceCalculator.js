@@ -12,8 +12,12 @@ class SaddlePriceCalculator {
       },
       accessoriesGroup: {
         // nome => valor extra
+        'Hoof Pick Holder': 15,
+        'Hoof Pick Holder on Skirt': 15,
+        'Rig Guard': 25,
+        'Full Back Cinch': 35,
         'Saddle String 4 or 6': 20,
-        'Rig Guard': 25
+        'Back Cinch Hole Only': 10
       },
     };
   }

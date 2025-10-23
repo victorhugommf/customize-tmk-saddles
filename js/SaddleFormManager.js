@@ -432,7 +432,7 @@ class SaddleFormManager {
                 // Only show Aluminium options
                 $stirrupOptions.filter('[data-stirrup-type="wood"]').addClass('disabled');
                 // Always show measurements with only Child row
-                this.filterMeasurementRows(['child']);
+                this.filterMeasurementRows(['child', 'juvenile']);
                 break;
         }
 
