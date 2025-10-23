@@ -298,7 +298,138 @@ body {
   padding: 20px;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border-radius: 12px;
-  border: 2px solid #dee2e6;
+  border-left: 4px solid #8B4513;
+}
+
+/* Stirrup type section within container */
+.stirrup-type-section {
+  margin-bottom: 30px;
+}
+
+.stirrup-type-section h4 {
+  margin-bottom: 15px;
+  color: #8B4513;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Stirrup measurements section within container */
+.stirrup-measurements-section h4 {
+  margin-bottom: 15px;
+  color: #8B4513;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Disabled/grayed out stirrup options */
+.checkbox-item.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.checkbox-item.disabled input {
+  cursor: not-allowed;
+}
+
+.checkbox-item.disabled label {
+  cursor: not-allowed;
+  color: #999;
+}
+
+.checkbox-item.disabled .option-image {
+  filter: grayscale(100%);
+}
+
+/* Disabled/grayed out table rows */
+.size-row.disabled {
+  opacity: 0.4;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.size-row.disabled td {
+  color: #999 !important;
+}
+
+.size-row.disabled:hover {
+  background-color: transparent !important;
+  transform: none !important;
+  cursor: not-allowed;
+}
+
+/* Ensure enabled rows still work normally */
+.size-row:not(.disabled) {
+  cursor: pointer;
+}
+
+.size-row:not(.disabled):hover {
+  background-color: rgba(139, 69, 19, 0.15) !important;
+  transform: translateY(-1px);
+}
+
+/* Disabled measurements section */
+.stirrup-measurements-section.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.stirrup-measurements-section.disabled h4 {
+  color: #999;
+}
+
+.stirrup-measurements-section.disabled .table-instruction {
+  color: #999;
+}
+
+.stirrup-measurements-section.disabled .stirrup-measurements-table {
+  opacity: 0.6;
+}
+
+.stirrup-measurements-section.disabled .measurement-svg {
+  opacity: 0.6;
+  filter: grayscale(50%);
+}
+
+/* Auto-selected single row styling */
+.size-row.selected:only-of-type:not(.disabled) {
+  background-color: rgba(139, 69, 19, 0.25) !important;
+  border-left: 4px solid #8B4513;
+}
+
+/* Enhanced selected row styling */
+.size-row.selected {
+  background-color: rgba(139, 69, 19, 0.2) !important;
+  border-left: 4px solid #8B4513;
+  font-weight: 600;
+}
+
+/* Fender height table */
+.fender-height-container {
+  margin: 20px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  border-left: 4px solid #8B4513;
+}
+
+/* Fender style section within container */
+.fender-style-section {
+  margin-bottom: 30px;
+}
+
+.fender-style-section h4 {
+  margin-bottom: 15px;
+  color: #8B4513;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Fender height section within container */
+.fender-height-section h4 {
+  margin-bottom: 15px;
+  color: #8B4513;
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
 /* Measurements illustrations */
@@ -344,6 +475,11 @@ body {
 .stirrup-measurements-table {
   width: 100%;
   min-width: 600px;
+}
+
+.fender-height-table {
+  width: 100%;
+  min-width: 300px;
   border-collapse: collapse;
   background: white;
   border-radius: 8px;
@@ -351,7 +487,8 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.stirrup-measurements-table th {
+.stirrup-measurements-table th,
+.fender-height-table th {
   background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
   color: white;
   padding: 12px 15px;
@@ -360,18 +497,21 @@ body {
   font-size: 0.9rem;
 }
 
-.stirrup-measurements-table td {
+.stirrup-measurements-table td,
+.fender-height-table td {
   padding: 12px 15px;
   text-align: center;
   border-bottom: 1px solid #dee2e6;
   font-size: 0.9rem;
 }
 
-.stirrup-measurements-table tbody tr:nth-child(even) {
+.stirrup-measurements-table tbody tr:nth-child(even),
+.fender-height-table tbody tr:nth-child(even) {
   background-color: #f8f9fa;
 }
 
-.stirrup-measurements-table tbody tr:hover {
+.stirrup-measurements-table tbody tr:hover,
+.fender-height-table tbody tr:hover {
   background-color: rgba(139, 69, 19, 0.1);
   transition: background-color 0.3s ease;
 }
@@ -405,7 +545,8 @@ body {
   font-size: 0.9rem;
 }
 
-.stirrup-measurements-table td:first-child {
+.stirrup-measurements-table td:first-child,
+.fender-height-table td:first-child {
   text-align: left;
   font-weight: 600;
   color: #8B4513;
@@ -583,7 +724,8 @@ body {
     gap: 12px;
   }
 
-  .stirrup-measurements-container {
+  .stirrup-measurements-container,
+  .fender-height-container {
     margin: 15px 0;
     padding: 15px;
   }
@@ -605,7 +747,9 @@ body {
   }
 
   .stirrup-measurements-table th,
-  .stirrup-measurements-table td {
+  .stirrup-measurements-table td,
+  .fender-height-table th,
+  .fender-height-table td {
     padding: 8px 10px;
     font-size: 0.8rem;
   }

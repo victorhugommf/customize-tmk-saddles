@@ -27,11 +27,20 @@ class SaddleFormManager {
         $('input[name="saddleBuild"], input[name="seatStyle"], input[name="accessoriesGroup"]')
             .on('change', () => this.updatePrice());
 
-        // Interactive table for stirrup measurements and fender height
+        // Interactive table for stirrup measurements
         $('.size-row').on('click', e => this.handleSizeRowClick(e));
+
+        // Interactive table for fender height
+        $('.fender-size-row').on('click', e => this.handleFenderHeightRowClick(e));
+
+        // Stirrup type change handler
+        $('input[name="stirrups"]').on('change', e => this.handleStirrupTypeChange(e));
         // PDF generation buttons
         $('#generatePdfEn').on('click', async () => await this.handlePdfGeneration('en'));
         $('#generatePdfPt').on('click', async () => await this.handlePdfGeneration('pt'));
+
+        // Initialize stirrup rules
+        this.initializeStirrupRules();
         this.$form.find('input, select, textarea').on('change', () => {
             this.updateProgress();
         });
@@ -346,7 +355,12 @@ class SaddleFormManager {
     handleSizeRowClick(e) {
         const $row = $(e.currentTarget);
         const size = $row.data('size');
-        const fenderHeight = $row.data('fender-height');
+
+        // Don't allow selection of disabled rows
+        if ($row.hasClass('disabled')) {
+            console.log('Cannot select disabled row:', size);
+            return;
+        }
 
         // Remove seleção anterior
         $('.size-row').removeClass('selected');
@@ -354,14 +368,181 @@ class SaddleFormManager {
         // Adiciona seleção à linha clicada
         $row.addClass('selected');
 
-        // Atualiza os campos hidden
+        // Atualiza o campo hidden
         $('#selectedStirrupSize').val(size);
-        $('#selectedFenderHeight').val(fenderHeight);
 
-        console.log('Selected size:', size, 'Fender height:', fenderHeight);
+        console.log('Selected stirrup size:', size);
 
         // Atualizar progresso
         this.updateProgress();
+    }
+
+    handleFenderHeightRowClick(e) {
+        const $row = $(e.currentTarget);
+        const fenderHeight = $row.data('fender-height');
+
+        // Remove seleção anterior
+        $('.fender-size-row').removeClass('selected');
+
+        // Adiciona seleção à linha clicada
+        $row.addClass('selected');
+
+        // Atualiza o campo hidden
+        $('#selectedFenderHeight').val(fenderHeight);
+
+        console.log('Selected fender height:', fenderHeight);
+
+        // Aplicar regras condicionais para stirrups
+        this.applyStirrupRules(fenderHeight);
+
+        // Atualizar progresso
+        this.updateProgress();
+    }
+
+    applyStirrupRules(fenderHeight) {
+        const $stirrupOptions = $('.checkbox-item[data-stirrup-type]');
+
+        // Reset all stirrup options
+        $stirrupOptions.removeClass('disabled');
+
+        // Enable measurements section
+        this.enableMeasurementsSection();
+
+        // Clear any previous stirrup selection
+        $('input[name="stirrups"]').prop('checked', false);
+
+        // Clear stirrup size selection
+        $('#selectedStirrupSize').val('');
+        $('.size-row').removeClass('selected');
+
+        switch (fenderHeight) {
+            case '45cm': // Adult
+                // Show all stirrup types
+                // Always show measurements with only Adult row
+                this.filterMeasurementRows(['adult']);
+                break;
+
+            case '39cm': // Juvenile  
+                // Show all stirrup types
+                // Show measurements based on stirrup type selection
+                this.updateMeasurementsForJuvenile();
+                break;
+
+            case '33.5cm': // Child
+                // Only show Aluminium options
+                $stirrupOptions.filter('[data-stirrup-type="wood"]').addClass('disabled');
+                // Always show measurements with only Child row
+                this.filterMeasurementRows(['child']);
+                break;
+        }
+
+        console.log('Applied stirrup rules for fender height:', fenderHeight);
+    }
+
+    handleStirrupTypeChange(e) {
+        const selectedStirrup = $(e.target).val();
+        const fenderHeight = $('#selectedFenderHeight').val();
+
+        // Clear stirrup size selection when changing stirrup type
+        $('#selectedStirrupSize').val('');
+        $('.size-row').removeClass('selected');
+
+        // Apply measurement rules based on fender height and stirrup type
+        if (fenderHeight === '39cm') { // Juvenile
+            this.updateMeasurementsForJuvenile();
+        }
+
+        console.log('Stirrup type changed:', selectedStirrup, 'for fender height:', fenderHeight);
+    }
+
+    initializeStirrupRules() {
+        // Show stirrup measurements section by default
+        $('.stirrup-measurements-section').show();
+
+        // Show all measurement rows initially but disable them
+        $('.size-row').show().addClass('disabled');
+
+        // If there's already a fender height selected, apply rules
+        const selectedFenderHeight = $('#selectedFenderHeight').val();
+        if (selectedFenderHeight) {
+            this.applyStirrupRules(selectedFenderHeight);
+        } else {
+            // No fender height selected, disable measurements until selection is made
+            this.disableMeasurementsSection();
+        }
+    }
+
+    updateMeasurementsForJuvenile() {
+        const selectedStirrup = $('input[name="stirrups"]:checked').val();
+
+        if (!selectedStirrup) {
+            // No stirrup selected yet, disable measurements
+            this.disableMeasurementsSection();
+            return;
+        }
+
+        // Enable measurements section
+        this.enableMeasurementsSection();
+
+        if (selectedStirrup.includes('Wood')) {
+            // Wood stirrups: show only Adult row
+            this.filterMeasurementRows(['adult']);
+        } else if (selectedStirrup.includes('Aluminium')) {
+            // Aluminium stirrups: show Adult and Juvenile rows
+            this.filterMeasurementRows(['adult', 'juvenile']);
+        }
+    }
+
+    filterMeasurementRows(allowedSizes) {
+        const $allRows = $('.size-row');
+
+        // First, disable all rows (greyed out)
+        $allRows.addClass('disabled').removeClass('selected');
+
+        // Clear previous selection
+        $('#selectedStirrupSize').val('');
+
+        // Then enable only allowed rows
+        allowedSizes.forEach(size => {
+            $(`.size-row[data-size="${size}"]`).removeClass('disabled');
+        });
+
+        // If only one option is available, select it automatically
+        if (allowedSizes.length === 1) {
+            const singleSize = allowedSizes[0];
+            const $singleRow = $(`.size-row[data-size="${singleSize}"]`);
+
+            $singleRow.addClass('selected');
+            $('#selectedStirrupSize').val(singleSize);
+
+            console.log('Auto-selected single available size:', singleSize);
+
+            // Update progress since we made an automatic selection
+            this.updateProgress();
+        }
+
+        console.log('Filtered measurement rows - active:', allowedSizes);
+    }
+
+    disableMeasurementsSection() {
+        const $measurementsSection = $('.stirrup-measurements-section');
+        $measurementsSection.addClass('disabled');
+
+        // Disable all rows
+        $('.size-row').addClass('disabled');
+
+        // Clear any selection
+        $('.size-row').removeClass('selected');
+        $('#selectedStirrupSize').val('');
+
+        console.log('Measurements section disabled');
+    }
+
+    enableMeasurementsSection() {
+        const $measurementsSection = $('.stirrup-measurements-section');
+        $measurementsSection.removeClass('disabled');
+
+        console.log('Measurements section enabled');
     }
 
     // Continúa com os demais métodos no mesmo estilo...
