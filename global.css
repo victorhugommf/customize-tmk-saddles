@@ -321,7 +321,7 @@ body {
   font-size: 1.1rem;
 }
 
-/* Disabled/grayed out stirrup options */
+/* Disabled/grayed out options (stirrups, tooling, etc.) */
 .checkbox-item.disabled {
   opacity: 0.4;
   pointer-events: none;
@@ -338,6 +338,17 @@ body {
 
 .checkbox-item.disabled .option-image {
   filter: grayscale(100%);
+}
+
+/* Disabled tooling pattern specific styling */
+input[name="toolingPattern"]:disabled+label {
+  color: #999;
+  cursor: not-allowed;
+}
+
+input[name="toolingPattern"]:disabled+label .option-image {
+  filter: grayscale(100%);
+  opacity: 0.6;
 }
 
 /* Disabled/grayed out table rows */

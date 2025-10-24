@@ -19,8 +19,9 @@ class SaddleFormManager {
         $('input[name="style"]').on('change', e => this.handleStyleChange($(e.target).val()));
         $('input[name="seatStyle"]').on('change', e => this.handleSeatStyleChange($(e.target).val()));
         $('input[name="tooledCoverage"]').on('change', e => this.handleToolingChange(e));
-        $('#gulletSize').on('change', this.handleGulletChange);
-        $('input[name="seatOptions"]').on('change', this.handleAccentLimit);
+        $('input[name="toolingPattern"]').on('change', e => this.handleToolingPatternChange(e));
+        $('#gulletSize').on('change', e => this.handleGulletChange(e));
+        $('input[name="seatOptions"]').on('change', () => this.handleAccentLimit());
         $('input[name="accessoriesGroup"]').on('change', e => this.handleAccessoriesChange(e));
         $('input[name="buckstitching"]').on('change', e => this.handleBuckstitchingChange(e));
         $('input[name="studs"]').on('change', e => this.handleStudsChange(e));
@@ -41,6 +42,13 @@ class SaddleFormManager {
 
         // Initialize stirrup rules
         this.initializeStirrupRules();
+
+        // Add event listeners for dynamic required field management
+        $('input[name="saddleBuild"], input[name="seatStyle"], input[name="tooledCoverage"]')
+            .on('change', () => this.updateRequiredFields());
+
+        // Initial required fields update
+        this.updateRequiredFields();
         this.$form.find('input, select, textarea').on('change', () => {
             this.updateProgress();
         });
@@ -112,6 +120,15 @@ class SaddleFormManager {
             $(sectionId).show();
         });
 
+        // Habilitar as opções do Tooling Pattern para Full Leather
+        const $toolingPatternInputs = $('input[name="toolingPattern"]');
+        const $toolingPatternItems = $toolingPatternInputs.closest('.checkbox-item');
+        $toolingPatternItems.removeClass('disabled').css('opacity', '1');
+        $toolingPatternInputs.prop('disabled', false);
+
+        // Atualizar estado da opção "None" baseado no Tooled Coverage atual
+        this.updateToolingPatternNoneOption();
+
         // Desativar riggings de neoprene
         const riggingNeoprene = ['#doubleRoundRigging', '#dropDoubleSquare', '#dropDownNeoprene'];
         riggingNeoprene.forEach(id => {
@@ -127,11 +144,21 @@ class SaddleFormManager {
         const sectionsToShow = [
             '#hybridStyleGroup',
             '#toolingPatternOptions',
+            '#leatherColor',
             '#neopreneColorGroup'
         ];
         sectionsToShow.forEach(sectionId => {
             $(sectionId).show();
         });
+
+        // Habilitar as opções do Tooling Pattern para Hybrid
+        const $toolingPatternInputs = $('input[name="toolingPattern"]');
+        const $toolingPatternItems = $toolingPatternInputs.closest('.checkbox-item');
+        $toolingPatternItems.removeClass('disabled').css('opacity', '1');
+        $toolingPatternInputs.prop('disabled', false);
+
+        // Atualizar estado da opção "None" baseado no Tooled Coverage atual
+        this.updateToolingPatternNoneOption();
 
         console.log('Seção de Tooling ativada para Hybrid');
     }
@@ -217,15 +244,81 @@ class SaddleFormManager {
         } else {
             $gulletOther.hide().prop('required', false).val('');
         }
+        this.updateRequiredFields();
     }
 
     handleToolingChange(e) {
         const $tooledPartsGroup = $('#tooledPartsGroup');
+        const $toolingPatternInputs = $('input[name="toolingPattern"]');
+        const $toolingPatternItems = $toolingPatternInputs.closest('.checkbox-item');
+        const $noneOption = $('#toolingNone');
+        const $noneOptionItem = $noneOption.closest('.checkbox-item');
+
         if ($(e.target).val() === 'plain') {
+            // Hide tooled parts group
             $tooledPartsGroup.hide().prop('required', false).val('');
+
+            // Grey out tooling pattern options
+            $toolingPatternItems.addClass('disabled').css('opacity', '0.4');
+            $toolingPatternInputs.prop('disabled', true).prop('checked', false);
+
+            console.log('Tooling Pattern disabled - Plain selected');
         } else {
+            // Show tooled parts group
             $tooledPartsGroup.show().prop('required', true);
+
+            // Enable tooling pattern options
+            $toolingPatternItems.removeClass('disabled').css('opacity', '1');
+            $toolingPatternInputs.prop('disabled', false);
+
+            console.log('Tooling Pattern enabled - Non-plain selected');
         }
+
+        // Atualizar estado da opção "None" baseado na seleção atual
+        this.updateToolingPatternNoneOption();
+        this.updateRequiredFields();
+    }
+
+    updateToolingPatternNoneOption() {
+        const $noneOption = $('#toolingNone');
+        const $noneOptionItem = $noneOption.closest('.checkbox-item');
+        const selectedTooledCoverage = $('input[name="tooledCoverage"]:checked').val();
+
+        if (selectedTooledCoverage && selectedTooledCoverage !== 'plain') {
+            // Desabilitar "None" quando qualquer opção diferente de "plain" estiver selecionada
+            $noneOptionItem.addClass('disabled').css('opacity', '0.4');
+            $noneOption.prop('disabled', true);
+
+            // Se "None" estava selecionado, limpar a seleção
+            if ($noneOption.is(':checked')) {
+                $noneOption.prop('checked', false);
+            }
+        } else {
+            // Habilitar "None" quando "plain" estiver selecionado ou nada estiver selecionado
+            $noneOptionItem.removeClass('disabled').css('opacity', '1');
+            $noneOption.prop('disabled', false);
+        }
+    }
+
+    handleToolingPatternChange(e) {
+        const $tooledPartsGroup = $('#tooledPartsGroup');
+        const $tooledPartsInputs = $('input[name="leatherColorTooled"]');
+        const $tooledPartsItems = $tooledPartsInputs.closest('.checkbox-item');
+
+        if ($(e.target).val() === 'None') {
+            // Grey out tooled parts options when None is selected
+            $tooledPartsItems.addClass('disabled').css('opacity', '0.4');
+            $tooledPartsInputs.prop('disabled', true).prop('checked', false);
+
+            console.log('Leather Color - Tooled disabled - None selected in Tooling Pattern');
+        } else {
+            // Enable tooled parts options when any pattern is selected
+            $tooledPartsItems.removeClass('disabled').css('opacity', '1');
+            $tooledPartsInputs.prop('disabled', false);
+
+            console.log('Leather Color - Tooled enabled - Pattern selected in Tooling Pattern');
+        }
+        this.updateRequiredFields();
     }
 
     handleAccentLimit() {
@@ -258,6 +351,7 @@ class SaddleFormManager {
             $saddleStringQuantityGroup.hide();
             $('#saddleStringQuantity').prop('required', false).val('');
         }
+        this.updateRequiredFields();
     }
 
     handleBuckstitchingChange(e) {
@@ -437,6 +531,7 @@ class SaddleFormManager {
         }
 
         console.log('Applied stirrup rules for fender height:', fenderHeight);
+        this.updateRequiredFields();
     }
 
     handleStirrupTypeChange(e) {
@@ -453,6 +548,7 @@ class SaddleFormManager {
         }
 
         console.log('Stirrup type changed:', selectedStirrup, 'for fender height:', fenderHeight);
+        this.updateRequiredFields();
     }
 
     initializeStirrupRules() {
@@ -543,6 +639,117 @@ class SaddleFormManager {
         $measurementsSection.removeClass('disabled');
 
         console.log('Measurements section enabled');
+    }
+
+    // Função para gerenciar campos required dinamicamente
+    updateRequiredFields() {
+        // Campos que devem ser required apenas quando visíveis/habilitados
+        const conditionalRequiredFields = [
+            // Gullet Other - apenas quando "other" está selecionado
+            {
+                field: '#gulletOther',
+                condition: () => $('#gulletSize').val() === 'other'
+            },
+            // Tooled Parts - apenas quando não é "plain" E quando tooling pattern não é "None"
+            {
+                field: 'input[name="leatherColorTooled"]',
+                condition: () => {
+                    const tooledCoverage = $('input[name="tooledCoverage"]:checked').val();
+                    const toolingPattern = $('input[name="toolingPattern"]:checked').val();
+                    return tooledCoverage !== 'plain' && toolingPattern !== 'None';
+                }
+            },
+            // Tooling Pattern - quando não é "plain" OU quando é Hybrid
+            {
+                field: 'input[name="toolingPattern"]',
+                condition: () => {
+                    const build = $('input[name="saddleBuild"]:checked').val();
+                    const tooledCoverage = $('input[name="tooledCoverage"]:checked').val();
+                    return (tooledCoverage && tooledCoverage !== 'plain') || build === 'Hybrid';
+                }
+            },
+            // Neoprene Type - apenas quando Full Neoprene está selecionado
+            {
+                field: 'input[name="neopreneType"]',
+                condition: () => $('input[name="saddleBuild"]:checked').val() === 'Full Neoprene'
+            },
+            // Neoprene Color - apenas quando Hybrid ou Full Neoprene está selecionado
+            {
+                field: 'input[name="neopreneColor"]',
+                condition: () => {
+                    const build = $('input[name="saddleBuild"]:checked').val();
+                    return build === 'Hybrid' || build === 'Full Neoprene';
+                }
+            },
+            // Style - apenas quando Hybrid está selecionado
+            {
+                field: 'input[name="style"]',
+                condition: () => $('input[name="saddleBuild"]:checked').val() === 'Hybrid'
+            },
+            // Leather Color (Plain Parts) - quando Full Leather ou Hybrid está selecionado
+            {
+                field: 'input[name="leatherColor"]',
+                condition: () => {
+                    const build = $('input[name="saddleBuild"]:checked').val();
+                    return build === 'Full Leather' || build === 'Hybrid';
+                }
+            },
+            // Seat Options - apenas quando não é "Hard"
+            {
+                field: 'input[name="seatOptions"]',
+                condition: () => $('input[name="seatStyle"]:checked').val() !== 'Hard'
+            },
+            // Stirrup Size - apenas quando measurements section está habilitada e há linhas ativas
+            {
+                field: '#selectedStirrupSize',
+                condition: () => {
+                    const $section = $('.stirrup-measurements-section');
+                    const hasActiveRows = $('.size-row:not(.disabled)').length > 0;
+                    return !$section.hasClass('disabled') && hasActiveRows;
+                }
+            },
+            // Saddle String Quantity - apenas quando Saddle Strings está selecionado
+            {
+                field: '#saddleStringQuantity',
+                condition: () => $('#saddleStrings').is(':checked')
+            },
+            // Buck Stitch Color - apenas quando buckstitching está selecionado
+            {
+                field: 'input[name="buckStitchColor"]',
+                condition: () => {
+                    const buckstitching = $('input[name="buckstitching"]:checked').val();
+                    return buckstitching && buckstitching !== 'None';
+                }
+            },
+            // Studs Colors - apenas quando studs está selecionado
+            {
+                field: 'input[name="studsColors"]',
+                condition: () => {
+                    const studs = $('input[name="studs"]:checked').val();
+                    return studs && studs !== 'None';
+                }
+            }
+        ];
+
+        // Aplicar regras condicionais
+        conditionalRequiredFields.forEach(({ field, condition }) => {
+            const $field = $(field);
+            const shouldBeRequired = condition();
+
+            if (shouldBeRequired) {
+                $field.prop('required', true);
+            } else {
+                $field.prop('required', false);
+                // Limpar valor se não é mais obrigatório
+                if ($field.is('input[type="radio"], input[type="checkbox"]')) {
+                    $field.prop('checked', false);
+                } else {
+                    $field.val('');
+                }
+            }
+        });
+
+        console.log('Updated required fields based on current form state');
     }
 
     // Continúa com os demais métodos no mesmo estilo...
@@ -662,26 +869,166 @@ class SaddleFormManager {
 
     validateForm() {
         const $requiredFields = this.$form.find('[required]');
+        const missingFields = [];
         let isValid = true;
+        const self = this; // Salvar referência para usar dentro do each
 
         $requiredFields.each(function () {
             const $field = $(this);
+            let fieldName = '';
+            let isEmpty = false;
+
             if ($field.is(':radio')) {
                 const groupChecked = $(`[name="${$field.attr('name')}"]:checked`).length > 0;
                 if (!groupChecked) {
-                    isValid = false;
-                    $field.closest('.section')[0].scrollIntoView({ behavior: 'smooth' });
-                    return false;
+                    isEmpty = true;
+                    fieldName = $field.attr('name');
                 }
             } else if (!$field.val().trim()) {
+                isEmpty = true;
+                fieldName = $field.attr('name') || $field.attr('id');
+            }
+
+            if (isEmpty) {
                 isValid = false;
-                $field.focus();
-                $field[0].scrollIntoView({ behavior: 'smooth' });
-                return false;
+                // Obter o label do campo para mostrar um nome mais amigável
+                const friendlyName = self.getFieldFriendlyName($field);
+                const sectionName = self.getFieldSectionName($field);
+
+                missingFields.push({
+                    name: fieldName,
+                    friendlyName: friendlyName,
+                    sectionName: sectionName,
+                    element: $field
+                });
             }
         });
 
+        if (!isValid) {
+            this.showMissingFieldsModal(missingFields);
+        }
+
         return isValid;
+    }
+
+    getFieldFriendlyName($field) {
+        // Tentar encontrar o label associado ao campo
+        let label = '';
+
+        if ($field.is(':radio')) {
+            // Para radio buttons, pegar o label do grupo
+            const $groupLabel = $field.closest('.form-group').find('label').first();
+            label = $groupLabel.find('span').first().text() || $groupLabel.text();
+        } else {
+            // Para outros campos, pegar o label associado
+            const fieldId = $field.attr('id');
+            if (fieldId) {
+                const $label = $(`label[for="${fieldId}"]`);
+                if ($label.length) {
+                    label = $label.find('span').first().text() || $label.text();
+                } else {
+                    // Se não encontrar label específico, pegar o label do form-group
+                    const $groupLabel = $field.closest('.form-group').find('label').first();
+                    label = $groupLabel.find('span').first().text() || $groupLabel.text();
+                }
+            }
+        }
+
+        // Limpar o texto do label (remover asteriscos e espaços extras)
+        return label.replace(/\*/g, '').trim() || $field.attr('name') || 'Campo não identificado';
+    }
+
+    getFieldSectionName($field) {
+        // Encontrar a seção pai do campo
+        const $section = $field.closest('.section');
+        if ($section.length) {
+            const $sectionTitle = $section.find('.section-title').first();
+            return $sectionTitle.text().replace(/[🎨🏇👤🔗⚙️🔨]/g, '').trim() || 'Seção não identificada';
+        }
+        return 'Seção não identificada';
+    }
+
+    showMissingFieldsModal(missingFields) {
+        // Detectar idioma atual
+        const currentLang = $('html').attr('lang') || 'en';
+        const isPortuguese = currentLang === 'pt';
+
+        // Textos do modal baseados no idioma
+        const texts = {
+            title: isPortuguese ? '⚠️ Campos Obrigatórios Não Preenchidos' : '⚠️ Required Fields Not Filled',
+            description: isPortuguese ? 'Por favor, preencha os seguintes campos para continuar:' : 'Please fill in the following fields to continue:',
+            closeButton: isPortuguese ? 'Fechar' : 'Close'
+        };
+
+        // Agrupar campos por seção
+        const fieldsBySection = {};
+        missingFields.forEach(field => {
+            if (!fieldsBySection[field.sectionName]) {
+                fieldsBySection[field.sectionName] = [];
+            }
+            fieldsBySection[field.sectionName].push(field);
+        });
+
+        // Criar o conteúdo do modal
+        let modalContent = '<div class="missing-fields-modal">';
+        modalContent += `<h3>${texts.title}</h3>`;
+        modalContent += `<p>${texts.description}</p>`;
+
+        Object.keys(fieldsBySection).forEach(sectionName => {
+            modalContent += `<div class="missing-section">`;
+            modalContent += `<h4>${sectionName}</h4>`;
+            modalContent += '<ul>';
+            fieldsBySection[sectionName].forEach(field => {
+                modalContent += `<li class="missing-field-item" data-field="${field.name}">${field.friendlyName}</li>`;
+            });
+            modalContent += '</ul>';
+            modalContent += '</div>';
+        });
+
+        modalContent += '<div class="modal-buttons">';
+        modalContent += `<button class="btn-close-modal">${texts.closeButton}</button>`;
+        modalContent += '</div>';
+        modalContent += '</div>';
+
+        // Criar e mostrar o modal
+        const $modal = $('<div class="modal-overlay">').html(modalContent);
+        $('body').append($modal);
+
+        // Event listeners para o modal
+        $modal.find('.btn-close-modal').on('click', () => {
+            $modal.remove();
+        });
+
+        $modal.find('.missing-field-item').on('click', function () {
+            const fieldName = $(this).data('field');
+            const field = missingFields.find(f => f.name === fieldName);
+            if (field && field.element) {
+                $modal.remove();
+                // Scroll para o campo e dar foco
+                field.element[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => {
+                    if (field.element.is(':radio')) {
+                        // Para radio buttons, destacar o grupo
+                        field.element.closest('.form-group').addClass('highlight-field');
+                        setTimeout(() => {
+                            field.element.closest('.form-group').removeClass('highlight-field');
+                        }, 3000);
+                    } else {
+                        field.element.focus().addClass('highlight-field');
+                        setTimeout(() => {
+                            field.element.removeClass('highlight-field');
+                        }, 3000);
+                    }
+                }, 500);
+            }
+        });
+
+        // Fechar modal clicando fora
+        $modal.on('click', function (e) {
+            if (e.target === this) {
+                $modal.remove();
+            }
+        });
     }
 
     getFormData() {
@@ -714,10 +1061,7 @@ class SaddleFormManager {
 
     async handlePdfGeneration(language) {
         if (!this.validateForm()) {
-            const message = language === 'en'
-                ? 'Please fill in all required fields'
-                : 'Por favor, preencha todos os campos obrigatórios';
-            this.showNotification(message, 'error');
+            // O modal detalhado já será mostrado pelo validateForm()
             return;
         }
 
