@@ -75,6 +75,17 @@
     "studsColorsLabel": "Studs Colors",
     "backCinchLabel": "Back Cinch",
     "stirrupsLabel": "Stirrups",
+    "stirrupOptionsLabel": "Stirrup Options",
+    "stirrupMeasurementsLabel": "Stirrup Measurements",
+    "stirrupMeasurementsTitle": "Stirrup Measurements",
+    "stirrupSizeLabel": "Size",
+    "stirrupNeckLabel": "Neck",
+    "stirrupHeightLabel": "Height",
+    "stirrupTreadLabel": "Tread",
+    "stirrupWidthLabel": "Width",
+    "stirrupAdult": "Adult",
+    "stirrupJuvenile": "Juvenile",
+    "stirrupChild": "Child",
     "backOfSkirtLabel": "Back of Skirt",
     "conchosLabel": "Conchos",
     "specialNotesLabel": "Special Notes",
@@ -234,6 +245,7 @@
         "Brown": "Brown"
       },
       "studs": {
+        "None": "None",
         "Single Studs": "Single Studs",
         "Double Studs": "Double Studs",
         "Single Buckstitching Studs": "Single Buckstitching Studs",
@@ -242,6 +254,16 @@
       "studsColors": {
         "Copper": "Copper",
         "Silver": "Silver"
+      },
+      "toolingPatternBorder": {
+        "None": "None",
+        "B01": "B01",
+        "B02": "B02",
+        "B03": "B03",
+        "B04": "B04",
+        "B05": "B05",
+        "B06": "B06",
+        "B07": "B07"
       },
       "backCinch": {
         "None": "None",
@@ -460,6 +482,17 @@
     "studsColorsLabel": "Cores das Tachas",
     "backCinchLabel": "Barrigueira Traseira",
     "stirrupsLabel": "Modelo de Estribos",
+    "stirrupOptionsLabel": "Opções de Estribos",
+    "stirrupMeasurementsLabel": "Medidas dos Estribos",
+    "stirrupMeasurementsTitle": "Medidas dos Estribos",
+    "stirrupSizeLabel": "Tamanho",
+    "stirrupNeckLabel": "Pescoço",
+    "stirrupHeightLabel": "Altura",
+    "stirrupTreadLabel": "Piso",
+    "stirrupWidthLabel": "Largura",
+    "stirrupAdult": "Adulto",
+    "stirrupJuvenile": "Juvenil",
+    "stirrupChild": "Infantil",
     "backOfSkirtLabel": "Parte Traseira da Aba",
     "conchosLabel": "Conchos",
     "specialNotesLabel": "Observações Especiais",
@@ -612,6 +645,7 @@
         "X Buckstitch": "Tenteado em X"
       },
       "studs": {
+        "None": "Nenhum",
         "Single Studs": "Tachas Simples",
         "Double Studs": "Tachas Duplas",
         "Single Buckstitching Studs": "Tachas Simples com Tenteado",
@@ -620,6 +654,16 @@
       "studsColors": {
         "Copper": "Cobre",
         "Silver": "Prata"
+      },
+      "toolingPatternBorder": {
+        "None": "Nenhum",
+        "B01": "B01",
+        "B02": "B02",
+        "B03": "B03",
+        "B04": "B04",
+        "B05": "B05",
+        "B06": "B06",
+        "B07": "B07"
       },
       "backCinch": {
         "No Back Cinch": "Sem Barrigueira Traseira",

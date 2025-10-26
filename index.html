@@ -1641,6 +1641,15 @@
                                     data-i18n="requiredField">*</span></label>
                             <div class="checkbox-grid">
                                 <div class="checkbox-item">
+                                    <input type="radio" id="borderNone" name="toolingPatternBorder" required
+                                        value="None">
+                                    <label for="borderNone">
+                                        <div class="no-image-placeholder">
+                                            None
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="checkbox-item">
                                     <input type="radio" id="borderB01" name="toolingPatternBorder" required value="B01">
                                     <label for="borderB01">
                                         <img src="imgs/13-BorderTooling/Borders_TMK_B01_opt.webp" width="100%"
@@ -2005,8 +2014,17 @@
 
                     <!-- Studs Section -->
                     <div class="form-group">
-                        <label><span data-i18n="studsLabel">Studs</span></label>
+                        <label><span data-i18n="studsLabel">Studs</span> <span class="required"
+                                data-i18n="requiredField">*</span></label>
                         <div class="checkbox-grid" data-i18n-radio="studs">
+                            <div class="checkbox-item">
+                                <input type="radio" id="studsNone" name="studs" required value="None">
+                                <label for="studsNone">
+                                    <div class="no-image-placeholder">
+                                        None
+                                    </div>
+                                </label>
+                            </div>
                             <div class="checkbox-item">
                                 <input type="radio" id="studs1" name="studs" required value="Single Studs">
                                 <label for="studs1">

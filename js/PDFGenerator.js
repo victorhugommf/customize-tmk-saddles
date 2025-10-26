@@ -3,10 +3,12 @@ class PDFGenerator {
     this.doc = doc;
     this.$form = $form;
     this.language = language;
-    this.yPosition = 20;
-    this.pageHeight = 280;
+    this.yPosition = 25;
+    this.pageHeight = 270; // Reduzido para dar mais margem inferior
     this.leftMargin = 20;
     this.rightMargin = 190;
+    this.topMargin = 25; // Nova margem superior
+    this.bottomMargin = 25; // Nova margem inferior
     this.translationManager = TranslationManager.getInstance();
     this.imageCache = new Map(); // Cache para imagens convertidas
     this.highQualityMode = true; // Flag para modo de alta qualidade
@@ -15,6 +17,10 @@ class PDFGenerator {
   setLanguage(language) {
     this.language = language;
     this.translationManager.setLanguage(language);
+  }
+
+  resetPosition() {
+    this.yPosition = this.topMargin;
   }
 
 
@@ -264,6 +270,7 @@ class PDFGenerator {
       this.addCustomerInfo();
       await this.addSaddleSpecs();
       await this.addDesignCustomization();
+      await this.addStirrupOptions();
       await this.addToolingOptions();
       await this.addLiningRigging();
       await this.addAccessories();
@@ -297,6 +304,7 @@ class PDFGenerator {
           portuguesePDF.addCustomerInfo();
           await portuguesePDF.addSaddleSpecs();
           await portuguesePDF.addDesignCustomization();
+          await portuguesePDF.addStirrupOptions();
           await portuguesePDF.addToolingOptions();
           await portuguesePDF.addLiningRigging();
           await portuguesePDF.addAccessories();
@@ -456,6 +464,9 @@ class PDFGenerator {
     const neopreneTypeImage = await this.getSelectedImage('neopreneType');
     const neopreneColorImage = await this.getSelectedImage('neopreneColor');
 
+    // Obter imagem dos stirrups
+    const stirrupsImage = await this.getSelectedImage('stirrups');
+
     const designData = [
       [this.getTranslation('style'), this.getNumberedRadioValue('style'), styleImage],
       [this.getTranslation('neopreneTypeLabel'), this.getNumberedRadioValue('neopreneType'), neopreneTypeImage],
@@ -463,14 +474,35 @@ class PDFGenerator {
       [this.getTranslation('skirtStyle'), this.getNumberedRadioValue('skirtStyle'), skirtStyleImage],
       [this.getTranslation('cantleStyle'), this.getNumberedRadioValue('cantleStyle'), cantleStyleImage],
       [this.getTranslation('fenderStyle'), this.getNumberedRadioValue('fenderStyle'), fenderStyleImage],
-      [this.getTranslation('stirrupSizeLabel'), this.getFieldValue('stirrupSize')],
-      [this.getTranslation('fenderHeightLabel'), this.getFieldValue('fenderHeight')],
+      [this.getTranslation('fenderHeightLabel'), this.getCombinedFenderHeight()],
+      [this.getTranslation('stirrupsLabel'), this.getNumberedRadioValue('stirrups'), stirrupsImage],
+      [this.getTranslation('stirrupMeasurementsLabel'), this.getStirrupMeasurements(this.getFieldValue('stirrupSize'))],
       [this.getTranslation('jockeySeat'), this.getNumberedRadioValue('jockeySeat'), jockeySeatImage],
       [this.getTranslation('seatStyle'), this.getNumberedRadioValue('seatStyle'), seatStyleImage],
       [this.getTranslation('seatOptions'), this.getNumberedRadioValue('seatOptions'), seatOptionsImage],
     ];
 
     this.addDataTable(designData.filter(item => item[1]));
+    this.addSectionDivider();
+  }
+
+  async addStirrupOptions() {
+    this.addSectionTitle(this.getTranslation('stirrupOptionsLabel'));
+
+    // Obter imagem do stirrup selecionado
+    const stirrupImage = await this.getSelectedImage('stirrups');
+
+    // Obter dados do stirrup
+    const stirrupType = this.getNumberedRadioValue('stirrups');
+    const stirrupSize = this.getFieldValue('stirrupSize');
+    const stirrupMeasurements = this.getStirrupMeasurements(stirrupSize);
+
+    const stirrupData = [
+      [this.getTranslation('stirrupsLabel'), stirrupType, stirrupImage],
+      [this.getTranslation('stirrupMeasurementsLabel'), stirrupMeasurements],
+    ];
+
+    this.addDataTable(stirrupData.filter(item => item[1]));
     this.addSectionDivider();
   }
 
@@ -563,7 +595,6 @@ class PDFGenerator {
     const studsImage = await this.getSelectedImage('studs');
     const studsColorsImage = await this.getSelectedImage('studsColors');
     const backCinchImage = await this.getSelectedImage('backCinch');
-    const stirrupsImage = await this.getSelectedImage('stirrups');
     const backSkirtImage = await this.getSelectedImage('backSkirt');
     const conchosImage = await this.getSelectedImage('conchos');
 
@@ -578,7 +609,6 @@ class PDFGenerator {
       [this.getTranslation('buckStitchingStyle'), this.getNumberedRadioValue('buckstitching'), buckstitchingImage],
       [this.getTranslation('studs'), this.getNumberedRadioValue('studs'), studsImage],
       [this.getTranslation('backCinch'), this.getNumberedRadioValue('backCinch'), backCinchImage],
-      [this.getTranslation('stirrups'), this.getNumberedRadioValue('stirrups'), stirrupsImage],
       [this.getTranslation('backOfSkirt'), this.getNumberedRadioValue('backSkirt'), backSkirtImage],
       [this.getTranslation('conchos'), this.getCheckedValue('conchos'), conchosImage],
     ];
@@ -642,15 +672,17 @@ class PDFGenerator {
   addFooter() {
     this.doc.setFontSize(8);
     this.doc.setFont(undefined, 'italic');
-    this.doc.text(this.getTranslation('footerText'), 105, 285, { align: 'center' });
+    // Usar altura da página menos margem inferior para posicionar o footer
+    const footerY = 297 - this.bottomMargin; // A4 height is 297mm
+    this.doc.text(this.getTranslation('footerText'), 105, footerY, { align: 'center' });
   }
 
   addSectionTitle(title) {
-    this.checkPageBreak(15);
+    this.checkPageBreak(18); // Aumentado de 15 para 18
     this.doc.setFont(undefined, 'bold');
     this.doc.setFontSize(12);
     this.doc.text(title, this.leftMargin, this.yPosition);
-    this.yPosition += 10;
+    this.yPosition += 12; // Aumentado de 10 para 12
     this.doc.setFont(undefined, 'normal');
     this.doc.setFontSize(10);
   }
@@ -767,24 +799,24 @@ class PDFGenerator {
   }
 
   addSectionDivider() {
-    this.checkPageBreak(15);
+    this.checkPageBreak(20);
     // Linha dupla para seções principais
     this.doc.line(this.leftMargin, this.yPosition, this.rightMargin, this.yPosition);
     this.doc.line(this.leftMargin, this.yPosition + 2, this.rightMargin, this.yPosition + 2);
-    this.yPosition += 15;
+    this.yPosition += 20; // Aumentado de 15 para 20
   }
 
   addOptionDivider() {
-    this.checkPageBreak(8);
+    this.checkPageBreak(10);
     // Linha simples para separar opções individuais - comprimento total da página
     this.doc.line(this.leftMargin, this.yPosition, this.rightMargin, this.yPosition);
-    this.yPosition += 8;
+    this.yPosition += 10; // Aumentado de 8 para 10
   }
 
   checkPageBreak(requiredSpace) {
     if (this.yPosition + requiredSpace > this.pageHeight) {
       this.doc.addPage();
-      this.yPosition = 20;
+      this.yPosition = this.topMargin;
     }
   }
 
@@ -796,6 +828,59 @@ class PDFGenerator {
   getCheckedRadioValue(fieldName) {
     const $field = this.$form.find(`[name="${fieldName}"]:checked`);
     return $field.length ? $field.val() : '';
+  }
+
+  getCombinedFenderHeight() {
+    const fenderHeight = this.getFieldValue('fenderHeight');
+    if (!fenderHeight) return '';
+
+    // Mapear altura para tamanho baseado na tabela HTML
+    const heightToSizeMap = {
+      '45cm': 'Adult',
+      '39cm': 'Juvenile',
+      '33.5cm': 'Child'
+    };
+
+    // Se o valor já está no formato "Size - Height", retornar como está
+    if (fenderHeight.includes(' - ')) {
+      return fenderHeight;
+    }
+
+    // Se é apenas a altura, mapear para o tamanho correspondente
+    const size = heightToSizeMap[fenderHeight];
+    if (size) {
+      const translatedSize = this.getTranslation(`stirrup${size}`) || size;
+      return `${translatedSize} - ${fenderHeight}`;
+    }
+
+    // Se não conseguir mapear, retornar o valor original
+    return fenderHeight;
+  }
+
+  getStirrupMeasurements(stirrupSize) {
+    if (!stirrupSize) return '';
+
+    // Definir as medidas baseadas no tamanho selecionado (valores da tabela HTML)
+    const measurements = {
+      'adult': { neck: '5.5cm', height: '14cm', tread: '7.5cm', width: '12.5cm' },
+      'juvenile': { neck: '5cm', height: '12.5cm', tread: '7.0cm', width: '12.0cm' },
+      'child': { neck: '4.5cm', height: '11cm', tread: '6.0cm', width: '10.7cm' }
+    };
+
+    const sizeKey = stirrupSize.toLowerCase();
+    const measurement = measurements[sizeKey];
+
+    if (measurement) {
+      const sizeLabel = this.getTranslation(`stirrup${stirrupSize.charAt(0).toUpperCase() + stirrupSize.slice(1)}`) || stirrupSize;
+      const neckLabel = this.getTranslation('stirrupNeckLabel') || 'Neck';
+      const heightLabel = this.getTranslation('stirrupHeightLabel') || 'Height';
+      const treadLabel = this.getTranslation('stirrupTreadLabel') || 'Tread';
+      const widthLabel = this.getTranslation('stirrupWidthLabel') || 'Width';
+
+      return `${sizeLabel}: ${neckLabel} ${measurement.neck}, ${heightLabel} ${measurement.height}, ${treadLabel} ${measurement.tread}, ${widthLabel} ${measurement.width}`;
+    }
+
+    return stirrupSize;
   }
 
   getTranslatedFieldValue(fieldName) {

@@ -251,8 +251,9 @@ class SaddleFormManager {
         const $tooledPartsGroup = $('#tooledPartsGroup');
         const $toolingPatternInputs = $('input[name="toolingPattern"]');
         const $toolingPatternItems = $toolingPatternInputs.closest('.checkbox-item');
+        const $toolingPatternBorderInputs = $('input[name="toolingPatternBorder"]');
+        const $toolingPatternBorderItems = $toolingPatternBorderInputs.closest('.checkbox-item');
         const $noneOption = $('#toolingNone');
-        const $noneOptionItem = $noneOption.closest('.checkbox-item');
 
         if ($(e.target).val() === 'plain') {
             // Hide tooled parts group
@@ -262,7 +263,11 @@ class SaddleFormManager {
             $toolingPatternItems.addClass('disabled').css('opacity', '0.4');
             $toolingPatternInputs.prop('disabled', true).prop('checked', false);
 
-            console.log('Tooling Pattern disabled - Plain selected');
+            // Grey out tooling pattern border options
+            $toolingPatternBorderItems.addClass('disabled').css('opacity', '0.4');
+            $toolingPatternBorderInputs.prop('disabled', true).prop('checked', false);
+
+            console.log('Tooling Pattern and Border disabled - Plain selected');
         } else {
             // Show tooled parts group
             $tooledPartsGroup.show().prop('required', true);
@@ -271,7 +276,11 @@ class SaddleFormManager {
             $toolingPatternItems.removeClass('disabled').css('opacity', '1');
             $toolingPatternInputs.prop('disabled', false);
 
-            console.log('Tooling Pattern enabled - Non-plain selected');
+            // Enable tooling pattern border options
+            $toolingPatternBorderItems.removeClass('disabled').css('opacity', '1');
+            $toolingPatternBorderInputs.prop('disabled', false);
+
+            console.log('Tooling Pattern and Border enabled - Non-plain selected');
         }
 
         // Atualizar estado da opção "None" baseado na seleção atual
@@ -371,9 +380,9 @@ class SaddleFormManager {
 
     handleStudsChange(e) {
         const $studsColorSection = this.getStudsColorSection();
-        const isAnyStudsSelected = $('input[name="studs"]:checked').length > 0;
+        const selectedStuds = $('input[name="studs"]:checked').val();
 
-        if (isAnyStudsSelected) {
+        if (selectedStuds && selectedStuds !== 'None') {
             this.showStudsColorSection();
         } else {
             this.hideStudsColorSection();
@@ -650,13 +659,14 @@ class SaddleFormManager {
                 field: '#gulletOther',
                 condition: () => $('#gulletSize').val() === 'other'
             },
-            // Tooled Parts - apenas quando não é "plain" E quando tooling pattern não é "None"
+            // Tooled Parts - apenas quando não é "Full Neoprene" E não é "plain" E quando tooling pattern não é "None"
             {
                 field: 'input[name="leatherColorTooled"]',
                 condition: () => {
+                    const build = $('input[name="saddleBuild"]:checked').val();
                     const tooledCoverage = $('input[name="tooledCoverage"]:checked').val();
                     const toolingPattern = $('input[name="toolingPattern"]:checked').val();
-                    return tooledCoverage !== 'plain' && toolingPattern !== 'None';
+                    return build !== 'Full Neoprene' && tooledCoverage !== 'plain' && toolingPattern !== 'None';
                 }
             },
             // Tooling Pattern - quando não é "plain" OU quando é Hybrid
@@ -727,6 +737,22 @@ class SaddleFormManager {
                 condition: () => {
                     const studs = $('input[name="studs"]:checked').val();
                     return studs && studs !== 'None';
+                }
+            },
+            // Tooled Coverage - apenas quando Full Leather está selecionado
+            {
+                field: 'input[name="tooledCoverage"]',
+                condition: () => {
+                    const build = $('input[name="saddleBuild"]:checked').val();
+                    return build === 'Full Leather';
+                }
+            },
+            // Tooling Pattern Border - apenas quando não é "plain"
+            {
+                field: 'input[name="toolingPatternBorder"]',
+                condition: () => {
+                    const tooledCoverage = $('input[name="tooledCoverage"]:checked').val();
+                    return tooledCoverage && tooledCoverage !== 'plain';
                 }
             }
         ];
