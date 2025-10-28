@@ -187,11 +187,87 @@ class PDFGenerator {
     return this.translationManager.getOptionTranslation(fieldName, optionValue);
   }
 
+  // Check if a field group is disabled/greyed out
+  isFieldGroupDisabled(fieldName) {
+    const $allFields = this.$form.find(`[name="${fieldName}"]`);
+    if (!$allFields.length) return false;
+
+    // First check if the field group is hidden - if hidden, it's not disabled, it's just not shown
+    const $fieldGroup = $allFields.first().closest('.form-group, .checkbox-group, [id$="Group"]');
+    if ($fieldGroup.length && ($fieldGroup.is(':hidden') || $fieldGroup.hasClass('hidden'))) {
+      return false; // Hidden fields should not show "no selection" message
+    }
+
+    // Special case: Tooling Pattern when "plain" tooled coverage is selected
+    // In this case, tooling pattern should be considered disabled regardless of individual option states
+    if (fieldName === 'toolingPattern') {
+      const selectedTooledCoverage = this.$form.find('input[name="tooledCoverage"]:checked').val();
+      if (selectedTooledCoverage === 'plain') {
+        return true; // Show "no Tooling Pattern is selected" when plain coverage is chosen
+      }
+    }
+
+    // Special case: Tooling Pattern Border when "plain" tooled coverage is selected
+    if (fieldName === 'toolingPatternBorder') {
+      const selectedTooledCoverage = this.$form.find('input[name="tooledCoverage"]:checked').val();
+      if (selectedTooledCoverage === 'plain') {
+        return true; // Show "no Border Tooling is selected" when plain coverage is chosen
+      }
+    }
+
+    // Automatically detect if this field group has partial disabling
+    // Count how many fields are disabled vs enabled
+    let disabledCount = 0;
+    let enabledCount = 0;
+
+    $allFields.each(function () {
+      const $field = $(this);
+      const $checkboxItem = $field.closest('.checkbox-item');
+
+      // Check if this specific field/option is disabled
+      const isFieldDisabled = $field.prop('disabled') || $checkboxItem.hasClass('disabled');
+
+      if (isFieldDisabled) {
+        disabledCount++;
+      } else {
+        enabledCount++;
+      }
+    });
+
+    // If ALL fields are disabled, then the group is disabled
+    if (disabledCount > 0 && enabledCount === 0) {
+      return true;
+    }
+
+    // If some fields are disabled but others are enabled (partial disabling),
+    // then the group is not considered disabled - individual options are just limited
+    if (disabledCount > 0 && enabledCount > 0) {
+      return false;
+    }
+
+    // If no fields are individually disabled, check for group-level disabling
+    // (like opacity styling on the entire group)
+    const $parent = $allFields.first().closest('.form-group, .checkbox-group, [id$="Group"]');
+    const opacity = $parent.css('opacity');
+    if (opacity && parseFloat(opacity) <= 0.5) {
+      return true;
+    }
+
+    return false;
+  }
+
+  // Get the "no selection" message for a disabled field
+  getNoSelectionMessage(fieldName) {
+    const messageKey = `noSelectionMessages.${fieldName}`;
+    return this.translationManager.getTranslation(messageKey) || `no ${fieldName} is selected`;
+  }
+
   async generate() {
     this.addHeader();
     this.addCustomerInfo();
     await this.addSaddleSpecs();
     await this.addDesignCustomization();
+    await this.addStirrupOptions();
     await this.addToolingOptions();
     await this.addLiningRigging();
     await this.addAccessories();
@@ -224,6 +300,7 @@ class PDFGenerator {
       this.addCustomerInfo();
       await this.addSaddleSpecs();
       await this.addDesignCustomization();
+      await this.addStirrupOptions();
       await this.addToolingOptions();
       await this.addLiningRigging();
       await this.addAccessories();
@@ -464,9 +541,6 @@ class PDFGenerator {
     const neopreneTypeImage = await this.getSelectedImage('neopreneType');
     const neopreneColorImage = await this.getSelectedImage('neopreneColor');
 
-    // Obter imagem dos stirrups
-    const stirrupsImage = await this.getSelectedImage('stirrups');
-
     const designData = [
       [this.getTranslation('style'), this.getNumberedRadioValue('style'), styleImage],
       [this.getTranslation('neopreneTypeLabel'), this.getNumberedRadioValue('neopreneType'), neopreneTypeImage],
@@ -475,8 +549,6 @@ class PDFGenerator {
       [this.getTranslation('cantleStyle'), this.getNumberedRadioValue('cantleStyle'), cantleStyleImage],
       [this.getTranslation('fenderStyle'), this.getNumberedRadioValue('fenderStyle'), fenderStyleImage],
       [this.getTranslation('fenderHeightLabel'), this.getCombinedFenderHeight()],
-      [this.getTranslation('stirrupsLabel'), this.getNumberedRadioValue('stirrups'), stirrupsImage],
-      [this.getTranslation('stirrupMeasurementsLabel'), this.getStirrupMeasurements(this.getFieldValue('stirrupSize'))],
       [this.getTranslation('jockeySeat'), this.getNumberedRadioValue('jockeySeat'), jockeySeatImage],
       [this.getTranslation('seatStyle'), this.getNumberedRadioValue('seatStyle'), seatStyleImage],
       [this.getTranslation('seatOptions'), this.getNumberedRadioValue('seatOptions'), seatOptionsImage],
@@ -523,49 +595,52 @@ class PDFGenerator {
 
     this.addSectionTitle(this.getTranslation('toolingOptions'));
 
+    // Collect all tooling data in a single array
+    const toolingData = [];
+
     // Grupo 1 – Cobertura (apenas para Full Leather)
     if (saddleBuild === 'Full Leather') {
       const toolingOption = this.getCheckedRadioValue('tooledCoverage');
       const tooledCoverageImage = await this.getSelectedImage('tooledCoverage');
-      const coverageData = [
-        [this.getTranslation('tooledCoverage'), this.getOptionTranslation('tooledCoverage', toolingOption), tooledCoverageImage]
-      ];
-      this.addDataTable(coverageData);
+      if (toolingOption) {
+        toolingData.push([this.getTranslation('tooledCoverage'), this.getOptionTranslation('tooledCoverage', toolingOption), tooledCoverageImage]);
+      }
     }
 
     // Grupo 2 – Plain Parts (apenas para Full Leather)
     if (saddleBuild === 'Full Leather') {
-      this.addSectionTitle(this.getTranslation('plainParts'));
       const leatherColorImage = await this.getSelectedImage('leatherColor');
-      const plainPartsData = [
-        [this.getTranslation('leatherColorLabel'), this.getNumberedRadioValue('leatherColor'), leatherColorImage]
-      ];
-      this.addDataTable(plainPartsData.filter(item => item[1]));
+      const plainPartsValue = this.getNumberedRadioValue('leatherColor');
+      if (plainPartsValue) {
+        toolingData.push([this.getTranslation('leatherColorLabel'), plainPartsValue, leatherColorImage]);
+      }
     }
 
     // Grupo 3 – Tooled Parts (para Full Leather e Hybrid)
-    this.addSectionTitle(this.getTranslation('tooledParts'));
     const leatherColorTooledImage = await this.getSelectedImage('leatherColorTooled');
-    const tooledPartsData = [
-      [this.getTranslation('leatherColorTooled'), this.getNumberedRadioValue('leatherColorTooled'), leatherColorTooledImage]
-    ];
-    this.addDataTable(tooledPartsData.filter(item => item[1]));
+    const tooledPartsValue = this.getNumberedRadioValue('leatherColorTooled');
+    if (tooledPartsValue) {
+      toolingData.push([this.getTranslation('leatherColorTooled'), tooledPartsValue, leatherColorTooledImage]);
+    }
 
     // Grupo 4 – General Tooling (para Full Leather e Hybrid)
-    this.addSectionTitle(this.getTranslation('generalTooling'));
     const toolingPatternImage = await this.getSelectedImage('toolingPattern');
-    const generalToolingData = [
-      [this.getTranslation('toolingPattern'), this.getNumberedRadioValue('toolingPattern'), toolingPatternImage]
-    ];
-    this.addDataTable(generalToolingData.filter(item => item[1]));
+    const generalToolingValue = this.getNumberedRadioValue('toolingPattern');
+    if (generalToolingValue) {
+      toolingData.push([this.getTranslation('toolingPattern'), generalToolingValue, toolingPatternImage]);
+    }
 
     // Grupo 5 – Border Tooling (para Full Leather e Hybrid)
-    this.addSectionTitle(this.getTranslation('borderTooling'));
     const toolingPatternBorderImage = await this.getSelectedImage('toolingPatternBorder');
-    const borderToolingData = [
-      [this.getTranslation('toolingPatternBorder'), this.getNumberedRadioValue('toolingPatternBorder'), toolingPatternBorderImage]
-    ];
-    this.addDataTable(borderToolingData.filter(item => item[1]));
+    const borderToolingValue = this.getNumberedRadioValue('toolingPatternBorder');
+    if (borderToolingValue) {
+      toolingData.push([this.getTranslation('toolingPatternBorder'), borderToolingValue, toolingPatternBorderImage]);
+    }
+
+    // Add all tooling data as a single table with proper option dividers
+    if (toolingData.length > 0) {
+      this.addDataTable(toolingData);
+    }
 
     this.addSectionDivider();
   }
@@ -837,7 +912,7 @@ class PDFGenerator {
     // Mapear altura para tamanho baseado na tabela HTML
     const heightToSizeMap = {
       '45cm': 'Adult',
-      '39cm': 'Juvenile',
+      '39cm': 'Youth',
       '33.5cm': 'Child'
     };
 
@@ -863,7 +938,7 @@ class PDFGenerator {
     // Definir as medidas baseadas no tamanho selecionado (valores da tabela HTML)
     const measurements = {
       'adult': { neck: '5.5cm', height: '14cm', tread: '7.5cm', width: '12.5cm' },
-      'juvenile': { neck: '5cm', height: '12.5cm', tread: '7.0cm', width: '12.0cm' },
+      'youth': { neck: '5cm', height: '12.5cm', tread: '7.0cm', width: '12.0cm' },
       'child': { neck: '4.5cm', height: '11cm', tread: '6.0cm', width: '10.7cm' }
     };
 
@@ -896,6 +971,11 @@ class PDFGenerator {
   }
 
   getNumberedRadioValue(fieldName) {
+    // Check if the field group is disabled first
+    if (this.isFieldGroupDisabled(fieldName)) {
+      return this.getNoSelectionMessage(fieldName);
+    }
+
     const $field = this.$form.find(`[name="${fieldName}"]:checked`);
     if ($field.length) {
       const allFields = this.$form.find(`[name="${fieldName}"]`);
@@ -909,6 +989,11 @@ class PDFGenerator {
   }
 
   getCheckedValue(fieldName) {
+    // Check if the field group is disabled first
+    if (this.isFieldGroupDisabled(fieldName)) {
+      return this.getNoSelectionMessage(fieldName);
+    }
+
     const $field = this.$form.find(`[name="${fieldName}"]:checked`);
     if ($field.length) {
       const allFields = this.$form.find(`[name="${fieldName}"]`);

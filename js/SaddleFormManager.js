@@ -14,6 +14,97 @@ class SaddleFormManager {
         this.hideAllRiggings();
     }
 
+    // Utility functions for consistent field disabling/enabling
+    disableField(selector, options = {}) {
+        const {
+            opacity = '0.5',
+            clearSelection = true,
+            addDisabledClass = true
+        } = options;
+
+        const $elements = $(selector);
+
+        $elements.each(function () {
+            const $element = $(this);
+
+            // Handle different element types
+            if ($element.is('input, select, textarea')) {
+                // Direct form element
+                $element.prop('disabled', true);
+                if (clearSelection) {
+                    if ($element.is('input[type="radio"], input[type="checkbox"]')) {
+                        $element.prop('checked', false);
+                    } else {
+                        $element.val('');
+                    }
+                }
+
+                // Apply styling to parent container
+                const $container = $element.closest('.checkbox-item, .form-group');
+                if ($container.length) {
+                    $container.css('opacity', opacity);
+                    if (addDisabledClass) {
+                        $container.addClass('disabled');
+                    }
+                }
+            } else {
+                // Container element (checkbox-item, form-group, etc.)
+                $element.css('opacity', opacity);
+                if (addDisabledClass) {
+                    $element.addClass('disabled');
+                }
+
+                // Disable all inputs within the container
+                $element.find('input, select, textarea').prop('disabled', true);
+                if (clearSelection) {
+                    $element.find('input[type="radio"], input[type="checkbox"]').prop('checked', false);
+                    $element.find('input:not([type="radio"]):not([type="checkbox"]), select, textarea').val('');
+                }
+            }
+        });
+
+        return $elements; // Allow chaining
+    }
+
+    enableField(selector, options = {}) {
+        const {
+            opacity = '1',
+            removeDisabledClass = true
+        } = options;
+
+        const $elements = $(selector);
+
+        $elements.each(function () {
+            const $element = $(this);
+
+            // Handle different element types
+            if ($element.is('input, select, textarea')) {
+                // Direct form element
+                $element.prop('disabled', false);
+
+                // Apply styling to parent container
+                const $container = $element.closest('.checkbox-item, .form-group');
+                if ($container.length) {
+                    $container.css('opacity', opacity);
+                    if (removeDisabledClass) {
+                        $container.removeClass('disabled');
+                    }
+                }
+            } else {
+                // Container element (checkbox-item, form-group, etc.)
+                $element.css('opacity', opacity);
+                if (removeDisabledClass) {
+                    $element.removeClass('disabled');
+                }
+
+                // Enable all inputs within the container
+                $element.find('input, select, textarea').prop('disabled', false);
+            }
+        });
+
+        return $elements; // Allow chaining
+    }
+
     setupEventListeners() {
         $('input[name="saddleBuild"]').on('change', e => this.handleSaddleBuildChange($(e.target).val()));
         $('input[name="style"]').on('change', e => this.handleStyleChange($(e.target).val()));
@@ -120,11 +211,10 @@ class SaddleFormManager {
             $(sectionId).show();
         });
 
-        // Habilitar as opções do Tooling Pattern para Full Leather
+        // Enable tooling pattern options for Full Leather
         const $toolingPatternInputs = $('input[name="toolingPattern"]');
         const $toolingPatternItems = $toolingPatternInputs.closest('.checkbox-item');
-        $toolingPatternItems.removeClass('disabled').css('opacity', '1');
-        $toolingPatternInputs.prop('disabled', false);
+        this.enableField($toolingPatternItems);
 
         // Atualizar estado da opção "None" baseado no Tooled Coverage atual
         this.updateToolingPatternNoneOption();
@@ -132,8 +222,7 @@ class SaddleFormManager {
         // Desativar riggings de neoprene
         const riggingNeoprene = ['#doubleRoundRigging', '#dropDoubleSquare', '#dropDownNeoprene'];
         riggingNeoprene.forEach(id => {
-            $(id).css('opacity', '0.5');
-            $(id).prop('disabled', true).prop('checked', false);
+            this.disableField(id);
         });
 
         console.log('Seção de Tooling ativada para Full Leather');
@@ -151,11 +240,10 @@ class SaddleFormManager {
             $(sectionId).show();
         });
 
-        // Habilitar as opções do Tooling Pattern para Hybrid
+        // Enable tooling pattern options for Hybrid
         const $toolingPatternInputs = $('input[name="toolingPattern"]');
         const $toolingPatternItems = $toolingPatternInputs.closest('.checkbox-item');
-        $toolingPatternItems.removeClass('disabled').css('opacity', '1');
-        $toolingPatternInputs.prop('disabled', false);
+        this.enableField($toolingPatternItems);
 
         // Atualizar estado da opção "None" baseado no Tooled Coverage atual
         this.updateToolingPatternNoneOption();
@@ -182,28 +270,22 @@ class SaddleFormManager {
         if (!$seatOptionsGroup.length) return;
 
         if (seatStyle === 'Hard') {
-            $seatOptionsGroup.css('opacity', '0.5');
-            $seatOptionsGroup.find('input[name="seatOptions"]').prop('disabled', true).prop('checked', false);
+            this.disableField($seatOptionsGroup);
         } else {
-            $seatOptionsGroup.css('opacity', '1');
-            $seatOptionsGroup.find('input[name="seatOptions"]').prop('disabled', false);
+            this.enableField($seatOptionsGroup);
         }
     }
 
     //Rigging Options
     showRiggings(riggingIds) {
         riggingIds.forEach(id => {
-            $(id).closest('.checkbox-item').css('opacity', '1');
-            $(id).prop('disabled', false);
+            this.enableField($(id).closest('.checkbox-item'));
         });
     }
 
     hideAllRiggings() {
         const riggingCheckItems = $('#riggingStyleGroup .checkbox-item');
-        riggingCheckItems.each(function () {
-            $(this).css('opacity', '0.5');
-            $(this).find('input').prop('disabled', true).prop('checked', false);
-        });
+        this.disableField(riggingCheckItems);
     }
 
     handleRiggingOptions(saddleBuild) {
@@ -259,13 +341,11 @@ class SaddleFormManager {
             // Hide tooled parts group
             $tooledPartsGroup.hide().prop('required', false).val('');
 
-            // Grey out tooling pattern options
-            $toolingPatternItems.addClass('disabled').css('opacity', '0.4');
-            $toolingPatternInputs.prop('disabled', true).prop('checked', false);
+            // Disable tooling pattern options
+            this.disableField($toolingPatternItems, { opacity: '0.4' });
 
-            // Grey out tooling pattern border options
-            $toolingPatternBorderItems.addClass('disabled').css('opacity', '0.4');
-            $toolingPatternBorderInputs.prop('disabled', true).prop('checked', false);
+            // Disable tooling pattern border options
+            this.disableField($toolingPatternBorderItems, { opacity: '0.4' });
 
             console.log('Tooling Pattern and Border disabled - Plain selected');
         } else {
@@ -273,12 +353,10 @@ class SaddleFormManager {
             $tooledPartsGroup.show().prop('required', true);
 
             // Enable tooling pattern options
-            $toolingPatternItems.removeClass('disabled').css('opacity', '1');
-            $toolingPatternInputs.prop('disabled', false);
+            this.enableField($toolingPatternItems);
 
             // Enable tooling pattern border options
-            $toolingPatternBorderItems.removeClass('disabled').css('opacity', '1');
-            $toolingPatternBorderInputs.prop('disabled', false);
+            this.enableField($toolingPatternBorderItems);
 
             console.log('Tooling Pattern and Border enabled - Non-plain selected');
         }
@@ -294,18 +372,16 @@ class SaddleFormManager {
         const selectedTooledCoverage = $('input[name="tooledCoverage"]:checked').val();
 
         if (selectedTooledCoverage && selectedTooledCoverage !== 'plain') {
-            // Desabilitar "None" quando qualquer opção diferente de "plain" estiver selecionada
-            $noneOptionItem.addClass('disabled').css('opacity', '0.4');
-            $noneOption.prop('disabled', true);
+            // Disable "None" when any option other than "plain" is selected
+            this.disableField($noneOptionItem, { opacity: '0.4' });
 
-            // Se "None" estava selecionado, limpar a seleção
+            // If "None" was selected, clear the selection
             if ($noneOption.is(':checked')) {
                 $noneOption.prop('checked', false);
             }
         } else {
-            // Habilitar "None" quando "plain" estiver selecionado ou nada estiver selecionado
-            $noneOptionItem.removeClass('disabled').css('opacity', '1');
-            $noneOption.prop('disabled', false);
+            // Enable "None" when "plain" is selected or nothing is selected
+            this.enableField($noneOptionItem);
         }
     }
 
@@ -315,15 +391,13 @@ class SaddleFormManager {
         const $tooledPartsItems = $tooledPartsInputs.closest('.checkbox-item');
 
         if ($(e.target).val() === 'None') {
-            // Grey out tooled parts options when None is selected
-            $tooledPartsItems.addClass('disabled').css('opacity', '0.4');
-            $tooledPartsInputs.prop('disabled', true).prop('checked', false);
+            // Disable tooled parts options when None is selected
+            this.disableField($tooledPartsItems, { opacity: '0.4' });
 
             console.log('Leather Color - Tooled disabled - None selected in Tooling Pattern');
         } else {
             // Enable tooled parts options when any pattern is selected
-            $tooledPartsItems.removeClass('disabled').css('opacity', '1');
-            $tooledPartsInputs.prop('disabled', false);
+            this.enableField($tooledPartsItems);
 
             console.log('Leather Color - Tooled enabled - Pattern selected in Tooling Pattern');
         }
@@ -335,15 +409,13 @@ class SaddleFormManager {
         const $checkedInputs = $accentInputs.filter(':checked');
 
         if ($checkedInputs.length >= 3) {
-            $accentInputs.not(':checked').each(function () {
-                $(this).prop('disabled', true);
-                $(this).closest('.checkbox-item').addClass('disabled').css('opacity', '0.5');
+            $accentInputs.not(':checked').each((index, element) => {
+                this.disableField($(element).closest('.checkbox-item'), { clearSelection: false });
             });
         } else {
-            $accentInputs.each(function () {
-                if (!$(this).data('originally-disabled')) {
-                    $(this).prop('disabled', false);
-                    $(this).closest('.checkbox-item').removeClass('disabled');
+            $accentInputs.each((index, element) => {
+                if (!$(element).data('originally-disabled')) {
+                    this.enableField($(element).closest('.checkbox-item'));
                 }
             });
         }
@@ -435,23 +507,23 @@ class SaddleFormManager {
         // Esconder seção de cores de studs
         this.hideStudsColorSection();
 
-        // Resetar todos os studs para visível e habilitado
+        // Reset all studs to enabled
         const $allStudsOptions = $('input[name="studs"]').closest('.checkbox-item');
-        $allStudsOptions.css('opacity', '1').find('input').prop('disabled', false);
+        this.enableField($allStudsOptions);
 
-        // Aplicar regras baseadas na seleção de buckstitching
+        // Apply rules based on buckstitching selection
         if (!buckstitchingSelection || buckstitchingSelection === 'None') {
-            // Nenhum buckstitching selecionado: mostrar apenas single studs / double studs
-            $('#studs3, #studs4').closest('.checkbox-item').css('opacity', '0.5').find('input').prop('disabled', true);
+            // No buckstitching selected: disable buckstitching studs options
+            this.disableField('#studs3, #studs4');
         } else if (buckstitchingSelection === 'Single Buckstitch') {
-            // Single buckstitch: mostrar apenas single buckstitch studs
-            $('#studs1, #studs2, #studs4').closest('.checkbox-item').css('opacity', '0.5').find('input').prop('disabled', true);
+            // Single buckstitch: disable non-single buckstitch options
+            this.disableField('#studs1, #studs2, #studs4');
         } else if (buckstitchingSelection === 'Double Buckstitch') {
-            // Double buckstitch: mostrar apenas double buckstitch studs
-            $('#studs1, #studs2, #studs3').closest('.checkbox-item').css('opacity', '0.5').find('input').prop('disabled', true);
+            // Double buckstitch: disable non-double buckstitch options
+            this.disableField('#studs1, #studs2, #studs3');
         } else {
-            // X Buckstitch ou outros: permitir todas as opções
-            // Já resetamos acima, então não precisa fazer nada
+            // X Buckstitch or others: allow all options
+            // Already reset above, so nothing to do
         }
     }
 

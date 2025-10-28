@@ -84,7 +84,7 @@
     "stirrupTreadLabel": "Tread",
     "stirrupWidthLabel": "Width",
     "stirrupAdult": "Adult",
-    "stirrupJuvenile": "Juvenile",
+    "stirrupYouth": "Youth",
     "stirrupChild": "Child",
     "backOfSkirtLabel": "Back of Skirt",
     "conchosLabel": "Conchos",
@@ -151,6 +151,13 @@
     "otherPayment": "Other Payment:",
     "termsText": "By submitting this form, you agree to our terms and conditions.",
     "footerText": "This document was generated automatically from the Tomahawk Barrel Saddle order form.",
+    "noSelectionMessages": {
+      "seatOptions": "no Seat Options is selected",
+      "toolingPattern": "no Tooling Pattern is selected",
+      "toolingPatternBorder": "no Border Tooling is selected",
+      "leatherColorTooled": "no Tooled Parts is selected",
+      "studs": "no Studs is selected"
+    },
     "options": {
       "treeType": {
         "SAFE": "SAFE",
@@ -491,7 +498,7 @@
     "stirrupTreadLabel": "Piso",
     "stirrupWidthLabel": "Largura",
     "stirrupAdult": "Adulto",
-    "stirrupJuvenile": "Juvenil",
+    "stirrupYouth": "Jovem",
     "stirrupChild": "Infantil",
     "backOfSkirtLabel": "Parte Traseira da Aba",
     "conchosLabel": "Conchos",
@@ -558,6 +565,13 @@
     "otherPayment": "Outro Pagamento:",
     "termsText": "Ao enviar este formulário, você concorda com nossos termos e condições.",
     "footerText": "Este documento foi gerado automaticamente a partir do formulário de pedido da Sela Tomahawk Barrel.",
+    "noSelectionMessages": {
+      "seatOptions": "nenhuma Opção de Assento está selecionada",
+      "toolingPattern": "nenhum Padrão de Tooling está selecionado",
+      "toolingPatternBorder": "nenhum Border Tooling está selecionado",
+      "leatherColorTooled": "nenhuma Parte Tooled está selecionada",
+      "studs": "nenhum Studs está selecionado"
+    },
     "options": {
       "treeType": {
         "SAFE": "SAFE",

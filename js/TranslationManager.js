@@ -31,13 +31,18 @@ class TranslationManager {
       return key;
     }
 
-    const translation = this.translations[this.currentLanguage]?.[key];
+    // Handle nested keys with dot notation (e.g., "noSelectionMessages.fieldName")
+    const getValue = (obj, path) => {
+      return path.split('.').reduce((current, prop) => current?.[prop], obj);
+    };
+
+    const translation = getValue(this.translations[this.currentLanguage], key);
     if (translation) {
       return translation;
     }
 
     // Fallback to English if translation not found in current language
-    const fallback = this.translations['en']?.[key];
+    const fallback = getValue(this.translations['en'], key);
     if (fallback) {
       console.warn(`Translation for '${key}' not found in '${this.currentLanguage}', using English fallback`);
       return fallback;
