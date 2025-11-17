@@ -267,7 +267,6 @@ class PDFGenerator {
     this.addCustomerInfo();
     await this.addSaddleSpecs();
     await this.addDesignCustomization();
-    await this.addStirrupOptions();
     await this.addToolingOptions();
     await this.addLiningRigging();
     await this.addAccessories();
@@ -300,7 +299,6 @@ class PDFGenerator {
       this.addCustomerInfo();
       await this.addSaddleSpecs();
       await this.addDesignCustomization();
-      await this.addStirrupOptions();
       await this.addToolingOptions();
       await this.addLiningRigging();
       await this.addAccessories();
@@ -347,7 +345,6 @@ class PDFGenerator {
       this.addCustomerInfo();
       await this.addSaddleSpecs();
       await this.addDesignCustomization();
-      await this.addStirrupOptions();
       await this.addToolingOptions();
       await this.addLiningRigging();
       await this.addAccessories();
@@ -381,7 +378,6 @@ class PDFGenerator {
           portuguesePDF.addCustomerInfo();
           await portuguesePDF.addSaddleSpecs();
           await portuguesePDF.addDesignCustomization();
-          await portuguesePDF.addStirrupOptions();
           await portuguesePDF.addToolingOptions();
           await portuguesePDF.addLiningRigging();
           await portuguesePDF.addAccessories();
@@ -513,15 +509,21 @@ class PDFGenerator {
     // Obter imagens selecionadas
     const treeTypeImage = await this.getSelectedImage('treeType');
     const saddleBuildImage = await this.getSelectedImage('saddleBuild');
+    const styleImage = await this.getSelectedImage('style');
+    const neopreneTypeImage = await this.getSelectedImage('neopreneType');
+    const neopreneColorImage = await this.getSelectedImage('neopreneColor');
 
     const specsData = [
       [this.getTranslation('seatSize'), this.getFieldValue('seatSize') + '"'],
       [this.getTranslation('treeType'), this.getOptionTranslation('treeType', treeType), treeTypeImage],
       [this.getTranslation('gulletSize'), gulletSize === 'other' ? `${this.getOptionTranslation('gulletSize', gulletSize)} - ${gulletOther}` : gulletSize],
       [this.getTranslation('saddleBuild'), this.getNumberedRadioValue('saddleBuild'), saddleBuildImage],
+      [this.getTranslation('style'), this.getNumberedRadioValue('style'), styleImage],
+      [this.getTranslation('neopreneTypeLabel'), this.getNumberedRadioValue('neopreneType'), neopreneTypeImage],
+      [this.getTranslation('neopreneColorLabel'), this.getNumberedRadioValue('neopreneColor'), neopreneColorImage],
     ];
 
-    this.addDataTable(specsData);
+    this.addDataTable(specsData.filter(item => item[1]));
     this.addSectionDivider();
   }
 
@@ -529,52 +531,32 @@ class PDFGenerator {
     this.addSectionTitle(this.getTranslation('designCustomization'));
 
     // Obter imagens selecionadas
-    const styleImage = await this.getSelectedImage('style');
     const skirtStyleImage = await this.getSelectedImage('skirtStyle');
     const cantleStyleImage = await this.getSelectedImage('cantleStyle');
     const fenderStyleImage = await this.getSelectedImage('fenderStyle');
+    const stirrupImage = await this.getSelectedImage('stirrups');
     const jockeySeatImage = await this.getSelectedImage('jockeySeat');
     const seatStyleImage = await this.getSelectedImage('seatStyle');
     const seatOptionsImage = await this.getSelectedImage('seatOptions');
-
-    // Obter imagens do neoprene type e color se selecionados
-    const neopreneTypeImage = await this.getSelectedImage('neopreneType');
-    const neopreneColorImage = await this.getSelectedImage('neopreneColor');
-
-    const designData = [
-      [this.getTranslation('style'), this.getNumberedRadioValue('style'), styleImage],
-      [this.getTranslation('neopreneTypeLabel'), this.getNumberedRadioValue('neopreneType'), neopreneTypeImage],
-      [this.getTranslation('neopreneColorLabel'), this.getNumberedRadioValue('neopreneColor'), neopreneColorImage],
-      [this.getTranslation('skirtStyle'), this.getNumberedRadioValue('skirtStyle'), skirtStyleImage],
-      [this.getTranslation('cantleStyle'), this.getNumberedRadioValue('cantleStyle'), cantleStyleImage],
-      [this.getTranslation('fenderStyle'), this.getNumberedRadioValue('fenderStyle'), fenderStyleImage],
-      [this.getTranslation('fenderHeightLabel'), this.getCombinedFenderHeight()],
-      [this.getTranslation('jockeySeat'), this.getNumberedRadioValue('jockeySeat'), jockeySeatImage],
-      [this.getTranslation('seatStyle'), this.getNumberedRadioValue('seatStyle'), seatStyleImage],
-      [this.getTranslation('seatOptions'), this.getNumberedRadioValue('seatOptions'), seatOptionsImage],
-    ];
-
-    this.addDataTable(designData.filter(item => item[1]));
-    this.addSectionDivider();
-  }
-
-  async addStirrupOptions() {
-    this.addSectionTitle(this.getTranslation('stirrupOptionsLabel'));
-
-    // Obter imagem do stirrup selecionado
-    const stirrupImage = await this.getSelectedImage('stirrups');
 
     // Obter dados do stirrup
     const stirrupType = this.getNumberedRadioValue('stirrups');
     const stirrupSize = this.getFieldValue('stirrupSize');
     const stirrupMeasurements = this.getStirrupMeasurements(stirrupSize);
 
-    const stirrupData = [
+    const designData = [
+      [this.getTranslation('skirtStyle'), this.getNumberedRadioValue('skirtStyle'), skirtStyleImage],
+      [this.getTranslation('cantleStyle'), this.getNumberedRadioValue('cantleStyle'), cantleStyleImage],
+      [this.getTranslation('fenderStyle'), this.getNumberedRadioValue('fenderStyle'), fenderStyleImage],
+      [this.getTranslation('fenderHeightLabel'), this.getCombinedFenderHeight()],
       [this.getTranslation('stirrupsLabel'), stirrupType, stirrupImage],
       [this.getTranslation('stirrupMeasurementsLabel'), stirrupMeasurements],
+      [this.getTranslation('jockeySeat'), this.getNumberedRadioValue('jockeySeat'), jockeySeatImage],
+      [this.getTranslation('seatStyle'), this.getNumberedRadioValue('seatStyle'), seatStyleImage],
+      [this.getTranslation('seatOptions'), this.getNumberedRadioValue('seatOptions'), seatOptionsImage],
     ];
 
-    this.addDataTable(stirrupData.filter(item => item[1]));
+    this.addDataTable(designData.filter(item => item[1]));
     this.addSectionDivider();
   }
 
@@ -916,16 +898,17 @@ class PDFGenerator {
       '33.5cm': 'Child'
     };
 
-    // Se o valor já está no formato "Size - Height", retornar como está
+    // Se o valor já está no formato "Size - Height", extrair apenas o tamanho
     if (fenderHeight.includes(' - ')) {
-      return fenderHeight;
+      const size = fenderHeight.split(' - ')[0];
+      return size;
     }
 
     // Se é apenas a altura, mapear para o tamanho correspondente
     const size = heightToSizeMap[fenderHeight];
     if (size) {
       const translatedSize = this.getTranslation(`stirrup${size}`) || size;
-      return `${translatedSize} - ${fenderHeight}`;
+      return translatedSize;
     }
 
     // Se não conseguir mapear, retornar o valor original
@@ -935,27 +918,12 @@ class PDFGenerator {
   getStirrupMeasurements(stirrupSize) {
     if (!stirrupSize) return '';
 
-    // Definir as medidas baseadas no tamanho selecionado (valores da tabela HTML)
-    const measurements = {
-      'adult': { neck: '5.5cm', height: '14cm', tread: '7.5cm', width: '12.5cm' },
-      'youth': { neck: '5cm', height: '12.5cm', tread: '7.0cm', width: '12.0cm' },
-      'child': { neck: '4.5cm', height: '11cm', tread: '6.0cm', width: '10.7cm' }
-    };
-
+    // Mapear tamanho para tradução
     const sizeKey = stirrupSize.toLowerCase();
-    const measurement = measurements[sizeKey];
+    const sizeLabel = this.getTranslation(`stirrup${stirrupSize.charAt(0).toUpperCase() + stirrupSize.slice(1)}`) || stirrupSize;
 
-    if (measurement) {
-      const sizeLabel = this.getTranslation(`stirrup${stirrupSize.charAt(0).toUpperCase() + stirrupSize.slice(1)}`) || stirrupSize;
-      const neckLabel = this.getTranslation('stirrupNeckLabel') || 'Neck';
-      const heightLabel = this.getTranslation('stirrupHeightLabel') || 'Height';
-      const treadLabel = this.getTranslation('stirrupTreadLabel') || 'Tread';
-      const widthLabel = this.getTranslation('stirrupWidthLabel') || 'Width';
-
-      return `${sizeLabel}: ${neckLabel} ${measurement.neck}, ${heightLabel} ${measurement.height}, ${treadLabel} ${measurement.tread}, ${widthLabel} ${measurement.width}`;
-    }
-
-    return stirrupSize;
+    // Retornar apenas o nome do tamanho traduzido (sem medidas)
+    return sizeLabel;
   }
 
   getTranslatedFieldValue(fieldName) {
