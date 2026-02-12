@@ -127,6 +127,9 @@ class SaddleFormManager {
 
         // Stirrup type change handler
         $('input[name="stirrups"]').on('change', e => this.handleStirrupTypeChange(e));
+
+        // Lining type change handler for InskirtPlate validation
+        $('input[name="liningType"]').on('change', e => this.handleLiningTypeChange(e));
         // PDF generation buttons
         $('#generatePdfEn').on('click', async () => await this.handlePdfGeneration('en'));
         $('#generatePdfPt').on('click', async () => await this.handlePdfGeneration('pt'));
@@ -295,12 +298,40 @@ class SaddleFormManager {
 
         if (saddleBuild === 'Full Leather') {
             this.showRiggings(riggingLeather);
+            // Apply InskirtPlate validation based on current lining type
+            const selectedLining = $('input[name="liningType"]:checked').val();
+            if (selectedLining) {
+                this.updateInskirtPlateAvailability(selectedLining);
+            }
         }
 
         if (saddleBuild === 'Full Neoprene') {
             this.showRiggings(riggingNeoprene);
         }
     }
+    handleLiningTypeChange(e) {
+        const selectedLining = $(e.target).val();
+        this.updateInskirtPlateAvailability(selectedLining);
+    }
+
+    updateInskirtPlateAvailability(liningType) {
+        const $inskirtPlate = $('#InskirtPlate');
+        const $inskirtPlateItem = $inskirtPlate.closest('.checkbox-item');
+
+        if (liningType === 'Fleece') {
+            // Enable InskirtPlate when Fleece is selected
+            this.enableField($inskirtPlateItem);
+        } else {
+            // Disable InskirtPlate when Fleece is not selected
+            this.disableField($inskirtPlateItem);
+
+            // If InskirtPlate was selected, clear the selection
+            if ($inskirtPlate.is(':checked')) {
+                $inskirtPlate.prop('checked', false);
+            }
+        }
+    }
+
 
 
     riggingStyleChange(style) {
@@ -311,6 +342,11 @@ class SaddleFormManager {
 
         if (['01', '02', '03'].includes(style)) {
             this.showRiggings(riggingLeather);
+            // Apply InskirtPlate validation based on current lining type
+            const selectedLining = $('input[name="liningType"]:checked').val();
+            if (selectedLining) {
+                this.updateInskirtPlateAvailability(selectedLining);
+            }
         } else if (['04', '05', '06'].includes(style)) {
             this.showRiggings(riggingNeoprene);
         } else {
