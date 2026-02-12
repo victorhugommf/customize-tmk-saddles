@@ -12,19 +12,23 @@ YELLOW = \033[1;33m
 RED = \033[0;31m
 NC = \033[0m # No Color
 
-.PHONY: help deploy status check-git push-and-deploy test-connection
+.PHONY: help deploy status check-git push-and-deploy test-connection quick-deploy timestamp-deploy backup logs
 
 # Target padrão
 help:
 	@echo "$(GREEN)Tomahawk Saddles - Deploy Commands$(NC)"
 	@echo ""
 	@echo "$(YELLOW)Available commands:$(NC)"
-	@echo "  make deploy          - Deploy changes to production server"
-	@echo "  make push-and-deploy - Push to git and deploy to server"
-	@echo "  make status          - Check git status and server connection"
-	@echo "  make check-git       - Check if there are uncommitted changes"
-	@echo "  make test-connection - Test SSH connection to server"
-	@echo "  make help            - Show this help message"
+	@echo "  make deploy            - Deploy changes to production server"
+	@echo "  make push-and-deploy   - Push to git and deploy to server"
+	@echo "  make timestamp-deploy  - Commit with timestamp and deploy (optional MSG='message')"
+	@echo "  make quick-deploy      - Quick commit and deploy (requires MSG='message')"
+	@echo "  make status            - Check git status and server connection"
+	@echo "  make check-git         - Check if there are uncommitted changes"
+	@echo "  make test-connection   - Test SSH connection to server"
+	@echo "  make backup            - Create backup of server files"
+	@echo "  make logs              - View server logs and git history"
+	@echo "  make help              - Show this help message"
 	@echo ""
 
 # Verificar conexão SSH
@@ -90,6 +94,23 @@ quick-deploy:
 	@git commit -m "$(MSG)"
 	@git push origin $(BRANCH)
 	@$(MAKE) deploy
+
+# Commit com timestamp e deploy automático
+timestamp-deploy:
+	@echo "$(YELLOW)Timestamp deploy: adding, committing with timestamp and deploying...$(NC)"
+	@if [ -n "$$(git status --porcelain)" ]; then \
+		timestamp=$$(date '+%Y-%m-%d %H:%M:%S'); \
+		git add .; \
+		if [ -n "$(MSG)" ]; then \
+			git commit -m "$(MSG) - $$timestamp"; \
+		else \
+			git commit -m "chore: update - $$timestamp"; \
+		fi; \
+		git push origin $(BRANCH); \
+		$(MAKE) deploy; \
+	else \
+		echo "$(GREEN)No changes to commit.$(NC)"; \
+	fi
 
 # Backup do servidor (opcional)
 backup:
